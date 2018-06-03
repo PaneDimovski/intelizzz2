@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical"
+    tools:context="uk.co.intelitrack.intelizzz.components.timer.TimerActivity">
+
+    <TextView
+        android:id="@+id/txtTimerValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:text="13:00:14"
+        android:textColor="@color/text_white"
+        android:textSize="@dimen/font_biggest" />
+
+
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="@dimen/unit_back_icon_size"
+        android:layout_height="@dimen/unit_back_icon_size"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="5dp"
+        android:src="@drawable/ic_action_back" />
+
+    <ImageView
+        android:layout_width="@dimen/logo_width"
+        android:layout_height="@dimen/logo_height"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:padding="5dp"
+        android:src="@drawable/logo" />
+
+</RelativeLayout>

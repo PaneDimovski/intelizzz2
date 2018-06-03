@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.15"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/btn_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:src="@drawable/ic_action_home" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.65"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingTop="3dp">
+
+        <uk.co.intelitrack.intelizzz.common.widgets.IntelizzzFloatingSearchView
+            android:id="@+id/floating_search_view"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:floatingSearch_backgroundColor="@color/colorPrimaryLight"
+            app:floatingSearch_dimBackground="false"
+            app:floatingSearch_leftActionMode="showSearch"
+            app:floatingSearch_searchHint="@string/label_search"
+            app:floatingSearch_showSearchKey="true"
+            app:floatingSearch_suggestionsListAnimDuration="250" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/toolbar_type_btn"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.20"
+        android:src="@drawable/ic_units" />
+</LinearLayout>

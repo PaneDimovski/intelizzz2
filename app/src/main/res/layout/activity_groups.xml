@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+
+    <RelativeLayout
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="@dimen/unit_back_icon_size"
+            android:layout_height="@dimen/unit_back_icon_size"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_action_back" />
+
+        <LinearLayout
+            android:id="@+id/additionalButtons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/btn_back"
+            android:layout_toRightOf="@+id/btn_back"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/btn_move"
+                android:layout_width="@dimen/unit_back_icon_size"
+                android:layout_height="@dimen/unit_back_icon_size"
+                android:layout_margin="@dimen/spacing_small"
+                android:src="@drawable/ic_action_move"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/btn_add"
+                android:layout_width="@dimen/unit_back_icon_size"
+                android:layout_height="@dimen/unit_back_icon_size"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/spacing_small"
+                android:src="@drawable/ic_action_add"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/btn_delete"
+                android:layout_width="@dimen/unit_back_icon_size"
+                android:layout_height="@dimen/unit_back_icon_size"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/spacing_small"
+                android:src="@drawable/ic_garbage"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/bottom_bar_type_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/label_units"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/font_large" />
+
+            <TextView
+                android:id="@+id/bottom_bar_type_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/font_big" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_bar"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/spacing_bigger">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/label_move_units"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/font_large" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="15dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:background="@drawable/background_recycler_outline"
+                android:orientation="vertical"
+                android:padding="3dp">
+
+                <TextView
+                    android:id="@+id/btnGroupsLeft"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_gray_background"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="@string/label_groups"
+                    android:textColor="@color/text_white" />
+
+                <TextView
+                    android:id="@+id/btnSelectAllLeft"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/round_blue_background"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="@string/label_select_all"
+                    android:textColor="@color/text_white" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/leftGroups"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/black"
+                    android:divider="@null"
+                    android:dividerHeight="0dp"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/arrowRight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:src="@drawable/ic_action_right" />
+
+                <ImageView
+                    android:id="@+id/arrowLeft"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:src="@drawable/ic_action_left" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:background="@drawable/background_recycler_outline"
+                android:orientation="vertical"
+                android:padding="3dp">
+
+                <TextView
+                    android:id="@+id/btnGroupsRight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_gray_background"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="@string/label_groups"
+                    android:textColor="@color/text_white" />
+
+                <TextView
+                    android:id="@+id/btnSelectAllRight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/round_blue_background"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="@string/label_select_all"
+                    android:textColor="@color/text_white" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rightGroups"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/black"
+                    android:divider="@null"
+                    android:dividerHeight="0dp"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/spacing_small">
+
+        <ImageView
+            android:id="@+id/btn_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:padding="@dimen/search_home_icon_padding"
+            android:src="@drawable/ic_action_home" />
+
+        <uk.co.intelitrack.intelizzz.common.widgets.IntelizzzFloatingSearchView
+            android:id="@+id/floating_search_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:layout_margin="5dp"
+            app:floatingSearch_backgroundColor="@color/light_blue"
+            app:floatingSearch_dimBackground="false"
+            app:floatingSearch_leftActionMode="showSearch"
+            app:floatingSearch_searchHint="@string/label_search"
+            app:floatingSearch_showSearchKey="true"
+            app:floatingSearch_suggestionsListAnimDuration="250" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

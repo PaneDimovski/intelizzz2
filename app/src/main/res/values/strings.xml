@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Intelizzz</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="btn_log_in">Login</string>
+    <string name="login_alert_title">Login authentication fail</string>
+    <string name="username_error">Username does not exist</string>
+    <string name="wrong_password_error">Wrong password</string>
+    <string name="user_expired_error">The user has expired</string>
+    <string name="undefined_error">Ops, something happens</string>
+    <string name="activate_tracker_title">Secret Tracker</string>
+    <string name="activate_tracker_message_successful">Activated secret tracker</string>
+    <string name="activate_tracker_message_fail">Activation secret tracker fail</string>
+    <string name="label_keep_me_signed_in">Keep me signed in</string>
+    <string name="label_forgotten_your_password">Forgotten your password?</string>
+    <string name="label_search">Search</string>
+    <string name="label_unit">Unit</string>
+    <string name="label_activate_secret_tracker">Activate secret tracker</string>
+    <string name="label_no">NO.</string>
+    <string name="label_unit_id">Unit id</string>
+    <string name="label_units">Units</string>
+    <string name="label_last_known_location">Last known location</string>
+    <string name="label_previous_locations">Previous locations</string>
+    <string name="label_custom_location">Custom locations</string>
+    <string name="label_new_group">New Group</string>
+    <string name="label_new_name">New Name</string>
+    <string name="label_create_under">Create Under</string>
+    <string name="label_ok">OK</string>
+    <string name="label_group">Group</string>
+    <string name="label_groups">Groups</string>
+    <string name="label_move_units">Move Units</string>
+    <string name="label_select_all">Select all</string>
+</resources>

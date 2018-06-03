@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar_item" />
+
+        <include layout="@layout/item_heading" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvGroups"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:visibility="gone"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvVehicles"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:visibility="gone"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+    </LinearLayout>
+
+    <include layout="@layout/bottom_back_bar" />
+</LinearLayout>

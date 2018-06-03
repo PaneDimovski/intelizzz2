@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar_with_logo_item" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/label_new_group"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_normal" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/round_gray_background"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/label_new_name"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_normal" />
+
+                <EditText
+                    android:id="@+id/edit_new_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/round_white_background"
+                    android:minHeight="@dimen/add_group_edit_text_min_height"
+                    android:textColor="@color/text_black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/label_create_under"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_normal" />
+
+                <EditText
+                    android:id="@+id/edit_create_under"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/round_white_background"
+                    android:minHeight="@dimen/add_group_edit_text_min_height"
+                    android:textColor="@color/text_black" />
+
+                <Button
+                    android:id="@+id/btn_ok"
+                    android:layout_width="@dimen/ok_btn_size"
+                    android:layout_height="@dimen/ok_btn_size"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/ok_background"
+                    android:text="@string/label_ok"
+                    android:textSize="@dimen/font_large" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <include layout="@layout/bottom_back_bar" />
+</LinearLayout>

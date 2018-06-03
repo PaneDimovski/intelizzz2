@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/bottom_bar_size">
+
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="@dimen/unit_back_icon_size"
+        android:layout_height="@dimen/unit_back_icon_size"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_action_back" />
+
+    <ImageView
+        android:id="@+id/btn_move"
+        android:layout_width="@dimen/unit_arrws_icon_size"
+        android:layout_height="@dimen/unit_arrws_icon_size"
+        android:layout_marginLeft="@dimen/spacing_big"
+        android:paddingLeft="@dimen/spacing_small"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_arrws"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/additionalButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:id="@+id/btn_add"
+            android:layout_width="@dimen/unit_back_icon_size"
+            android:layout_height="@dimen/unit_back_icon_size"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/spacing_small"
+            android:src="@drawable/ic_action_add"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/btn_delete"
+            android:layout_width="@dimen/unit_back_icon_size"
+            android:layout_height="@dimen/unit_back_icon_size"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/spacing_small"
+            android:src="@drawable/ic_garbage"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/bottom_bar_type_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:text="@string/label_units"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/font_large" />
+
+        <TextView
+            android:id="@+id/bottom_bar_type_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="9"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/font_big" />
+    </LinearLayout>
+</RelativeLayout>

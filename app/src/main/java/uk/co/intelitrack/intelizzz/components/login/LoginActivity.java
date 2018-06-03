@@ -2,10 +2,14 @@ package uk.co.intelitrack.intelizzz.components.login;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -38,6 +42,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     EditText mPassword;
     @BindView(R.id.check_keep_signed)
     CheckBox mKeepSigned;
+    @BindView(R.id.slikaWeb)
+    ImageView web;
     //endregion
 
     //region Fields
@@ -65,6 +71,22 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         ButterKnife.bind(this);
 
         mPresenter.subscribe(null);
+        web.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                webStrana();
+            }
+        });
+    }
+
+    //otvaranje na web
+    public void webStrana(){
+        Intent i = new Intent();
+        i.putExtra(Intent.EXTRA_TEXT, "");
+        i.setAction(Intent.ACTION_VIEW);
+        i.setData(Uri.parse("https://intelitrack.co.uk/"));
+        startActivity(i);
+        Toast.makeText(this, "odi na web", Toast.LENGTH_LONG).show();
     }
 
     @Override

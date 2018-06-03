@@ -6,6 +6,13 @@
     android:orientation="vertical">
 
     <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/slikaWeb"
+        android:src="@drawable/www"
+        />
+
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="@dimen/logo_margin"

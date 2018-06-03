@@ -120,8 +120,27 @@
             android:drawableStart="@drawable/ic_forgotten_password"
             android:gravity="center_vertical"
             android:text="@string/label_forgotten_your_password"
-            android:textColor="@color/text_white"
-            android:visibility="gone" />
+            android:textColor="@color/text_white" />
+
+        <ImageButton
+            android:id="@+id/create_new_user"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/newuser"
+            android:layout_marginLeft="285dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create New Account"
+            android:layout_marginLeft="280dp"
+            android:textColor="@color/white"
+            android:gravity="center_horizontal"/>
+        <ImageButton
+            android:id="@+id/info"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/info"
+            />
 
     </LinearLayout>
 

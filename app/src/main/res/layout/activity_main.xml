@@ -44,13 +44,14 @@
                     android:id="@+id/tv_units_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginStart="20dp"
+
+                    android:layout_centerHorizontal="true"
                     android:layout_marginTop="20dp"
                     android:padding="5dp"
+                    android:scaleType="fitXY"
                     android:text="0"
-                    android:textColor="@color/text_black"
-                    android:textSize="@dimen/font_large"
+                    android:textColor="@color/text_white"
+                    android:textSize="@dimen/font_bigger"
                     android:textStyle="bold" />
             </RelativeLayout>
 
@@ -70,13 +71,15 @@
                     android:id="@+id/tv_groups_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginStart="20dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="30dp"
                     android:layout_marginTop="20dp"
                     android:padding="5dp"
+                    android:scaleType="fitXY"
                     android:text="0"
-                    android:textColor="@color/text_black"
-                    android:textSize="@dimen/font_large"
+                    android:textAlignment="center"
+                    android:textColor="@color/text_white"
+                    android:textSize="@dimen/font_bigger"
                     android:textStyle="bold" />
 
             </RelativeLayout>
@@ -91,30 +94,35 @@
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="35dp"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingTop="@dimen/spacing_small">
 
-        <ImageView
-            android:id="@+id/btn_home"
-            android:layout_width="@dimen/icon_size_width"
-            android:layout_height="@dimen/icon_size_height"
-            android:layout_gravity="start"
-            android:layout_margin="@dimen/spacing_normal"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:src="@drawable/ic_power" />
+        <!--<ImageView-->
+        <!--android:id="@+id/btn_home"-->
+        <!--android:layout_width="@dimen/icon_size_width"-->
+        <!--android:layout_height="@dimen/icon_size_height"-->
+        <!--android:layout_gravity="start"-->
+        <!--android:layout_margin="@dimen/spacing_normal"-->
+        <!--android:focusable="true"-->
+        <!--android:focusableInTouchMode="true"-->
+        <!--android:src="@drawable/ic_power" />-->
 
         <uk.co.intelitrack.intelizzz.common.widgets.IntelizzzFloatingSearchView
             android:id="@+id/floating_search_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:layout_gravity="start"
-            android:layout_margin="5dp"
+            android:layout_margin="70dp"
+
+
             app:floatingSearch_backgroundColor="@color/light_blue"
             app:floatingSearch_dimBackground="false"
+            app:floatingSearch_hintTextColor="@color/colorPrimaryLight"
+            app:floatingSearch_leftActionColor="@color/white"
             app:floatingSearch_leftActionMode="showSearch"
-            app:floatingSearch_searchHint="@string/label_search"
+
             app:floatingSearch_showSearchKey="true"
             app:floatingSearch_suggestionsListAnimDuration="250" />
 

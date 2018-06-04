@@ -9,7 +9,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/slikaWeb"
-        android:src="@drawable/www"
+        android:src="@drawable/ic_www_name"
         />
 
     <ImageView
@@ -51,12 +51,16 @@
                 android:textColorHint="@color/text_white"
                 android:textCursorDrawable="@null" />
 
-
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.1"
-                android:src="@drawable/ic_action_left" />
+                />
+            <!--<ImageView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="0.1"-->
+                <!--android:src="@drawable/ic_action_left" />-->
         </LinearLayout>
 
         <LinearLayout
@@ -80,10 +84,16 @@
                 android:textCursorDrawable="@null" />
 
             <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.1"
-                android:src="@drawable/ic_action_left" />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+             />
+
+            <!--<ImageView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="0.1"-->
+                <!--android:src="@drawable/ic_action_left" />-->
         </LinearLayout>
 
         <Button
@@ -111,36 +121,56 @@
             android:textColor="@color/text_white"
             android:theme="@style/CheckBoxTheme" />
 
-        <TextView
-            android:id="@+id/forgotten_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_forgotten_password"
-            android:drawablePadding="5dp"
-            android:drawableStart="@drawable/ic_forgotten_password"
-            android:gravity="center_vertical"
-            android:text="@string/label_forgotten_your_password"
-            android:textColor="@color/text_white" />
+        <!--<TextView-->
+            <!--android:id="@+id/forgotten_password"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:drawableLeft="@drawable/ic_forgotten_password"-->
+            <!--android:drawablePadding="5dp"-->
+            <!--android:drawableStart="@drawable/ic_forgotten_password"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:text="@string/label_forgotten_your_password"-->
+            <!--android:textColor="@color/text_white" />-->
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"    >
 
         <ImageButton
-            android:id="@+id/create_new_user"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="25dp"
+            android:layout_gravity="center_vertical|end"
             android:background="@drawable/newuser"
-            android:layout_marginLeft="285dp" />
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Create New Account"
-            android:layout_marginLeft="280dp"
+            android:textSize="13sp"
+            android:fontFamily="sans-serif-condensed"
+            android:layout_marginRight="4dp"
+            android:layout_gravity="center_vertical|end"
             android:textColor="@color/white"
             android:gravity="center_horizontal"/>
-        <ImageButton
-            android:id="@+id/info"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/info"
-            />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="12dp">
+
+        <!--<ImageButton-->
+            <!--android:id="@+id/info"-->
+            <!--android:layout_width="20dp"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:background="@drawable/ic_info_name"-->
+            <!--/>-->
+
+    </LinearLayout>
+</LinearLayout>
+
+
+
 
     </LinearLayout>
 

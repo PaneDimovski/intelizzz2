@@ -33,6 +33,7 @@ public class IntelizzzFloatingSearchView extends FloatingSearchView {
         }
     }
 
+
     private Activity getHostActivity() {
         Context context = getContext();
         while (context instanceof ContextWrapper) {

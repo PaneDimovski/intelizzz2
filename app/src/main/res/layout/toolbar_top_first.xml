@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/toolbar"
+    app:contentInsetLeft="0dp"
+    app:contentInsetStart="0dp">
+
+    <ImageView
+        android:id="@+id/picHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:src="@drawable/ic_power"
+        />
+    <ImageView
+        android:id="@+id/picMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:src="@drawable/ic_power"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtUserName"
+        android:text="User"
+        android:textSize="12sp"
+        android:layout_marginLeft="200dp"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/picUser"
+        android:layout_marginLeft="1dp"
+        android:src="@drawable/ic_garbage"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/picSettings"
+        android:layout_marginLeft="1dp"
+        android:src="@drawable/ic_garbage"/>
+
+</android.support.v7.widget.Toolbar>

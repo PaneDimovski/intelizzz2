@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="uk.co.intelitrack.intelizzz.userdetails.UserDetailsActivity"
+    android:background="@drawable/background">
+
+    <ImageButton
+        android:id="@+id/profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/logo"/>
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="150dp"
+        android:layout_height="120dp"
+        android:background="@drawable/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"/>
+
+    <RelativeLayout
+        android:id="@+id/lineuser"
+        android:layout_width="350dp"
+        android:layout_height="380dp"
+        android:layout_below="@+id/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/round_lightblue_background">
+
+        <TextView
+            android:id="@+id/full_name"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:text="Full name"
+            android:textSize="@dimen/font_normal"/>
+        <EditText
+            android:id="@+id/edit_full_name"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:textSize="@dimen/font_normal"
+            android:background="@drawable/round_white_background"
+            android:layout_toRightOf="@+id/full_name"/>
+
+
+        <TextView
+            android:id="@+id/company_name"
+            android:layout_below="@id/full_name"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:text="Company name"
+            android:textSize="@dimen/font_normal"/>
+        <TextView
+            android:id="@+id/if_aplicable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/company_name"
+            android:layout_marginStart="20dp"
+            android:textSize="@dimen/font_smaller"
+            android:text="(If aplicable)"/>
+
+        <EditText
+            android:id="@+id/edit_company_name"
+            android:layout_below="@id/full_name"
+            android:layout_toRightOf="@id/company_name"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:textSize="@dimen/font_normal"
+            android:background="@drawable/round_white_background" />
+
+
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_below="@id/if_aplicable"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:text="Address"
+            android:textSize="@dimen/font_normal"/>
+
+        <EditText
+            android:id="@+id/edit_address"
+            android:layout_below="@id/if_aplicable"
+            android:layout_toRightOf="@id/address"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="20dp"
+            android:textSize="@dimen/font_smaller"
+            android:background="@drawable/round_white_background" />
+
+
+
+        <TextView
+            android:id="@+id/state_country"
+            android:layout_below="@id/address"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="State/Country"
+            android:textSize="@dimen/font_normal"/>
+
+        <EditText
+            android:id="@+id/edit_state_country"
+            android:layout_below="@id/edit_address"
+            android:layout_toRightOf="@id/address"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="20dp"
+            android:textSize="@dimen/font_smaller"
+            android:background="@drawable/round_white_background" />
+
+
+
+
+        <TextView
+            android:id="@+id/country"
+            android:layout_below="@id/state_country"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="Country"
+            android:textSize="@dimen/font_normal"/>
+
+        <EditText
+            android:id="@+id/edit_country"
+            android:layout_below="@id/edit_state_country"
+            android:layout_toRightOf="@id/address"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="20dp"
+            android:textSize="@dimen/font_smaller"
+            android:background="@drawable/round_white_background" />
+
+
+
+        <TextView
+            android:id="@+id/zip_code"
+            android:layout_below="@id/country"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="Zip/Post code"
+            android:textSize="@dimen/font_normal"/>
+
+        <EditText
+            android:id="@+id/edit_zip_code"
+            android:layout_below="@id/edit_country"
+            android:layout_toRightOf="@id/address"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="20dp"
+            android:textSize="@dimen/font_smaller"
+            android:background="@drawable/round_white_background" />
+
+
+
+
+
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="@dimen/unit_back_icon_size"
+        android:layout_height="@dimen/unit_back_icon_size"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="5dp"
+        android:src="@drawable/ic_action_back" />
+
+
+
+</RelativeLayout>

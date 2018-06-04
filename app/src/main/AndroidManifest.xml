@@ -70,6 +70,7 @@
         <activity
             android:name=".components.timer.TimerActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".userdetails.UserDetailsActivity"></activity>
     </application>
 
 </manifest>

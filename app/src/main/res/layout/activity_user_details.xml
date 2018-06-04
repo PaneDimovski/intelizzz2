@@ -176,7 +176,7 @@
     </RelativeLayout>
 
     <ImageView
-        android:id="@+id/btn_back"
+        android:id="@+id/btn_backc"
         android:layout_width="@dimen/unit_back_icon_size"
         android:layout_height="@dimen/unit_back_icon_size"
         android:layout_alignParentBottom="true"

@@ -133,11 +133,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     void onGroupsClick() {
         PreviewActivity.start(this, true);
     }
-
-    @OnClick(R.id.btn_home)
-    void onHomeClick() {
-        mPresenter.onHomeClick();
-    }
+//
+//    @OnClick(R.id.btn_home)
+//    void onHomeClick() {
+//        mPresenter.onHomeClick();
+//    }
     //endregion
 
     //region Helper Methods

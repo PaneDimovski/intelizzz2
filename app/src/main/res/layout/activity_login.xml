@@ -79,7 +79,8 @@
                 android:padding="@dimen/edit_padding"
                 android:textColor="@color/text_black"
                 android:textColorHint="@color/text_white"
-                android:textCursorDrawable="@null" />
+                android:textCursorDrawable="@null"
+                android:imeOptions="actionDone"/>
 
             <ImageView
                 android:layout_width="0dp"

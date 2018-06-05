@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import javax.inject.Inject;
@@ -77,6 +80,19 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
                 webStrana();
             }
         });
+
+        mPassword.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event){
+                if(actionId == EditorInfo.IME_ACTION_DONE){
+                    kopceLogIn();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+
     }
 
     //otvaranje na web
@@ -125,12 +141,16 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     //endregion
 
     //region ButterKnife Methods
-    @OnClick(R.id.button_login)
-    void onLoginClick() {
+//    @OnClick(R.id.button_login)
+//    void onLoginClick() {
+//        mPresenter.login(mUsername.getText().toString().trim(), mPassword.getText().toString().trim(),
+//                mKeepSigned.isChecked());
+//    }
+    //endregion
+    public void kopceLogIn(){
         mPresenter.login(mUsername.getText().toString().trim(), mPassword.getText().toString().trim(),
                 mKeepSigned.isChecked());
     }
-    //endregion
 
     //region Helper Methods
     private void hideProgressBar() {

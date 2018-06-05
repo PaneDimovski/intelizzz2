@@ -112,7 +112,7 @@
         <uk.co.intelitrack.intelizzz.common.widgets.IntelizzzFloatingSearchView
             android:id="@+id/floating_search_view"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="43dp"
             android:layout_gravity="start"
             android:layout_margin="70dp"
 

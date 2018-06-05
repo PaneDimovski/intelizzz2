@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import javax.inject.Inject;
@@ -32,6 +34,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     //endregion
 
     //region VI
+    @BindView(R.id.picHome)
+    ImageView home;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.tv_groups_number)
     TextView mGroupsNumber;
     @BindView(R.id.tv_units_number)
@@ -63,6 +69,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         mPresenter.subscribe(null);
     }
@@ -134,10 +142,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         PreviewActivity.start(this, true);
     }
 //
-//    @OnClick(R.id.btn_home)
-//    void onHomeClick() {
-//        mPresenter.onHomeClick();
-//    }
+    @OnClick(R.id.picHome)
+    void onHomeClick() {
+        mPresenter.onHomeClick();
+    }
     //endregion
 
     //region Helper Methods

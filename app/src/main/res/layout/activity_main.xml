@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     android:background="@drawable/background">
 
+    <include
+
+        layout="@layout/toolbar_top_first"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -112,7 +120,7 @@
         <uk.co.intelitrack.intelizzz.common.widgets.IntelizzzFloatingSearchView
             android:id="@+id/floating_search_view"
             android:layout_width="match_parent"
-            android:layout_height="43dp"
+            android:layout_height="45dp"
             android:layout_gravity="start"
             android:layout_margin="70dp"
 

@@ -24,6 +24,7 @@ import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.utils.DialogUtils;
 import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzProgressDialog;
 import uk.co.intelitrack.intelizzz.components.main.MainActivity;
+import uk.co.intelitrack.intelizzz.userdetails.UserDetailsActivity;
 
 /**
  * Created by Filip Stojanovski (filip100janovski@gmail.com).
@@ -83,8 +84,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
         mPassword.setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event){
-                if(actionId == EditorInfo.IME_ACTION_DONE){
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
                     kopceLogIn();
                     return true;
                 }
@@ -96,7 +97,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     }
 
     //otvaranje na web
-    public void webStrana(){
+    public void webStrana() {
         Intent i = new Intent();
         i.putExtra(Intent.EXTRA_TEXT, "");
         i.setAction(Intent.ACTION_VIEW);
@@ -147,7 +148,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 //                mKeepSigned.isChecked());
 //    }
     //endregion
-    public void kopceLogIn(){
+    public void kopceLogIn() {
         mPresenter.login(mUsername.getText().toString().trim(), mPassword.getText().toString().trim(),
                 mKeepSigned.isChecked());
     }
@@ -160,4 +161,10 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         }
     }
     //endregion
+
+    @OnClick(R.id.create_account)
+    public void click (View view) {
+        Intent intent = new Intent(LoginActivity.this, UserDetailsActivity.class);
+        startActivity(intent);
+    }
 }

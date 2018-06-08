@@ -7,11 +7,9 @@
     android:background="@drawable/background">
 
     <include
-
         layout="@layout/toolbar_top_first"
         android:layout_width="match_parent"
         android:layout_height="25dp"
-
         />
 
     <LinearLayout
@@ -120,17 +118,16 @@
         <uk.co.intelitrack.intelizzz.common.widgets.IntelizzzFloatingSearchView
             android:id="@+id/floating_search_view"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="?actionBarSize"
             android:layout_gravity="start"
             android:layout_margin="70dp"
-
-
             app:floatingSearch_backgroundColor="@color/light_blue"
             app:floatingSearch_dimBackground="false"
-            app:floatingSearch_hintTextColor="@color/colorPrimaryLight"
-            app:floatingSearch_leftActionColor="@color/white"
-            app:floatingSearch_leftActionMode="showSearch"
+            android:backgroundTint="@color/white"
 
+            app:floatingSearch_leftActionMode="showSearch"
+            app:floatingSearch_leftActionColor="@color/white"
+            app:floatingSearch_hintTextColor="@color/light_blue"
             app:floatingSearch_showSearchKey="true"
             app:floatingSearch_suggestionsListAnimDuration="250" />
 

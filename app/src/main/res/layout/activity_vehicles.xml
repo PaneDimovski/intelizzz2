@@ -14,6 +14,8 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
+        <include layout="@layout/toolbar_units" />
+
         <include layout="@layout/toolbar_item" />
 
         <include layout="@layout/item_heading" />
@@ -38,6 +40,6 @@
             android:visibility="gone"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
     </LinearLayout>
-
+<include layout="@layout/bottom_tollbar_item" />
     <include layout="@layout/bottom_back_bar" />
 </LinearLayout>

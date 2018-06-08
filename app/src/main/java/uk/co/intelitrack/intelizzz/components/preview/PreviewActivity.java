@@ -66,6 +66,8 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     TextView bottomBarTypeNumber;
     @BindView(R.id.btn_move)
     ImageView mBtnMove;
+    @BindView(R.id.add_unit)
+    ImageView add_unit;
     @BindView(R.id.btn_delete)
     ImageView mBtnDelete;
     @BindView(R.id.toolbar_type_btn)
@@ -107,7 +109,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
         mBtnMove.setVisibility(mIsGroup ? View.VISIBLE : View.GONE);
         mBtnDelete.setVisibility(mIsGroup ? View.VISIBLE : View.GONE);
         if (mIsGroup) {
-            mToolBarType.setImageResource(R.drawable.ic_groups);
+            mToolBarType.setImageResource(R.drawable.groups);
         }
     }
 
@@ -162,6 +164,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
         }
         bottomBarTypeNumber.setText(String.valueOf(number));
         mBtnMove.setVisibility(View.VISIBLE);
+        add_unit.setVisibility(View.GONE);
     }
 
     @Override

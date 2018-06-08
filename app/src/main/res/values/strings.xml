@@ -18,7 +18,10 @@
     <string name="label_unit">Unit</string>
     <string name="label_activate_secret_tracker">Activate secret tracker</string>
     <string name="label_no">NO.</string>
-    <string name="label_unit_id">Unit id</string>
+    <string name="label_unit_id">Unit Name</string>
+    <string name="label_tamp">Tamp</string>
+    <string name="label_batt">Batt</string>
+    <string name="label_geo">Geo</string>
     <string name="label_units">Units</string>
     <string name="label_last_known_location">Last known location</string>
     <string name="label_previous_locations">Previous locations</string>

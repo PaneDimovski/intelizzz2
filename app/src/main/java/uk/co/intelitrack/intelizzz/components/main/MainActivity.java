@@ -32,7 +32,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Inject
     MainPresenter mPresenter;
     //endregion
-
+    @BindView(R.id.txtUserName)
+    TextView txtUserName;
     //region VI
     @BindView(R.id.picHome)
     ImageView home;

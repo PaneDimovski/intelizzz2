@@ -194,11 +194,11 @@ public class UnitActivity extends AppCompatActivity implements UnitContract.View
         mPresenter.onPreviousLocations();
     }
 
-    @OnClick(R.id.btn_home)
-    void onHomeClick() {
-        MainActivity.start(this);
-        finish();
-    }
+//    @OnClick(R.id.btn_home)
+//    void onHomeClick() {
+//        MainActivity.start(this);
+//        finish();
+//    }
 
     @OnClick(R.id.btn_back)
     void onBackClick() {

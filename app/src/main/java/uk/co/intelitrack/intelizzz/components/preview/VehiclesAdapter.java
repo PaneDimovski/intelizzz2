@@ -1,5 +1,7 @@
 package uk.co.intelitrack.intelizzz.components.preview;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -160,7 +162,39 @@ public class VehiclesAdapter extends RecyclerView.Adapter<VehiclesAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.bind(mVehicles.get(position), mOnItemClickListener);
+        holder.mWarning.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//            tuka alert dialog vo koj ke ima API povik za reset
+
+//                AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+//                builder1.setMessage("Do you want to remove ?");
+//                builder1.setCancelable(true);
+//
+//                builder1.setPositiveButton(
+//                        "Yes",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int id) {
+//                                //Do your code...
+//                            }
+//                        });
+//
+//                builder1.setNegativeButton(
+//                        "No",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int id) {
+//                                dialog.cancel();
+//                            }
+//                        });
+//
+//                AlertDialog alert11 = builder1.create();
+//                alert11.show();
+            }
+        });
     }
+
+
+
 
     @Override
     public int getItemCount() {

@@ -19,9 +19,18 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import uk.co.intelitrack.intelizzz.IntelizzzApplication;
 import uk.co.intelitrack.intelizzz.R;
+import uk.co.intelitrack.intelizzz.common.api.IntelizzzDataSource;
+import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
+import uk.co.intelitrack.intelizzz.common.api.RestApi;
+import uk.co.intelitrack.intelizzz.common.data.Constants;
+import uk.co.intelitrack.intelizzz.common.data.remote.Token;
 import uk.co.intelitrack.intelizzz.common.utils.DialogUtils;
+import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
 import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzProgressDialog;
 import uk.co.intelitrack.intelizzz.components.main.MainActivity;
 import uk.co.intelitrack.intelizzz.userdetails.UserDetailsActivity;
@@ -51,7 +60,11 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     //endregion
 
     //region Fields
+    public Token token;
+    public RestApi api;
     private IntelizzzProgressDialog mProgressDialog;
+    SharedPreferencesUtils sharedPreferencesUtils;
+    IntelizzzDataSource intelizzzDataSource;
     //endregion
 
     public static void start(Activity activity) {
@@ -142,11 +155,46 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     //endregion
 
     //region ButterKnife Methods
-//    @OnClick(R.id.button_login)
-//    void onLoginClick() {
+    @OnClick(R.id.button_login)
+    void onLoginClick() {
+
+        api = new RestApi(LoginActivity.this);
+        String a = mUsername.getText().toString();
+        String b = mPassword.getText().toString();
+        Call<Token> call = api.postAuthentication(a,b);
+        call.enqueue(new Callback<Token>() {
+            @Override
+            public void onResponse(Call<Token> call, Response<Token> response) {
+                if (response.isSuccessful()){
+                    token = new Token();
+                    token = response.body();
+//
+                    Toast.makeText(LoginActivity.this, "Uspesno Retrofit", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(LoginActivity.this, "NE PROAGJA", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Token> call, Throwable t) {
+
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
 //        mPresenter.login(mUsername.getText().toString().trim(), mPassword.getText().toString().trim(),
 //                mKeepSigned.isChecked());
-//    }
+    }
     //endregion
     public void kopceLogIn() {
         mPresenter.login(mUsername.getText().toString().trim(), mPassword.getText().toString().trim(),

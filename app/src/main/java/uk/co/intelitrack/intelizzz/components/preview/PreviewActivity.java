@@ -228,6 +228,11 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     public void onItemClick(String vehicleId) {
         mPresenter.onUnitClick(vehicleId);
     }
+
+    @Override
+    public void onItemClick2(String vehicleId) {
+        mPresenter.onUnitClick2(vehicleId);
+    }
     //endregion
 
     //region FloatingSearchView Methods

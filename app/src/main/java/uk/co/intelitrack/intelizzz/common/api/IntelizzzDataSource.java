@@ -1,6 +1,7 @@
 package uk.co.intelitrack.intelizzz.common.api;
 
 import android.support.annotation.NonNull;
+import android.telecom.Call;
 
 import io.reactivex.Single;
 import uk.co.intelitrack.intelizzz.common.data.remote.Company;
@@ -18,6 +19,9 @@ public class IntelizzzDataSource {
     public IntelizzzDataSource(@NonNull ApiInterface apiInterface) {
         this.apiInterface = apiInterface;
     }
+//    public retrofit2.Call<Token>login1(String username, String password){
+//        return apiInterface.login1(username, password);
+//    }
 
     public Single<Token> login(String username, String password) {
         return apiInterface.login(username, password);

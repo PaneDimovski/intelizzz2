@@ -11,10 +11,15 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import io.reactivex.Single;
+import okhttp3.OkHttpClient;
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
 import uk.co.intelitrack.intelizzz.common.data.SuggestionsItem;
 import uk.co.intelitrack.intelizzz.common.data.remote.Alarm;
@@ -47,6 +52,23 @@ public class IntelizzzRepository {
         this.mIntelizzzDataSource = intelizzzDataSource;
         this.mSharedPreferencesUtils = sharedPreferencesUtils;
     }
+
+//    public Retrofit getRetrofitInstance() {
+//        OkHttpClient client = new OkHttpClient.Builder()
+//                .addInterceptor(new LoggingInterceptor())
+//                .build();
+//        return new Retrofit.Builder()
+//                .baseUrl(Constants.BASE_URL)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .client(client)
+//                .build();
+//    }
+//    public ApiInterface request() {
+//        return getRetrofitInstance().create(ApiInterface.class);
+//    }
+//    public Call<Token> postAuthentication(String account, String password) {
+//        return request().login1(account,password);
+//    }
 
     public Single<Token> login(String username, String password) {
         return mIntelizzzDataSource.login(username, password)

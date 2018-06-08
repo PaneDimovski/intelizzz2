@@ -2,11 +2,20 @@ package uk.co.intelitrack.intelizzz.components.main;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telecom.RemoteConnection;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.File;
+import java.io.IOException;
 
 import javax.inject.Inject;
 
@@ -15,7 +24,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import uk.co.intelitrack.intelizzz.IntelizzzApplication;
 import uk.co.intelitrack.intelizzz.R;
+import uk.co.intelitrack.intelizzz.common.data.Constants;
+import uk.co.intelitrack.intelizzz.common.data.remote.Company;
+import uk.co.intelitrack.intelizzz.common.data.remote.Token;
 import uk.co.intelitrack.intelizzz.common.utils.DialogUtils;
+import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
 import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzFloatingSearchView;
 import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzProgressDialog;
 import uk.co.intelitrack.intelizzz.components.login.LoginActivity;
@@ -35,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @BindView(R.id.txtUserName)
     TextView txtUserName;
     //region VI
+    @BindView(R.id.picVideo)
+    ImageView video;
     @BindView(R.id.picHome)
     ImageView home;
     @BindView(R.id.toolbar)
@@ -48,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     //endregion
 
     //region Fields
+    SharedPreferencesUtils mSharedPreferencesUtils;
     private IntelizzzProgressDialog mProgressDialog;
     //endregion
 
@@ -72,9 +88,20 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
         mPresenter.subscribe(null);
+        video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    playVideo();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
+
 
     @Override
     protected void onDestroy() {
@@ -155,6 +182,16 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             mProgressDialog.dismiss();
             mProgressDialog = null;
         }
+    }
+    public void playVideo() throws IOException {
+//        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://pixabay.com/en/videos/star-long-exposure-starry-sky-sky-6962/"));
+//        intent.setDataAndType(Uri.parse("https://pixabay.com/en/videos/star-long-exposure-starry-sky-sky-6962/"), "video/*");
+//        startActivity(intent);
+        String url = "https://pixabay.com/en/videos/star-long-exposure-starry-sky-sky-6962/"; // your URL here
+        MediaPlayer mediaPlayer = new MediaPlayer();
+        mediaPlayer.setDataSource(url);
+        mediaPlayer.prepare(); // might take long! (for buffering, etc)
+        mediaPlayer.start();
     }
     //endregion
 }

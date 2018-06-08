@@ -1,5 +1,7 @@
 package uk.co.intelitrack.intelizzz.components.preview;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +20,7 @@ import uk.co.intelitrack.intelizzz.common.data.remote.ParentVehicle;
 @Module
 public class PreviewModule {
     private final PreviewActivity mActivity;
+    private Context mContext;
 
     public PreviewModule(PreviewActivity activity) {
         this.mActivity = activity;
@@ -30,7 +33,7 @@ public class PreviewModule {
 
     @Provides
     VehiclesAdapter provideVehiclesAdapter(IntelizzzRepository repository) {
-        return new VehiclesAdapter(mActivity, repository);
+        return new VehiclesAdapter(mActivity, repository,mContext);
     }
 
     @Provides

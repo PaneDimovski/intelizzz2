@@ -1,7 +1,9 @@
 package uk.co.intelitrack.intelizzz.components.preview;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AlertDialogLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -19,6 +21,7 @@ import butterknife.ButterKnife;
 import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
+import uk.co.intelitrack.intelizzz.common.data.remote.ParentVehicle;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 
 /**
@@ -32,6 +35,7 @@ public class VehiclesAdapter extends RecyclerView.Adapter<VehiclesAdapter.ViewHo
     private final IntelizzzRepository mRepository;
     private int mFilterField;
     private int mFilterType;
+    private Context mContext;
     //endregion
 
     //region Fields
@@ -39,11 +43,12 @@ public class VehiclesAdapter extends RecyclerView.Adapter<VehiclesAdapter.ViewHo
     //endregion
 
     //region Constructors
-    public VehiclesAdapter(VehiclesClickListener onItemClickListener, IntelizzzRepository intelizzzRepository) {
+    public VehiclesAdapter(VehiclesClickListener onItemClickListener, IntelizzzRepository intelizzzRepository, Context context) {
         this.mOnItemClickListener = onItemClickListener;
         this.mRepository = intelizzzRepository;
         if (!intelizzzRepository.getVehicles().isEmpty()) {
             mVehicles.addAll(intelizzzRepository.getVehicles());
+            this.mContext = context;
         }
     }
     //endregion
@@ -162,12 +167,15 @@ public class VehiclesAdapter extends RecyclerView.Adapter<VehiclesAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.bind(mVehicles.get(position), mOnItemClickListener);
-        holder.mWarning.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//            tuka alert dialog vo koj ke ima API povik za reset
+//        holder.bind(mVehicles.get(position),mOnItemClickListener);
 
-//                AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+
+//        holder.mWarning.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////            tuka alert dialog vo koj ke ima API povik za reset
+//
+//                AlertDialog.Builder builder1 = new AlertDialog.Builder(mContext);
 //                builder1.setMessage("Do you want to remove ?");
 //                builder1.setCancelable(true);
 //
@@ -189,8 +197,8 @@ public class VehiclesAdapter extends RecyclerView.Adapter<VehiclesAdapter.ViewHo
 //
 //                AlertDialog alert11 = builder1.create();
 //                alert11.show();
-            }
-        });
+//            }
+//        });
     }
 
 
@@ -252,12 +260,42 @@ public class VehiclesAdapter extends RecyclerView.Adapter<VehiclesAdapter.ViewHo
                 mWarning.setVisibility(View.INVISIBLE);
             }
 
-            mView.setOnClickListener(new View.OnClickListener() {
+            mId.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     onItemClickListener.onItemClick(vehicle.getId());
                 }
             });
+            mWarning.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClick2(vehicle.getId());
+                   AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
+                    builder.setMessage("Do you want to remove ?");
+                    builder.setCancelable(true);
+//                    builder.setView(R.layout.   )    tuka da se vmetne layout od alertdialog
+
+                    builder.setPositiveButton(
+                            "Yes",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    //Do your code...
+                                }
+                            });
+
+                    builder.setNegativeButton(
+                            "No",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+
+                    AlertDialog alert11 = builder.create();
+                    alert11.show();
+                }
+            });
+//
 
             day1.setBackgroundResource(vehicle.getDays()[0] ? R.drawable.green_rectangle : R.drawable.red_rectangle);
             day2.setBackgroundResource(vehicle.getDays()[1] ? R.drawable.green_rectangle : R.drawable.red_rectangle);

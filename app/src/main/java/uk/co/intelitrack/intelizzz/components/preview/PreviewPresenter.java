@@ -90,6 +90,12 @@ public class PreviewPresenter implements PreviewContract.Presenter, GroupsClickL
         mView.startUnitActivity(id);
     }
 
+
+    public void onUnitClick2(String id) {
+//        mView.startUnitActivity(id);
+    }
+
+
     @Override
     public void onGroupClick(String id, boolean isGroup) {
         mView.startUnitActivity(id);

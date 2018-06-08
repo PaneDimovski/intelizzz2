@@ -1,6 +1,7 @@
 package uk.co.intelitrack.intelizzz.common.api;
 
 import io.reactivex.Single;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -15,6 +16,9 @@ import uk.co.intelitrack.intelizzz.common.data.remote.Token;
  */
 
 public interface ApiInterface {
+    @GET("StandardApiAction_login.action")
+    Call<Token> login1(@Query("account") String account, @Query("password") String password);
+
     @GET("StandardApiAction_login.action")
     Single<Token> login(@Query("account") String account, @Query("password") String password);
 

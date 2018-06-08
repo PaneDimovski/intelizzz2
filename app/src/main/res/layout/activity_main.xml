@@ -94,6 +94,14 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/picVideo"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/video"
+        android:layout_alignParentLeft="true"/>
+
     <LinearLayout
         android:id="@+id/top_bar"
         android:layout_width="match_parent"

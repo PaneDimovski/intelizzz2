@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+android:background="@color/black"
     android:orientation="vertical">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -13,10 +14,10 @@
         <ImageView
             android:id="@+id/icon_warning"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="30dp"
             android:layout_marginEnd="1dp"
-            android:layout_marginRight="1dp"
-            android:layout_weight="1"
+            android:layout_marginRight="0dp"
+            android:layout_weight="2.3"
             android:src="@drawable/ic_forgotten_password"
             android:visibility="invisible" />
 
@@ -38,7 +39,7 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="1dp"
             android:layout_marginRight="1dp"
-            android:layout_weight="3"
+            android:layout_weight="5"
             android:gravity="center"
             android:text="IntelliZzz"
             android:textColor="@color/text_white" />
@@ -48,12 +49,15 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/days_icon_height"
             android:layout_weight="1"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="1dp"
             android:background="@drawable/red_rectangle"
             android:gravity="center" />
 
         <TextView
             android:id="@+id/number_6"
             android:layout_width="0dp"
+            android:layout_marginRight="1dp"
             android:layout_height="@dimen/days_icon_height"
             android:layout_weight="1"
             android:background="@drawable/red_rectangle"
@@ -62,6 +66,7 @@
         <TextView
             android:id="@+id/number_5"
             android:layout_width="0dp"
+            android:layout_marginRight="1dp"
             android:layout_height="@dimen/days_icon_height"
             android:layout_weight="1"
             android:background="@drawable/red_rectangle"
@@ -70,6 +75,7 @@
         <TextView
             android:id="@+id/number_4"
             android:layout_width="0dp"
+            android:layout_marginRight="1dp"
             android:layout_height="@dimen/days_icon_height"
             android:layout_weight="1"
             android:background="@drawable/red_rectangle"
@@ -78,6 +84,7 @@
         <TextView
             android:id="@+id/number_3"
             android:layout_width="0dp"
+            android:layout_marginRight="1dp"
             android:layout_height="@dimen/days_icon_height"
             android:layout_weight="1"
             android:background="@drawable/red_rectangle"
@@ -86,6 +93,7 @@
         <TextView
             android:id="@+id/number_2"
             android:layout_width="0dp"
+            android:layout_marginRight="1dp"
             android:layout_height="@dimen/days_icon_height"
             android:layout_weight="1"
             android:background="@drawable/red_rectangle"
@@ -104,10 +112,10 @@
         <ImageView
             android:id="@+id/item_gsimbol"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="20dp"
             android:layout_marginEnd="1dp"
-            android:layout_marginRight="1dp"
-            android:layout_weight="1"
+            android:layout_marginRight="0dp"
+            android:layout_weight="1.8"
             android:src="@drawable/ic_green_map_car_pin"
             android:visibility="invisible" />
 
@@ -115,7 +123,9 @@
             android:id="@+id/item_battery"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_marginEnd="1dp"
+            android:layout_marginRight="0dp"
+            android:layout_weight="2"
             android:visibility="invisible"
             android:src="@drawable/ic_battery" />
     </LinearLayout>

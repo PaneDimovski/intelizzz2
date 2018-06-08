@@ -57,6 +57,7 @@
     <dimen name="logo_height_large">150dp</dimen>
     <dimen name="gray_background_radius">10dp</dimen>
     <dimen name="green_red_background_radius">5dp</dimen>
+    <dimen name="green_red_background_radius2">3dp</dimen>
     <dimen name="days_icon_height">12dp</dimen>
     <dimen name="add_group_edit_text_min_height">40dp</dimen>
     <dimen name="ok_btn_size">70dp</dimen>

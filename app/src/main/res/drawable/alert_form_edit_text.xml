@@ -1,11 +1,11 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <solid android:color="@color/alert_edit_text" />
+    <solid android:color="@color/alert_edit_text"  />
 
 
 
     <corners
-        android:bottomLeftRadius="7dp"
+        android:bottomLeftRadius="8dp"
         android:bottomRightRadius="7dp"
         android:topLeftRadius="7dp"
         android:topRightRadius="7dp" />

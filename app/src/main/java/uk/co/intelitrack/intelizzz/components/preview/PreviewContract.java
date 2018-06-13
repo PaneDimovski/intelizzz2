@@ -25,6 +25,8 @@ public interface PreviewContract {
 
         void setVehiclesListVisible();
 
+       // void setUnitsList();
+
         void setGroupsListVisible();
 
         void startUnitActivity(String id);

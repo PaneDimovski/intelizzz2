@@ -33,7 +33,12 @@ public class PreviewModule {
 
     @Provides
     VehiclesAdapter provideVehiclesAdapter(IntelizzzRepository repository) {
-        return new VehiclesAdapter(mActivity, repository,mContext);
+        return new VehiclesAdapter(mActivity, repository, mContext);
+    }
+
+    @Provides
+    UnitAdapter provideUnitAdapter(IntelizzzRepository repository) {
+        return new UnitAdapter(mActivity,repository, mContext);
     }
 
     @Provides

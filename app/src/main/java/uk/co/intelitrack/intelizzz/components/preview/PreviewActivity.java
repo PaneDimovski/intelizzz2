@@ -1,7 +1,10 @@
 package uk.co.intelitrack.intelizzz.components.preview;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +24,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.annotations.Nullable;
 import uk.co.intelitrack.intelizzz.IntelizzzApplication;
 import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
@@ -48,6 +52,9 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     @Inject
     VehiclesAdapter mVehiclesAdapter;
     @Inject
+    UnitAdapter unitsAdapter;
+
+    @Inject
     GroupsAdapter mGroupsAdapter;
     @Inject
     IntelizzzRepository mRepository;
@@ -56,6 +63,9 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     //region VI
     @BindView(R.id.rvVehicles)
     RecyclerView mRvVehicles;
+    @Nullable
+    @BindView(R.id.units)
+    RecyclerView mRVunits;
     @BindView(R.id.rvGroups)
     RecyclerView mRvGroups;
     @BindView(R.id.floating_search_view)
@@ -70,9 +80,14 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     ImageView add_unit;
     @BindView(R.id.btn_delete)
     ImageView mBtnDelete;
+    @BindView(R.id.delete)
+    ImageView delete;
+
     @BindView(R.id.toolbar_type_btn)
     ImageView mToolBarType;
     //endregion
+
+
 
     //region Fields
     private IntelizzzProgressDialog mProgressDialog;
@@ -102,6 +117,8 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
             mIsGroup = getIntent().getExtras().getBoolean(Constants.IS_GROUP);
 
         mPresenter.subscribe(getIntent());
+
+
 
         mIntelizzzFloatingSearchView.setOnSearchListener(this);
         mIntelizzzFloatingSearchView.setOnQueryChangeListener(this);
@@ -167,6 +184,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
         add_unit.setVisibility(View.GONE);
     }
 
+
     @Override
     public void setGroups(List<ParentVehicle> groups) {
         if (mGroupsAdapter.isGroupExpanded(0)) {
@@ -189,6 +207,14 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
         mRvVehicles.setVisibility(View.VISIBLE);
         mRvGroups.setVisibility(View.GONE);
     }
+
+
+//    @Override
+//    public void setUnitsList() {
+//        mRVunits.setAdapter(unitsAdapter);
+//        mRVunits.setVisibility(View.VISIBLE);
+//        mRvGroups.setVisibility(View.GONE);
+//    }
 
     @Override
     public void setGroupsListVisible() {
@@ -233,6 +259,11 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     public void onItemClick2(String vehicleId) {
         mPresenter.onUnitClick2(vehicleId);
     }
+
+    @Override
+    public void onItemClick3(String vehicleId) {
+        mPresenter.onUnitClick2(vehicleId);
+    }
     //endregion
 
     //region FloatingSearchView Methods
@@ -266,6 +297,59 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
         MainActivity.start(this);
         finish();
     }
+
+    @OnClick(R.id.add_unit)
+    void onAddClick() {
+
+        add_unit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder dialog2 = new AlertDialog.Builder(PreviewActivity.this);
+                dialog2.setCancelable(true);
+
+                dialog2.setPositiveButton("", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                dialog2.setView(getLayoutInflater().inflate(R.layout.alert_dialog_add_unit, null));
+                AlertDialog alert2 = dialog2.create();
+                alert2.show();
+                alert2.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 100, 100, 100)));
+            }
+        });
+
+    }
+
+    @OnClick(R.id.delete)
+    void deleteUint() {
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder dialog3 = new AlertDialog.Builder(PreviewActivity.this);
+                dialog3.setCancelable(true);
+
+                dialog3.setPositiveButton("", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+
+                    }
+                });
+
+                dialog3.setView(getLayoutInflater().inflate(R.layout.alert_dialog_delete, null));
+                AlertDialog alert3 = dialog3.create();
+                alert3.show();
+                alert3.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 100, 100, 100)));
+
+            }
+        });
+
+    }
+
 
     @OnClick(R.id.btn_back)
     void onBackClick() {
@@ -322,10 +406,10 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
         mPresenter.onMoveClick();
     }
 
-    @OnClick(R.id.btn_delete)
-    void onDeleteClick() {
-        mPresenter.onDeleteClick();
-    }
+//    @OnClick(R.id.btn_delete)
+//    void onDeleteClick() {                                        //  DELETE opcija namestena za vo activiti za GRUPITE
+//        mPresenter.onDeleteClick();
+//    }
     //endregion
 
     //region Helper Methods

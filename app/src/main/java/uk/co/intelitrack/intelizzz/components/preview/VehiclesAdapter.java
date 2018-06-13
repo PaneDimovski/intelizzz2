@@ -2,13 +2,17 @@ package uk.co.intelitrack.intelizzz.components.preview;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AlertDialogLayout;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.text.TextUtils;
+import android.text.style.BackgroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +22,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
@@ -199,9 +204,9 @@ public class VehiclesAdapter extends RecyclerView.Adapter<VehiclesAdapter.ViewHo
 //                alert11.show();
 //            }
 //        });
+
+
     }
-
-
 
 
     @Override
@@ -236,6 +241,11 @@ public class VehiclesAdapter extends RecyclerView.Adapter<VehiclesAdapter.ViewHo
         ImageView mGsimbol;
         @BindView(R.id.icon_warning)
         ImageView mWarning;
+//        @BindView(R.id.delete)
+//        ImageView delete;
+
+     //   ImageView delete = (ImageView) itemView.findViewById(R.id.delete);
+
         private View mView;
 
         public ViewHolder(final View view) {
@@ -266,17 +276,19 @@ public class VehiclesAdapter extends RecyclerView.Adapter<VehiclesAdapter.ViewHo
                     onItemClickListener.onItemClick(vehicle.getId());
                 }
             });
+
             mWarning.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     onItemClickListener.onItemClick2(vehicle.getId());
-                   AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
-                    builder.setMessage("Do you want to remove ?");
+                    AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
+                    //  builder.setMessage("Do you want to remove ?");
                     builder.setCancelable(true);
 //                    builder.setView(R.layout.   )    tuka da se vmetne layout od alertdialog
+                    builder.setView(R.layout.alert_dialog_reset);
 
                     builder.setPositiveButton(
-                            "Yes",
+                            "",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     //Do your code...
@@ -284,7 +296,7 @@ public class VehiclesAdapter extends RecyclerView.Adapter<VehiclesAdapter.ViewHo
                             });
 
                     builder.setNegativeButton(
-                            "No",
+                            "",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.cancel();
@@ -293,9 +305,14 @@ public class VehiclesAdapter extends RecyclerView.Adapter<VehiclesAdapter.ViewHo
 
                     AlertDialog alert11 = builder.create();
                     alert11.show();
+                    alert11.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 200, 200, 200)));
                 }
             });
-//
+
+
+
+
+
 
             day1.setBackgroundResource(vehicle.getDays()[0] ? R.drawable.green_rectangle : R.drawable.red_rectangle);
             day2.setBackgroundResource(vehicle.getDays()[1] ? R.drawable.green_rectangle : R.drawable.red_rectangle);

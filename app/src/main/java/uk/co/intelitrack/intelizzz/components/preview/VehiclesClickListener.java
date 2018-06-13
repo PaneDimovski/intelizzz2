@@ -7,4 +7,5 @@ package uk.co.intelitrack.intelizzz.components.preview;
 public interface VehiclesClickListener {
     void onItemClick(String vehicleId);
     void onItemClick2(String vehicleId);
+    void onItemClick3(String vehicleId);
 }

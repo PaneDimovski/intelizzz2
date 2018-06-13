@@ -72,6 +72,7 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
     compile "com.google.dagger:dagger:${DAGGER_VERSION}"
     provided 'javax.annotation:jsr250-api:1.0'
+//    compile 'javax.inject:javax.inject:1'
 
     // OkHttp & Retrofit
     compile "com.squareup.okhttp3:logging-interceptor:${OKHTTP3_VERSION}"

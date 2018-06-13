@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:targetApi="18"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@color/alert_transparent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/alert_unit_form"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:text="Intelizzz Device ID"
+            android:textColor="@color/text_black"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/init_id"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/alert_form_edit_text"
+            android:gravity="center"
+            android:textSize="21dp"
+
+            />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/slika"
+            android:layout_marginTop="45dp"
+            android:gravity="center"
+            android:text="Name your device.."
+            android:textColor="@color/text_black"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/init_name"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/alert_form_edit_text"
+            android:gravity="center"
+            android:textSize="21dp"
+            />
+
+        <Button
+            android:id="@+id/ok"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/reset"
+            android:layout_marginBottom="25dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/ok" />
+
+
+    </LinearLayout>
+</LinearLayout>

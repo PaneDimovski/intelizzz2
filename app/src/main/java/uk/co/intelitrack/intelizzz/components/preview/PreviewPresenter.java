@@ -58,6 +58,7 @@ public class PreviewPresenter implements PreviewContract.Presenter, GroupsClickL
             } else {
                 mView.setVehicles(mRepository.getVehicles());
                 mView.setVehiclesListVisible();
+//                mView.setUnitsList();
             }
         }
     }

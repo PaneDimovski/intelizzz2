@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +39,10 @@ public class CrudGroupActivity extends AppCompatActivity implements CrudGroupCon
     EditText mEtName;
     @BindView(R.id.edit_create_under)
     EditText mEtUnder;
-
+    @BindView(R.id.delete)
+    ImageView delete;
+    @BindView(R.id.add_unit)
+    ImageView add_unit;
     //region fields
     private IntelizzzProgressDialog mProgresDialog;
     //endregion
@@ -64,6 +68,9 @@ public class CrudGroupActivity extends AppCompatActivity implements CrudGroupCon
         mPresenter.subscribe(getIntent());
         mCrudGroupNumber.setVisibility(View.GONE);
         mCrudGroupName.setVisibility(View.GONE);
+        delete.setVisibility(View.GONE);
+        add_unit.setVisibility(View.GONE);
+
     }
 
     @Override

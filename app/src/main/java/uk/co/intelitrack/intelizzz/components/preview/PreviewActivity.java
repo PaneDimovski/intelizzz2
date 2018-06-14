@@ -2,11 +2,13 @@ package uk.co.intelitrack.intelizzz.components.preview;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -87,7 +89,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     ImageView mToolBarType;
     //endregion
 
-
+    private List<Vehicle> mVehicles = new ArrayList<>();
 
     //region Fields
     private IntelizzzProgressDialog mProgressDialog;
@@ -119,12 +121,12 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
         mPresenter.subscribe(getIntent());
 
 
-
         mIntelizzzFloatingSearchView.setOnSearchListener(this);
         mIntelizzzFloatingSearchView.setOnQueryChangeListener(this);
 
         mBtnMove.setVisibility(mIsGroup ? View.VISIBLE : View.GONE);
         mBtnDelete.setVisibility(mIsGroup ? View.VISIBLE : View.GONE);
+
         if (mIsGroup) {
             mToolBarType.setImageResource(R.drawable.groups);
         }
@@ -331,6 +333,19 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
             public void onClick(View v) {
                 AlertDialog.Builder dialog3 = new AlertDialog.Builder(PreviewActivity.this);
                 dialog3.setCancelable(true);
+//
+//                Vehicle vehicle = new Vehicle();
+//                VehiclesClickListener listener = null;
+//                listener.onItemClick3("");
+//
+//
+//
+//                mRVunits = new UnitAdapter(listener, mVehicles, PreviewActivity.this);
+                unitsAdapter.setData(mVehicles);
+
+                mRVunits.setHasFixedSize(true);
+                mRVunits.setLayoutManager(new GridLayoutManager(PreviewActivity.this, 1));
+                mRVunits.setAdapter(unitsAdapter);
 
                 dialog3.setPositiveButton("", new DialogInterface.OnClickListener() {
                     @Override
@@ -340,8 +355,11 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
                     }
                 });
 
+
                 dialog3.setView(getLayoutInflater().inflate(R.layout.alert_dialog_delete, null));
                 AlertDialog alert3 = dialog3.create();
+
+
                 alert3.show();
                 alert3.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 100, 100, 100)));
 

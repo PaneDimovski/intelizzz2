@@ -51,9 +51,11 @@ public class GroupsActivity extends AppCompatActivity implements GroupsContract.
     TextView mUnitsNumber;
     @BindView(R.id.btn_add)
     ImageView mBtnAdd;
-
+    @BindView(R.id.toolbar_type_btn)
+    ImageView mToolBarType;
     //region fields
     private IntelizzzProgressDialog mProgresDialog;
+    private boolean mIsGroup;
     //endregion
 
     public static void start(Activity activity, boolean isGroup) {
@@ -74,9 +76,14 @@ public class GroupsActivity extends AppCompatActivity implements GroupsContract.
         setContentView(R.layout.activity_groups);
 
         ButterKnife.bind(this);
-
+        if (getIntent().getExtras() != null)
+            mIsGroup = getIntent().getExtras().getBoolean(Constants.IS_GROUP);
         mPresenter.subscribe(getIntent());
         showAddButtonAndAddListeners();
+
+        if (mIsGroup) {
+            mToolBarType.setImageResource(R.drawable.groups);
+        }
     }
 
     @Override

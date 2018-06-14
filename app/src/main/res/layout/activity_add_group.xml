@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             android:background="@color/black"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="0dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -38,6 +38,9 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/round_gray_background"
                 android:orientation="vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
                 android:padding="10dp">
 
                 <TextView
@@ -46,8 +49,9 @@
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="@string/label_new_name"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/font_normal" />
+                    android:layout_marginTop="25dp"
+                    android:textColor="@color/black"
+                    android:textSize="23sp" />
 
                 <EditText
                     android:id="@+id/edit_new_name"
@@ -56,6 +60,7 @@
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/round_white_background"
                     android:minHeight="@dimen/add_group_edit_text_min_height"
+                    android:textSize="25sp"
                     android:textColor="@color/text_black" />
 
                 <TextView
@@ -64,8 +69,8 @@
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="@string/label_create_under"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/font_normal" />
+                    android:textColor="@color/black"
+                    android:textSize="23sp" />
 
                 <EditText
                     android:id="@+id/edit_create_under"
@@ -74,6 +79,7 @@
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/round_white_background"
                     android:minHeight="@dimen/add_group_edit_text_min_height"
+                    android:textSize="25sp"
                     android:textColor="@color/text_black" />
 
                 <Button
@@ -81,8 +87,11 @@
                     android:layout_width="@dimen/ok_btn_size"
                     android:layout_height="@dimen/ok_btn_size"
                     android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+
                     android:background="@drawable/ok_background"
                     android:text="@string/label_ok"
+                    android:layout_marginTop="45dp"
                     android:textSize="@dimen/font_large" />
             </LinearLayout>
         </LinearLayout>

@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     android:background="@drawable/background">
 
+
+    <include layout="@layout/toolbar_units" android:id="@+id/tolunit"/>
+
+    <include layout="@layout/toolbar_item" android:layout_below="@id/tolunit"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+
+        />
+
     <RelativeLayout
         android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
@@ -71,7 +80,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
                 android:text="@string/label_units"
-                android:textColor="@color/text_black"
+                android:textColor="@color/white"
                 android:textSize="@dimen/font_large" />
 
             <TextView
@@ -79,35 +88,65 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="9"
-                android:textColor="@color/text_black"
+                android:textColor="@color/white"
                 android:textSize="@dimen/font_big" />
         </LinearLayout>
     </RelativeLayout>
 
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_bar"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:paddingTop="@dimen/spacing_bigger">
+        android:paddingTop="105dp">
+      <RelativeLayout
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="@string/label_move_units"
-            android:textColor="@color/text_white"
-            android:textSize="@dimen/font_large" />
+          android:layout_width="wrap_content"
+          android:layout_height="10dp">
+            <TextView
+                android:id="@+id/rel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text="@string/label_move_units"
+                android:textColor="@color/text_white"
+                android:textSize="@dimen/font_large" />
+
+
+      </RelativeLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical">
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_move_units"
+        android:textColor="@color/text_white"
+        android:textSize="@dimen/font_large" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:padding="15dp">
+            android:background="@color/black"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+
+
+            >
 
             <LinearLayout
+                android:id="@+id/levo"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.4"
@@ -119,7 +158,7 @@
                     android:id="@+id/btnGroupsLeft"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/round_gray_background"
+                    android:background="@drawable/alert_form_edit_text"
                     android:gravity="center"
                     android:padding="3dp"
                     android:text="@string/label_groups"
@@ -149,9 +188,11 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.2"
+                android:layout_weight="0.18"
                 android:gravity="center"
                 android:orientation="vertical">
+
+
 
                 <ImageView
                     android:id="@+id/arrowRight"
@@ -182,7 +223,7 @@
                     android:id="@+id/btnGroupsRight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/round_gray_background"
+                    android:background="@drawable/alert_form_edit_text"
                     android:gravity="center"
                     android:padding="3dp"
                     android:text="@string/label_groups"
@@ -211,43 +252,33 @@
             </LinearLayout>
 
         </LinearLayout>
-
+</LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/top_bar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingTop="@dimen/spacing_small">
+    <!--<LinearLayout-->
+        <!--android:id="@+id/top_bar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:gravity="center"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:paddingTop="@dimen/spacing_small">-->
 
-        <ImageView
-            android:id="@+id/btn_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:padding="@dimen/search_home_icon_padding"
-            android:src="@drawable/ic_action_home" />
+        <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+            <!--&lt;!&ndash;android:id="@+id/btn_home"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_gravity="start"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:focusable="true"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:focusableInTouchMode="true"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:padding="@dimen/search_home_icon_padding"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:src="@drawable/ic_action_home" />&ndash;&gt;-->
 
-        <uk.co.intelitrack.intelizzz.common.widgets.IntelizzzFloatingSearchView
-            android:id="@+id/floating_search_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:layout_margin="5dp"
-            app:floatingSearch_backgroundColor="@color/light_blue"
-            app:floatingSearch_dimBackground="false"
-            app:floatingSearch_leftActionMode="showSearch"
-            app:floatingSearch_searchHint="@string/label_search"
-            app:floatingSearch_showSearchKey="true"
-            app:floatingSearch_suggestionsListAnimDuration="250" />
 
-    </LinearLayout>
+
+
+    <!--</LinearLayout>-->
 
 
 </RelativeLayout>

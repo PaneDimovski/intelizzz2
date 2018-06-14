@@ -58,45 +58,45 @@ public class UnitAdapter  extends RecyclerView.Adapter<UnitAdapter.ViewHolder> {
     }
     //endregion
 
-    private void setData(List<Vehicle> units) {
+    public void setData(List<Vehicle> units) {
         mVehicles.clear();
         mVehicles.addAll(units);
         notifyDataSetChanged();
     }
 
-    public void sortByName() {
-        if (mFilterField == Constants.FIELD_NAME) {
-            if (mFilterType == Constants.DECREASING) {
-                mFilterType = Constants.INCREASING;
-                Collections.sort(mVehicles, new Vehicle.NameComparator());
-            } else {
-                mFilterType = Constants.DECREASING;
-                Collections.sort(mVehicles, Collections.reverseOrder(new Vehicle.NameComparator()));
-            }
-        } else {
-            mFilterType = Constants.INCREASING;
-            mFilterField = Constants.FIELD_NAME;
-            Collections.sort(mVehicles, new Vehicle.NameComparator());
-        }
-        notifyDataSetChanged();
-    }
-
-    public void sortByNumber() {
-        if (mFilterField == Constants.FIELD_ID) {
-            if (mFilterType == Constants.DECREASING) {
-                mFilterType = Constants.INCREASING;
-                Collections.sort(mVehicles, new Vehicle.IdComparator());
-            } else {
-                mFilterType = Constants.DECREASING;
-                Collections.sort(mVehicles, Collections.reverseOrder(new Vehicle.IdComparator()));
-            }
-        } else {
-            mFilterType = Constants.INCREASING;
-            mFilterField = Constants.FIELD_ID;
-            Collections.sort(mVehicles, new Vehicle.IdComparator());
-        }
-        notifyDataSetChanged();
-    }
+//    public void sortByName() {
+//        if (mFilterField == Constants.FIELD_NAME) {
+//            if (mFilterType == Constants.DECREASING) {
+//                mFilterType = Constants.INCREASING;
+//                Collections.sort(mVehicles, new Vehicle.NameComparator());
+//            } else {
+//                mFilterType = Constants.DECREASING;
+//                Collections.sort(mVehicles, Collections.reverseOrder(new Vehicle.NameComparator()));
+//            }
+//        } else {
+//            mFilterType = Constants.INCREASING;
+//            mFilterField = Constants.FIELD_NAME;
+//            Collections.sort(mVehicles, new Vehicle.NameComparator());
+//        }
+//        notifyDataSetChanged();
+//    }
+//
+//    public void sortByNumber() {
+//        if (mFilterField == Constants.FIELD_ID) {
+//            if (mFilterType == Constants.DECREASING) {
+//                mFilterType = Constants.INCREASING;
+//                Collections.sort(mVehicles, new Vehicle.IdComparator());
+//            } else {
+//                mFilterType = Constants.DECREASING;
+//                Collections.sort(mVehicles, Collections.reverseOrder(new Vehicle.IdComparator()));
+//            }
+//        } else {
+//            mFilterType = Constants.INCREASING;
+//            mFilterField = Constants.FIELD_ID;
+//            Collections.sort(mVehicles, new Vehicle.IdComparator());
+//        }
+//        notifyDataSetChanged();
+//    }
 
     void filter(String text) {
         List<Vehicle> temp = new ArrayList();
@@ -120,8 +120,10 @@ public class UnitAdapter  extends RecyclerView.Adapter<UnitAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(UnitAdapter.ViewHolder holder, int position) {
-        holder.bind(mVehicles.get(position), mOnItemClickListener);
-
+//        holder.bind(mVehicles.get(position), mOnItemClickListener);
+        Vehicle vehicle1 = mVehicles.get(position);
+        holder.mId.setText(vehicle1.getId());
+        holder.mNumber.setText(vehicle1.getNm());
     }
 
 
@@ -141,7 +143,7 @@ public class UnitAdapter  extends RecyclerView.Adapter<UnitAdapter.ViewHolder> {
 //        @BindView(R.id.delete)
 //        ImageView delete;
 
-       // ImageView delete = (ImageView) itemView.findViewById(R.id.delete);
+        // ImageView delete = (ImageView) itemView.findViewById(R.id.delete);
 
         private View mView;
 
@@ -151,18 +153,18 @@ public class UnitAdapter  extends RecyclerView.Adapter<UnitAdapter.ViewHolder> {
             ButterKnife.bind(this, view);
         }
 
-        public void bind(Vehicle vehicle, VehiclesClickListener onItemClickListener) {
-            mNumber.setText(vehicle.getId());
-            mId.setText(vehicle.getName());
-
-
-
-            mId.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onItemClickListener.onItemClick(vehicle.getName());
-                }
-            });
+//        public void bind(Vehicle vehicle, VehiclesClickListener onItemClickListener) {
+//            mNumber.setText(vehicle.getId());
+//            mId.setText(vehicle.getName());
+//
+//
+//
+//            mId.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    onItemClickListener.onItemClick(vehicle.getName());
+//                }
+//            });
 
 
 
@@ -190,6 +192,6 @@ public class UnitAdapter  extends RecyclerView.Adapter<UnitAdapter.ViewHolder> {
 //            });
 
 
-        }
     }
 }
+//}

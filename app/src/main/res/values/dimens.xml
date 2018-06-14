@@ -64,6 +64,7 @@
     <dimen name="icon_size_width">30dp</dimen>
     <dimen name="icon_size_height">55dp</dimen>
     <dimen name="unit_next_icon_size">40dp</dimen>
+    <dimen name="toolbar_units">50dp</dimen>
 
     <dimen name="ok">50dp</dimen>
 </resources>

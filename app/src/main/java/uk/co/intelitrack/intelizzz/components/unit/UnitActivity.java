@@ -2,10 +2,13 @@ package uk.co.intelitrack.intelizzz.components.unit;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -39,6 +42,7 @@ import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzProgressDialog;
 import uk.co.intelitrack.intelizzz.components.login.LoginActivity;
 import uk.co.intelitrack.intelizzz.components.main.MainActivity;
 import uk.co.intelitrack.intelizzz.components.maps.MapsActivity;
+import uk.co.intelitrack.intelizzz.components.preview.PreviewActivity;
 import uk.co.intelitrack.intelizzz.components.timer.TimerActivity;
 
 /**
@@ -88,8 +92,8 @@ public class UnitActivity extends AppCompatActivity implements UnitContract.View
     ImageView mWarning;
     @BindView(R.id.btn_activate_tracker)
     ImageView mBtnActivateTracker;
-    @BindView(R.id.floating_search_view)
-    IntelizzzFloatingSearchView mSearchView;
+//    @BindView(R.id.floating_search_view)
+//    IntelizzzFloatingSearchView mSearchView;
     //endregion
 
     //region Fields
@@ -206,34 +210,57 @@ public class UnitActivity extends AppCompatActivity implements UnitContract.View
     }
 
     @OnClick(R.id.btn_activate_tracker)
-    public void onActivateTrackerClicked() {
-        Calendar calendar = Calendar.getInstance();
-        TimerAlarm alarm = mSharedPreferencesUtils.getTimer(mVehicleId);
-        if (alarm != null) {
-            if (alarm.getDate() < calendar.getTimeInMillis()) {
-                mSharedPreferencesUtils.removeTimer(alarm.getId());
-                alarm = null;
-            }
-        }
-        if (alarm == null) {
-            if (TextUtils.isEmpty(mPhone)) {
-                Toast.makeText(this, "Phone error", Toast.LENGTH_LONG).show();
-                return;
-            }
-            if (ContextCompat.checkSelfPermission(this,
-                    Manifest.permission.SEND_SMS)
-                    != PackageManager.PERMISSION_GRANTED) {
+    void message() {
+        mBtnActivateTracker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder dialog2 = new AlertDialog.Builder(UnitActivity.this);
+                dialog2.setCancelable(true);
 
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.SEND_SMS},
-                        SEND_SMS_PERMISSIONS_REQUEST);
-            } else {
-                sendSms(mPhone, "ZZ,1,10,60#");
+                dialog2.setPositiveButton("", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                dialog2.setView(getLayoutInflater().inflate(R.layout.alert_dialog_message, null));
+                AlertDialog alert2 = dialog2.create();
+                alert2.show();
+                alert2.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 100, 100, 100)));
             }
-        } else {
-            startActivity(new Intent(this, TimerActivity.class));
-        }
+        });
+
     }
+
+//    public void onActivateTrackerClicked() {
+//        Calendar calendar = Calendar.getInstance();
+//        TimerAlarm alarm = mSharedPreferencesUtils.getTimer(mVehicleId);
+//        if (alarm != null) {
+//            if (alarm.getDate() < calendar.getTimeInMillis()) {
+//                mSharedPreferencesUtils.removeTimer(alarm.getId());
+//                alarm = null;
+//            }
+//        }
+//        if (alarm == null) {
+//            if (TextUtils.isEmpty(mPhone)) {
+//                Toast.makeText(this, "Phone error", Toast.LENGTH_LONG).show();
+//                return;
+//            }
+//            if (ContextCompat.checkSelfPermission(this,
+//                    Manifest.permission.SEND_SMS)
+//                    != PackageManager.PERMISSION_GRANTED) {
+//
+//                ActivityCompat.requestPermissions(this,
+//                        new String[]{Manifest.permission.SEND_SMS},
+//                        SEND_SMS_PERMISSIONS_REQUEST);
+//            } else {
+//                sendSms(mPhone, "ZZ,1,10,60#");
+//            }
+//        } else {
+//            startActivity(new Intent(this, TimerActivity.class));
+//        }
+//    }
 
     //region Helper Methods
     private void hideProgressBar() {
@@ -286,7 +313,7 @@ public class UnitActivity extends AppCompatActivity implements UnitContract.View
     }
 
     private void showVehicle(Vehicle vehicle) {
-        mSearchView.setSearchText(vehicle.getNm());
+      //  mSearchView.setSearchText(vehicle.getNm());
         mNumber.setText(vehicle.getId());
         mId.setText(vehicle.getNm());
 

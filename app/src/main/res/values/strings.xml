@@ -17,6 +17,9 @@
     <string name="label_search">Search</string>
     <string name="label_unit">Unit</string>
     <string name="label_activate_secret_tracker">Activate secret tracker</string>
+    <string name="label_activate_secret_tracker_session">will track live from next session.</string>
+    <string name="label_activate_secret_tracker_label">Inteli</string>
+    <string name="label_activate_secret_tracker_label2">zzz</string>
     <string name="label_no">NO.</string>
     <string name="label_unit_id">Unit Name</string>
     <string name="label_tamp">Tamp</string>

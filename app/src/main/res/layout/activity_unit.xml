@@ -5,7 +5,8 @@
     android:background="@drawable/background"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar_item" />
+    <!--<include layout="@layout/toolbar_item" />-->
+    <include layout="@layout/toolbar_with_logo_item" />
 
     <include layout="@layout/item_heading" />
 
@@ -23,6 +24,7 @@
         android:layout_weight="0.9">
 
         <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_normal"
@@ -41,6 +43,7 @@
                 android:gravity="center"
                 android:padding="@dimen/edit_text_padding"
                 android:text="@string/label_last_known_location"
+                android:textColor="@color/black"
                 android:textSize="@dimen/font_small" />
         </LinearLayout>
 
@@ -65,16 +68,18 @@
                 android:gravity="center"
                 android:padding="@dimen/edit_text_padding"
                 android:text="@string/label_previous_locations"
+                android:textColor="@color/black"
                 android:textSize="@dimen/font_small" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:paddingTop="@dimen/spacing_bigger"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="@dimen/spacing_bigger">
 
             <ImageView
                 android:id="@+id/btn_activate_tracker"
@@ -89,7 +94,44 @@
                 android:padding="@dimen/edit_text_padding"
                 android:text="@string/label_activate_secret_tracker"
                 android:textAllCaps="true"
+                android:textColor="@color/black"
                 android:textSize="@dimen/font_small" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/linearLayout2"
+                    android:layout_below="@+id/linearLayout"
+                    android:layout_marginStart="32dp"
+                    android:gravity="center"
+                    android:padding="1dp"
+                    android:textStyle="bold"
+                    android:text="@string/label_activate_secret_tracker_label"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_small" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/label_activate_secret_tracker_label2"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/font_small" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/edit_text_padding"
+                    android:text="@string/label_activate_secret_tracker_session"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_small" />
+            </LinearLayout>
         </LinearLayout>
 
 

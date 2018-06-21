@@ -126,16 +126,23 @@
         <uk.co.intelitrack.intelizzz.common.widgets.IntelizzzFloatingSearchView
             android:id="@+id/floating_search_view"
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
+            android:layout_height="200dp"
             android:layout_gravity="start"
             android:layout_margin="70dp"
-            app:floatingSearch_backgroundColor="@color/light_blue"
+            app:floatingSearch_backgroundColor="@color/alert3"
             app:floatingSearch_dimBackground="false"
-            android:backgroundTint="@color/white"
-
+            android:background="@color/alert3"
+            app:floatingSearch_actionMenuOverflowColor="@color/alert3"
+            android:backgroundTint="@color/alert3"
+            app:floatingSearch_dividerColor="@color/alert3"
+            app:floatingSearch_menuItemIconColor="@color/alert3"
+            app:floatingSearch_viewTextColor="@color/black"
+            app:floatingSearch_close_search_on_keyboard_dismiss="true"
+            app:floatingSearch_dismissOnOutsideTouch="true"
+            android:scrollbarStyle="insideInset"
             app:floatingSearch_leftActionMode="showSearch"
             app:floatingSearch_leftActionColor="@color/white"
-            app:floatingSearch_hintTextColor="@color/light_blue"
+            app:floatingSearch_hintTextColor="@color/transparent"
             app:floatingSearch_showSearchKey="true"
             app:floatingSearch_suggestionsListAnimDuration="250" />
 

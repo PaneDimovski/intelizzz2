@@ -57,7 +57,7 @@
             <!--<ImageView-->
             <!--android:layout_width="0dp"-->
             <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="0.1"-->
+            <!--android:layout_weightone"0.1"-->
             <!--android:src="@drawable/ic_action_left" />-->
         </LinearLayout>
 
@@ -90,7 +90,7 @@
             <!--<ImageView-->
             <!--android:layout_width="0dp"-->
             <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="0.1"-->
+            <!--android:layout_weightone"0.1"-->
             <!--android:src="@drawable/ic_action_left" />-->
         </LinearLayout>
 

@@ -37,4 +37,6 @@
     <string name="label_groups">Groups</string>
     <string name="label_move_units">Move Units</string>
     <string name="label_select_all">Select all</string>
+    <string name="label_delete_unit">Select Unit &amp; </string>
+    <string name="label_delete_group">Select Group &amp; </string>
 </resources>

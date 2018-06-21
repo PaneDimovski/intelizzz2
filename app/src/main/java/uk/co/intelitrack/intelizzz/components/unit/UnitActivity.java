@@ -11,8 +11,6 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
 import android.text.TextUtils;
@@ -20,8 +18,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.Calendar;
 
 import javax.inject.Inject;
 
@@ -33,17 +29,12 @@ import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.broadcastreceivers.SmsDeliveredBroadcastReceiver;
 import uk.co.intelitrack.intelizzz.common.broadcastreceivers.SmsSentBroadcastReceiver;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
-import uk.co.intelitrack.intelizzz.common.data.TimerAlarm;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 import uk.co.intelitrack.intelizzz.common.utils.DialogUtils;
 import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
-import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzFloatingSearchView;
 import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzProgressDialog;
 import uk.co.intelitrack.intelizzz.components.login.LoginActivity;
-import uk.co.intelitrack.intelizzz.components.main.MainActivity;
 import uk.co.intelitrack.intelizzz.components.maps.MapsActivity;
-import uk.co.intelitrack.intelizzz.components.preview.PreviewActivity;
-import uk.co.intelitrack.intelizzz.components.timer.TimerActivity;
 
 /**
  * Created by Filip Stojanovski (filip100janovski@gmail.com).
@@ -255,7 +246,7 @@ public class UnitActivity extends AppCompatActivity implements UnitContract.View
 //                        new String[]{Manifest.permission.SEND_SMS},
 //                        SEND_SMS_PERMISSIONS_REQUEST);
 //            } else {
-//                sendSms(mPhone, "ZZ,1,10,60#");
+//                sendSms(mPhone, "ZZ,one,10,60#");
 //            }
 //        } else {
 //            startActivity(new Intent(this, TimerActivity.class));
@@ -307,7 +298,7 @@ public class UnitActivity extends AppCompatActivity implements UnitContract.View
                     Toast.makeText(this, "Phone error", Toast.LENGTH_LONG).show();
                     return;
                 }
-                sendSms(mPhone, "ZZ,1,10,60#");
+                sendSms(mPhone, "ZZ,one,10,60#");
             }
         }
     }

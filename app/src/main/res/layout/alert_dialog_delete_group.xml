@@ -21,8 +21,9 @@
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
@@ -36,63 +37,66 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Select unit  "
+                android:paddingLeft="8dp"
+                android:text="@string/label_delete_group"
                 android:textColor="@color/text_white"
-                android:textSize="18sp" />
+                android:textSize="21sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="DELETE  "
+                android:text="   DELETE  "
                 android:textAllCaps="true"
                 android:textColor="@color/red"
-                android:textSize="25sp"
+                android:textSize="38sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:layout_marginBottom="10dp"
 
             android:orientation="vertical">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/units"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/black"
-            android:divider="@null"
-            android:dividerHeight="0dp"
-            android:visibility="gone"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/delete_group"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+
+
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
         </LinearLayout>
 
 
 
 
-            <!--<Button-->
-                <!--android:id="@+id/yes"-->
-                <!--android:layout_width="70dp"-->
-                <!--android:layout_height="40dp"-->
-                <!--android:layout_below="@id/reset"-->
-                <!--android:layout_marginBottom="20dp"-->
-                <!--android:layout_marginLeft="10dp"-->
-                <!--android:layout_marginTop="33dp"-->
-                <!--android:background="@drawable/yes" />-->
+        <!--<Button-->
+        <!--android:id="@+id/yes"-->
+        <!--android:layout_width="70dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:layout_below="@id/reset"-->
+        <!--android:layout_marginBottom="20dp"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginTop="33dp"-->
+        <!--android:background="@drawable/yes" />-->
 
-            <!--<ImageView-->
-                <!--android:id="@+id/delete2"-->
-                <!--android:layout_width="40dp"-->
-                <!--android:layout_height="40dp"-->
-                <!--android:gravity="bottom"-->
-                <!--android:layout_gravity="bottom"-->
-                <!---->
-                <!--android:layout_marginBottom="3dp"-->
-                <!--android:layout_marginRight="3dp"-->
-                <!--android:background="@drawable/ic_delete" />-->
+        <!--<ImageView-->
+        <!--android:id="@+id/delete2"-->
+        <!--android:layout_width="40dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:gravity="bottom"-->
+        <!--android:layout_gravity="bottom"-->
+        <!---->
+        <!--android:layout_marginBottom="3dp"-->
+        <!--android:layout_marginRight="3dp"-->
+        <!--android:background="@drawable/ic_delete" />-->
 
 
     </LinearLayout>

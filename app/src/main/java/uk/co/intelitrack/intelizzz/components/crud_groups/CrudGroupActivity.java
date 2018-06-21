@@ -41,6 +41,8 @@ public class CrudGroupActivity extends AppCompatActivity implements CrudGroupCon
     EditText mEtUnder;
     @BindView(R.id.delete)
     ImageView delete;
+    @BindView(R.id.delete2)
+    ImageView delete2;
     @BindView(R.id.add_unit)
     ImageView add_unit;
     //region fields
@@ -69,6 +71,7 @@ public class CrudGroupActivity extends AppCompatActivity implements CrudGroupCon
         mCrudGroupNumber.setVisibility(View.GONE);
         mCrudGroupName.setVisibility(View.GONE);
         delete.setVisibility(View.GONE);
+        delete2.setVisibility(View.GONE);
         add_unit.setVisibility(View.GONE);
 
     }

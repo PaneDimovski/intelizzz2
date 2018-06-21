@@ -21,30 +21,38 @@
             <!--android:src="@drawable/ic_action_home" />-->
     <!--</LinearLayout>-->
 
-    <!--<LinearLayout-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_weight="0.65"-->
-        <!--android:orientation="vertical"-->
-        <!--android:paddingBottom="5dp"-->
-        <!--android:paddingTop="3dp">-->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.65"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingTop="3dp">
 
         <uk.co.intelitrack.intelizzz.common.widgets.IntelizzzFloatingSearchView
             android:id="@+id/floating_search_view"
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
+            android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginEnd="70dp"
             android:layout_marginStart="70dp"
-            app:floatingSearch_backgroundColor="@color/light_blue"
+            app:floatingSearch_backgroundColor="@color/alert3"
             app:floatingSearch_dimBackground="false"
-            android:backgroundTint="@color/light_blue"
+            android:background="@color/alert3"
+            app:floatingSearch_actionMenuOverflowColor="@color/alert3"
+            android:backgroundTint="@color/alert3"
+            app:floatingSearch_dividerColor="@color/alert3"
+            app:floatingSearch_menuItemIconColor="@color/alert3"
+            app:floatingSearch_viewTextColor="@color/black"
+            app:floatingSearch_close_search_on_keyboard_dismiss="true"
+            app:floatingSearch_dismissOnOutsideTouch="true"
+            android:scrollbarStyle="insideInset"
             app:floatingSearch_leftActionMode="showSearch"
             app:floatingSearch_leftActionColor="@color/white"
-            app:floatingSearch_hintTextColor="@color/light_blue"
+            app:floatingSearch_hintTextColor="@color/transparent"
             app:floatingSearch_showSearchKey="true"
-            app:floatingSearch_suggestionsListAnimDuration="250" />
-    <!--</LinearLayout>-->
+            app:floatingSearch_suggestionsListAnimDuration="250"  />
+    </LinearLayout>
 
     <!--<ImageView-->
         <!--android:id="@+id/toolbar_type_btn"-->

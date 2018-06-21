@@ -2,19 +2,14 @@ package uk.co.intelitrack.intelizzz.components.main;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.telecom.RemoteConnection;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.File;
 import java.io.IOException;
 
 import javax.inject.Inject;
@@ -22,11 +17,9 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import uk.co.intelitrack.intelizz.SettingsActivity;
 import uk.co.intelitrack.intelizzz.IntelizzzApplication;
 import uk.co.intelitrack.intelizzz.R;
-import uk.co.intelitrack.intelizzz.common.data.Constants;
-import uk.co.intelitrack.intelizzz.common.data.remote.Company;
-import uk.co.intelitrack.intelizzz.common.data.remote.Token;
 import uk.co.intelitrack.intelizzz.common.utils.DialogUtils;
 import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
 import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzFloatingSearchView;
@@ -58,6 +51,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     TextView mGroupsNumber;
     @BindView(R.id.tv_units_number)
     TextView mUnitsNumber;
+    @BindView(R.id.picSettings1)
+    ImageView setings1;
+
+
     @BindView(R.id.floating_search_view)
     IntelizzzFloatingSearchView mIntelizzzFloatingSearchView;
     //endregion
@@ -192,6 +189,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         mediaPlayer.setDataSource(url);
         mediaPlayer.prepare(); // might take long! (for buffering, etc)
         mediaPlayer.start();
+    }
+
+    @OnClick (R.id.picSettings1)
+    void setings1Click() {
+
+        Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+        startActivity(intent);
+
     }
     //endregion
 }

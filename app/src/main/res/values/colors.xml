@@ -51,6 +51,8 @@
     <color name="alert_transparent">#00fefeff</color>
     <color name="alert_edit_text">#fda4a4ae</color>
     <color name="alert2">#b0ffffff</color>
+    <color name="alert3">#8affffff</color>
+    <color name="time_color">#62a4bf</color>
 
 
 

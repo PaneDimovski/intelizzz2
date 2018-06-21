@@ -28,6 +28,13 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:src="@drawable/ic_garbage" />
+    <ImageView
+        android:id="@+id/delete2"
+        android:layout_width="@dimen/unit_back_icon_size"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_garbage" />
 
     <ImageView
         android:id="@+id/btn_move"

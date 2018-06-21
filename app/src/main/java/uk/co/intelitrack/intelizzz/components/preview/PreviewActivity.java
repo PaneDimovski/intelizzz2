@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,6 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.annotations.Nullable;
+import uk.co.intelitrack.intelizz.SettingsActivity;
 import uk.co.intelitrack.intelizzz.IntelizzzApplication;
 import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
@@ -66,8 +67,8 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     @BindView(R.id.rvVehicles)
     RecyclerView mRvVehicles;
     @Nullable
-    @BindView(R.id.units)
-    RecyclerView mRVunits;
+//    @BindView(R.id.delete_units)
+//    RecyclerView mRVunits;
     @BindView(R.id.rvGroups)
     RecyclerView mRvGroups;
     @BindView(R.id.floating_search_view)
@@ -84,9 +85,14 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     ImageView mBtnDelete;
     @BindView(R.id.delete)
     ImageView delete;
-
+    @BindView(R.id.delete2)
+    ImageView delete2;
+    @BindView(R.id.picSettings)
+    ImageView setings;
     @BindView(R.id.toolbar_type_btn)
     ImageView mToolBarType;
+
+
     //endregion
 
     private List<Vehicle> mVehicles = new ArrayList<>();
@@ -125,7 +131,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
         mIntelizzzFloatingSearchView.setOnQueryChangeListener(this);
 
         mBtnMove.setVisibility(mIsGroup ? View.VISIBLE : View.GONE);
-        mBtnDelete.setVisibility(mIsGroup ? View.VISIBLE : View.GONE);
+     //   mBtnDelete.setVisibility(mIsGroup ? View.VISIBLE : View.GONE);
 
         if (mIsGroup) {
             mToolBarType.setImageResource(R.drawable.groups);
@@ -172,6 +178,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
         }
         bottomBarTypeNumber.setText(String.valueOf(vehicles.size()));
         mBtnMove.setVisibility(View.GONE);
+        delete2.setVisibility(View.GONE);
     }
 
     @Override
@@ -183,6 +190,9 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
         }
         bottomBarTypeNumber.setText(String.valueOf(number));
         mBtnMove.setVisibility(View.VISIBLE);
+        delete2.setVisibility(View.VISIBLE);
+       delete.setVisibility(View.GONE);
+       mBtnDelete.setVisibility(View.GONE);
         add_unit.setVisibility(View.GONE);
     }
 
@@ -301,11 +311,9 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     }
 
     @OnClick(R.id.add_unit)
-    void onAddClick() {
+    void onAddClick( View v) {
 
-        add_unit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+
                 AlertDialog.Builder dialog2 = new AlertDialog.Builder(PreviewActivity.this);
                 dialog2.setCancelable(true);
 
@@ -320,53 +328,123 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
                 AlertDialog alert2 = dialog2.create();
                 alert2.show();
                 alert2.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 100, 100, 100)));
-            }
-        });
+
+
 
     }
+
 
     @OnClick(R.id.delete)
     void deleteUint() {
 
-        delete.setOnClickListener(new View.OnClickListener() {
+        AlertDialog.Builder dialog3 = new AlertDialog.Builder(PreviewActivity.this);
+        dialog3.setCancelable(true);
+
+        dialog3.setView(getLayoutInflater().inflate(R.layout.alert_dialog_delete_unit, null));
+
+        Context context = this;
+        setVehiclesListVisible();
+
+
+        mRvVehicles.setLayoutManager(new LinearLayoutManager(context));
+
+        mRvVehicles.setHasFixedSize(true);
+        mRvVehicles.setAdapter( mVehiclesAdapter );
+
+
+
+        dialog3.setPositiveButton("", new DialogInterface.OnClickListener() {
+
             @Override
-            public void onClick(View v) {
-                AlertDialog.Builder dialog3 = new AlertDialog.Builder(PreviewActivity.this);
-                dialog3.setCancelable(true);
-//
-//                Vehicle vehicle = new Vehicle();
-//                VehiclesClickListener listener = null;
-//                listener.onItemClick3("");
-//
-//
-//
-//                mRVunits = new UnitAdapter(listener, mVehicles, PreviewActivity.this);
-                unitsAdapter.setData(mVehicles);
 
-                mRVunits.setHasFixedSize(true);
-                mRVunits.setLayoutManager(new GridLayoutManager(PreviewActivity.this, 1));
-                mRVunits.setAdapter(unitsAdapter);
-
-                dialog3.setPositiveButton("", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-
-                    }
-                });
-
-
-                dialog3.setView(getLayoutInflater().inflate(R.layout.alert_dialog_delete, null));
-                AlertDialog alert3 = dialog3.create();
-
-
-                alert3.show();
-                alert3.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 100, 100, 100)));
+            public void onClick(DialogInterface dialog, int which) {
 
             }
+
         });
 
+
+
+        AlertDialog alert3 = dialog3.create();
+
+        alert3.show();
+        alert3.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 100, 100, 100)));
+
     }
+
+
+
+
+
+    @OnClick(R.id.delete2)
+    void deleteGroup() {
+
+        AlertDialog.Builder dialog4 = new AlertDialog.Builder(PreviewActivity.this);
+
+        dialog4.setCancelable(true);
+
+        dialog4.setView(getLayoutInflater().inflate(R.layout.alert_dialog_delete_group, null));
+
+        AlertDialog alert3 = dialog4.create();
+
+        // setVehiclesListVisible();
+
+//                mRvVehicles.setHasFixedSize(true);
+
+//                mRvVehicles.setLayoutManager(new LinearLayoutManager(PreviewActivity.this));
+
+//
+
+//                                unitsAdapter = new UnitAdapter(mRepository );
+
+////                unitsAdapter.setData(mVehicles);
+
+//                mRVunits = new RecyclerView(getApplicationContext());
+
+//                mRVunits.setHasFixedSize(true);
+
+//                mRVunits.setLayoutManager(new GridLayoutManager(PreviewActivity.this, 1));
+
+//                mRVunits.setAdapter(unitsAdapter);
+
+//                Vehicle vehicle = new Vehicle();
+
+//                VehiclesClickListener listener = null;
+
+//                listener.onItemClick3("");
+
+
+
+
+        dialog4.setPositiveButton("", new DialogInterface.OnClickListener() {
+
+            @Override
+
+            public void onClick(DialogInterface dialog, int which) {
+
+
+
+            }
+
+        });
+
+        alert3.show();
+        alert3.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 100, 100, 100)));
+
+    }
+
+
+
+    @OnClick (R.id.picSettings)
+    void setingsClick() {
+
+        Intent intent = new Intent(PreviewActivity.this, SettingsActivity.class);
+        startActivity(intent);
+
+    }
+
+
+
 
 
     @OnClick(R.id.btn_back)

@@ -225,7 +225,7 @@ public class MapsPresenter implements MapsContract.Presenter, DatePickerDialog.O
             List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
             String address = addresses.get(0).getAddressLine(0);
             String city = addresses.get(0).getAddressLine(1);
-            //String country = addresses.get(0).getAddressLine(2);
+            //String country = addresses.get(0).getAddressLine(two);
             result = address + ", " + city;
         } catch (NullPointerException | IOException e) {
 

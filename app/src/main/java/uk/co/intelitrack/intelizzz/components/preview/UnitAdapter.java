@@ -1,32 +1,20 @@
 package uk.co.intelitrack.intelizzz.components.preview;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.AlertDialogLayout;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.text.TextUtils;
-import android.text.style.BackgroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
-import uk.co.intelitrack.intelizzz.common.data.Constants;
-import uk.co.intelitrack.intelizzz.common.data.remote.ParentVehicle;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 
 /**
@@ -184,7 +172,7 @@ public class UnitAdapter  extends RecyclerView.Adapter<UnitAdapter.ViewHolder> {
 //
 //                        }
 //                    });
-//                    dialog3.setView(R.layout.alert_dialog_delete);
+//                    dialog3.setView(R.layout.alert_dialog_delete_unit);
 //                    AlertDialog alert2 = dialog3.create();
 //                    alert2.show();
 //                    alert2.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 100, 100, 100)));

@@ -35,6 +35,15 @@
     <string name="label_ok">OK</string>
     <string name="label_group">Group</string>
     <string name="label_groups">Groups</string>
+    <string name="label_select">Select </string>
+    <string name="label_all">All, </string>
+    <string name="label_all_groups"> Groups,</string>
+    <string name="label_or">or</string>
+    <string name="label_for_the">for the</string>
+    <string name="label_frequency">frequency and</string>
+    <string name="label_wake">wake up times</string>
+    <string name="label_for">for your devices</string>
+
     <string name="label_move_units">Move Units</string>
     <string name="label_select_all">Select all</string>
     <string name="label_delete_unit">Select Unit &amp; </string>

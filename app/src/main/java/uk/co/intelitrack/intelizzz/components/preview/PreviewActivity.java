@@ -2,16 +2,16 @@ package uk.co.intelitrack.intelizzz.components.preview;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -94,13 +94,16 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
 
 
     //endregion
-
+    int posit ;
     private List<Vehicle> mVehicles = new ArrayList<>();
+    Vehicle vehicle;
 
     //region Fields
     private IntelizzzProgressDialog mProgressDialog;
     private boolean mIsGroup;
     //endregion
+   // private ArrayAdapter<Vehicle> arrayAdapter;
+    String text;
 
     public static void start(Activity activity, boolean isGroup) {
         Intent intent = new Intent(activity, PreviewActivity.class);
@@ -333,44 +336,61 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
 
     }
 
-
+//    public List<Vehicle> getVehicles() {
+//        return mVehicles;
+//    }
     @OnClick(R.id.delete)
     void deleteUint() {
 
-        AlertDialog.Builder dialog3 = new AlertDialog.Builder(PreviewActivity.this);
-        dialog3.setCancelable(true);
 
-        dialog3.setView(getLayoutInflater().inflate(R.layout.alert_dialog_delete_unit, null));
-
-        Context context = this;
-        setVehiclesListVisible();
+        ArrayList<String> vehicles1 = new ArrayList<String>();
 
 
-        mRvVehicles.setLayoutManager(new LinearLayoutManager(context));
+       // ArrayList<Vehicle> vehicles1 = new ArrayList<String>();
 
-        mRvVehicles.setHasFixedSize(true);
-        mRvVehicles.setAdapter( mVehiclesAdapter );
+        for (Vehicle vehicle1 : mVehicles) {
+
+            vehicles1.add(  vehicle1.getNm());
+        }
 
 
 
-        dialog3.setPositiveButton("", new DialogInterface.OnClickListener() {
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(PreviewActivity.this);
+        LayoutInflater inflater = getLayoutInflater();
 
+        View convertView = (View) inflater.inflate(R.layout.alert_dialog_delete_unit, null);
+        builderSingle.setView(convertView);
+
+       // builderSingle.setView(convertView);
+
+        ListView lv = (ListView) convertView.findViewById(R.id.listView1);
+        builderSingle.setItems(vehicles1.toArray(new String[vehicles1.size()]), new DialogInterface.OnClickListener() {
             @Override
+            public void onClick(DialogInterface dialog, int item) {
 
-            public void onClick(DialogInterface dialog, int which) {
+                String selectedText = vehicles1.get(item).toString();
+
 
             }
-
         });
 
+        final CharSequence[] items = vehicles1.toArray(new String[vehicles1.size()]);
 
 
-        AlertDialog alert3 = dialog3.create();
 
-        alert3.show();
-        alert3.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 100, 100, 100)));
 
-    }
+
+        //lv.setAdapter(arrayAdapter);
+
+        builderSingle.create();
+            builderSingle.show();
+
+        }
+        
+
+
+
+
 
 
 

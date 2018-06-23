@@ -437,7 +437,7 @@
 
             android:layout_weight="1"
 
-            android:src="@drawable/ok" />
+            android:src="@drawable/next" />
 
         <TextView
 

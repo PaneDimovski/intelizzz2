@@ -36,6 +36,7 @@ import uk.co.intelitrack.intelizzz.common.utils.ViewsUtils;
 import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzProgressDialog;
 import uk.co.intelitrack.intelizzz.components.login.LoginActivity;
 import uk.co.intelitrack.intelizzz.components.main.MainActivity;
+import uk.co.intelitrack.intelizzz.userdetails.UserDetailsActivity;
 
 /**
  * Created by Filip Stojanovski (filip100janovski@gmail.com).
@@ -57,18 +58,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     TextView mFirstCalendarDay;
     @BindView(R.id.tv_month)
     TextView mFirstCalendarMonth;
+    @BindView(R.id.tv_year)
+    TextView mFirstCalendarYear;
+
     @BindView(R.id.tv_custom_day)
     TextView mFirstCustomCalendarDay;
     @BindView(R.id.tv_custom_month)
     TextView mFirstCustomCalendarMonth;
+
+    @BindView(R.id.tv_custom_year)
+    TextView mFirstCustomCalendarYear;
     @BindView(R.id.tv_second_day)
     TextView mSecondCalendarDay;
     @BindView(R.id.tv_second_month)
     TextView mSecondCalendarMonth;
-    @BindView(R.id.tv_third_day)
-    TextView mThirdCalendarDay;
-    @BindView(R.id.tv_third_month)
-    TextView mThirdCalendarMonth;
+    @BindView(R.id.tv_second_year)
+    TextView mSecondCalendarYear;
+
+//    @BindView(R.id.tv_third_day)
+//    TextView mThirdCalendarDay;
+//    @BindView(R.id.tv_third_month)
+//    TextView mThirdCalendarMonth;
     @BindView(R.id.text_location_address)
     TextView mAddress;
     //endregion
@@ -201,34 +211,68 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         datePickerDialog.show();
     }
 
+//    @Override
+//    public void showFirstCalendarDate(String date, String month, boolean isLastLocation) {
+//        if (isLastLocation) {
+//            mFirstCalendarDay.setText(date);
+//            mFirstCalendarMonth.setText(month);
+//        } else {
+//            mFirstCustomCalendarDay.setText(date);
+//            mFirstCustomCalendarMonth.setText(month);
+//        }
+//    }
+
     @Override
-    public void showFirstCalendarDate(String date, String month, boolean isLastLocation) {
+    public void showFirstCalendarDate(String date, String month, String year, boolean isLastLocation) {
         if (isLastLocation) {
             mFirstCalendarDay.setText(date);
             mFirstCalendarMonth.setText(month);
+            mFirstCalendarYear.setText(year);
         } else {
             mFirstCustomCalendarDay.setText(date);
             mFirstCustomCalendarMonth.setText(month);
+            mFirstCustomCalendarYear.setText(year);
         }
     }
 
+//    @Override
+//    public void showSecondCalendarDate(String date, String month) {
+//        mSecondCalendarDay.setText(date);
+//        mSecondCalendarMonth.setText(month);
+//    }
+
     @Override
-    public void showSecondCalendarDate(String date, String month) {
+    public void showSecondCalendarDate(String date, String month, String year) {
         mSecondCalendarDay.setText(date);
         mSecondCalendarMonth.setText(month);
+        mSecondCalendarYear.setText(year);
     }
 
     @Override
-    public void showThirdCalendarDate(String date, String month) {
-        mThirdCalendarDay.setText(date);
-        mThirdCalendarMonth.setText(month);
+    public void showCustomCalendarDate(String date, String month, String year) {
+        mFirstCustomCalendarDay.setText(date);
+        mFirstCustomCalendarMonth.setText(month);
+        mFirstCustomCalendarYear.setText(year);
     }
+
+//    @Override
+//    public void showThirdCalendarDate(String date, String month) {
+//        mThirdCalendarDay.setText(date);
+//        mThirdCalendarMonth.setText(month);
+//    }
 
     @OnClick(R.id.btn_home)
     void onHomeClick() {
         MainActivity.start(this);
         finish();
     }
+
+//    @OnClick(R.id.btn_home)
+//    void onHomeClick() {
+//        Intent intent = new Intent(MapsActivity.this, MainActivity.class);
+//        startActivity(intent);
+//        finish();
+//    }
 
     @OnClick({R.id.btn_back, R.id.btn_back_custom})
     void onBackClick() {
@@ -238,6 +282,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @OnClick(R.id.rl_calendar_parent)
     void onCalendarFirstClick() {
         mPresenter.onCalendarFirstClick();
+    }
+
+    @OnClick(R.id.rl_custom_calendar_parent)
+    void onCalendarCustomClick() {
+        mPresenter.onCalendarCustomClick();
     }
 
     @OnClick(R.id.rl_second_calendar_parent)
@@ -250,8 +299,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mPresenter.onNextClick();
     }
 
-    @OnClick(R.id.btn_arrow_next)
-    void onArrowClick() {
-        mPresenter.onNextArrowClick();
-    }
+//    @OnClick(R.id.btn_arrow_next)
+//    void onArrowClick() {
+//        mPresenter.onNextArrowClick();
+//    }
 }

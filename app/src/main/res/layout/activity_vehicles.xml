@@ -17,7 +17,7 @@
 
         <include layout="@layout/toolbar_units" />
 
-        <include layout="@layout/toolbar_item"    />
+        <include layout="@layout/toolbar_item"  />
 
         <include layout="@layout/item_heading" />
 

@@ -110,8 +110,8 @@ public class UnitAdapter  extends RecyclerView.Adapter<UnitAdapter.ViewHolder> {
     public void onBindViewHolder(UnitAdapter.ViewHolder holder, int position) {
 //        holder.bind(mVehicles.get(position), mOnItemClickListener);
         Vehicle vehicle1 = mVehicles.get(position);
-        holder.mId.setText(vehicle1.getId());
-        holder.mNumber.setText(vehicle1.getNm());
+        holder.mNumber.setText(vehicle1.getId());
+        holder.mId.setText(vehicle1.getNm());
     }
 
 

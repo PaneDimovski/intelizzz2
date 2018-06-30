@@ -66,7 +66,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     //region VI
     @BindView(R.id.rvVehicles)
     RecyclerView mRvVehicles;
-    @Nullable
+//    @Nullable
 //    @BindView(R.id.delete_units)
 //    RecyclerView mRVunits;
     @BindView(R.id.rvGroups)

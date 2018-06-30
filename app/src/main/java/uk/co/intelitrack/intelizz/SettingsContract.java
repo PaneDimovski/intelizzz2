@@ -1,4 +1,4 @@
-package uk.co.intelitrack.intelizzz.components.preview;
+package uk.co.intelitrack.intelizz;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ import uk.co.intelitrack.intelizzz.common.data.remote.ParentVehicle;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 
 
-public interface PreviewContract {
+public interface SettingsContract {
 
-    interface View extends BaseView<PreviewContract.Presenter> {
+    interface View extends BaseView<SettingsContract.Presenter> {
 
         void setVehicles(List<Vehicle> vehicles);
 

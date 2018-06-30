@@ -119,6 +119,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
 
 
         ButterKnife.bind(this);
+        
         if (getIntent().getExtras() != null)
             mIsGroup = getIntent().getExtras().getBoolean(Constants.IS_GROUP);
         mPresenter.subscribe(getIntent());

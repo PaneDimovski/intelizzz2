@@ -24,15 +24,13 @@
             android:textColor="@color/text_white" />
 
         <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false"
-
+            android:id="@+id/checkMark"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_gravity="center"
-            android:gravity="center"
-            android:background="@color/white"
-
-            />
+            android:background="@drawable/groups_custom_check"
+            android:button="@null"
+            android:gravity="center" />
 
 
         <TextView

@@ -34,11 +34,17 @@ public interface MapsContract {
 
         void showDatePicker(Calendar calendar, DatePickerDialog.OnDateSetListener onDateSetListener);
 
-        void showFirstCalendarDate(String date, String month, boolean isLastLocation);
+        //void showFirstCalendarDate(String date, String month, boolean isLastLocation);
 
-        void showSecondCalendarDate(String date, String month);
+        void showFirstCalendarDate(String date, String month, String year, boolean isLastLocation);
 
-        void showThirdCalendarDate(String date, String month);
+        //void showSecondCalendarDate(String date, String month);
+
+        void showSecondCalendarDate(String date, String month, String year);
+
+        //void showThirdCalendarDate(String date, String month);
+
+        void showCustomCalendarDate(String date, String month, String year);
     }
 
     interface Presenter extends BasePresenter {
@@ -47,8 +53,10 @@ public interface MapsContract {
 
         void onCalendarSecondClick();
 
+        void onCalendarCustomClick();
+
         void onNextClick();
 
-        void onNextArrowClick();
+//        void onNextArrowClick();
     }
 }

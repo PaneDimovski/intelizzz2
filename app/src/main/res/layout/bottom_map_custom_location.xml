@@ -25,7 +25,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/light_gray"
+            android:background="@color/black"
             android:orientation="vertical"
             android:paddingBottom="5dp"
             android:paddingLeft="10dp"
@@ -36,7 +36,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/label_previous_locations"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                />
 
             <TextView
                 android:id="@+id/text_location_address"
@@ -48,30 +50,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/gray"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="@string/label_last_known_location" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/gray"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="@string/label_custom_location" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
             android:layout_height="@dimen/logo_height"
-            android:background="@color/transparent_gray"
+            android:background="@drawable/background"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:padding="5dp">
@@ -83,66 +63,96 @@
                 android:layout_weight="1.1"
                 android:src="@drawable/ic_action_back" />
 
-            <RelativeLayout
-                android:id="@+id/rl_calendar_parent"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/unit_back_icon_size"
-                android:layout_weight="1.1">
-                <ImageView
-                    android:layout_width="@dimen/unit_back_icon_size"
-                    android:layout_height="@dimen/unit_back_icon_size"
-                    android:src="@drawable/ic_calender_empty"
-                    android:layout_centerInParent="true"
-                    android:scaleType="fitXY"/>
-                <TextView
-                    android:id="@+id/tv_custom_day"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:paddingBottom="5dp"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/font_largest" />
 
-                <TextView
-                    android:id="@+id/tv_custom_month"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp" />
-
-            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/rl_second_calendar_parent"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/unit_back_icon_size"
-                android:layout_marginStart="@dimen/spacing_normal"
-                android:layout_weight="1.1">
-                <ImageView
-                    android:layout_width="@dimen/unit_back_icon_size"
-                    android:layout_height="@dimen/unit_back_icon_size"
-                    android:src="@drawable/ic_calender_empty"
-                    android:layout_centerInParent="true"
-                    android:scaleType="fitXY"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_lightblue_background">
+                <!--<ImageView-->
+                    <!--android:layout_width="@dimen/unit_back_icon_size"-->
+                    <!--android:layout_height="@dimen/unit_back_icon_size"-->
+                    <!--android:src="@drawable/ic_calender_empty"-->
+                    <!--android:layout_centerInParent="true"-->
+                    <!--android:scaleType="fitXY"/>-->
                 <TextView
                     android:id="@+id/tv_second_day"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
                     android:paddingBottom="5dp"
+                    android:layout_marginLeft="5dp"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font_largest" />
+                    android:textSize="@dimen/font_larger" />
 
                 <TextView
                     android:id="@+id/tv_second_month"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/tv_second_day"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/font_larger" />
+
+                <TextView
+                    android:id="@+id/tv_second_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_toRightOf="@id/tv_second_month"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/font_larger" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="to"
+                android:textColor="@color/white"/>
+
+            <RelativeLayout
+                android:id="@+id/rl_custom_calendar_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/round_lightblue_background">
+
+                <!--<ImageView-->
+                    <!--android:layout_width="@dimen/unit_back_icon_size"-->
+                    <!--android:layout_height="@dimen/unit_back_icon_size"-->
+                    <!--android:src="@drawable/ic_calender_empty"-->
+                    <!--android:layout_centerInParent="true"-->
+                    <!--android:scaleType="fitXY"/>-->
+                <TextView
+                    android:id="@+id/tv_custom_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_larger" />
+
+                <TextView
+                    android:id="@+id/tv_custom_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/tv_custom_day"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/font_larger" />
+
+                <TextView
+                    android:id="@+id/tv_custom_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_toRightOf="@id/tv_custom_month"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/font_larger" />
 
             </RelativeLayout>
 
@@ -153,46 +163,46 @@
                 android:layout_weight="0.6"
                 android:src="@drawable/ic_action_next" />
 
-            <RelativeLayout
-                android:id="@+id/rl_third_calendar_parent"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/unit_back_icon_size"
-                android:layout_weight="1.1">
+            <!--<RelativeLayout-->
+                <!--android:id="@+id/rl_third_calendar_parent"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="@dimen/unit_back_icon_size"-->
+                <!--android:layout_weight="1.1">-->
 
-                <ImageView
-                    android:layout_width="@dimen/unit_back_icon_size"
-                    android:layout_height="@dimen/unit_back_icon_size"
-                    android:src="@drawable/ic_calender_empty"
-                    android:layout_centerInParent="true"
-                    android:scaleType="fitXY"/>
+                <!--<ImageView-->
+                    <!--android:layout_width="@dimen/unit_back_icon_size"-->
+                    <!--android:layout_height="@dimen/unit_back_icon_size"-->
+                    <!--android:src="@drawable/ic_calender_empty"-->
+                    <!--android:layout_centerInParent="true"-->
+                    <!--android:scaleType="fitXY"/>-->
 
-                <TextView
-                    android:id="@+id/tv_third_day"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:paddingBottom="5dp"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/font_largest" />
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_third_day"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_centerInParent="true"-->
+                    <!--android:paddingBottom="5dp"-->
+                    <!--android:textColor="@color/black"-->
+                    <!--android:textSize="@dimen/font_largest" />-->
 
-                <TextView
-                    android:id="@+id/tv_third_month"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp" />
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_third_month"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentBottom="true"-->
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:textColor="@android:color/black"-->
+                    <!--android:textSize="14sp" />-->
 
-            </RelativeLayout>
+            <!--</RelativeLayout>-->
 
-            <ImageView
-                android:id="@+id/btn_arrow_next"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/unit_next_icon_size"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:src="@drawable/ic_action_right_black" />
+            <!--<ImageView-->
+                <!--android:id="@+id/btn_arrow_next"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="@dimen/unit_next_icon_size"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_weight="1"-->
+                <!--android:src="@drawable/ic_action_right_black" />-->
         </LinearLayout>
 
     </LinearLayout>

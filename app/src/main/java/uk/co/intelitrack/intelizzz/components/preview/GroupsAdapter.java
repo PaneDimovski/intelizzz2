@@ -214,7 +214,7 @@ public class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.P
             temp = getAllGroups();
         }
         //update recyclerview
-//        setData(temp);
+        //setData(temp);
     }
 
     private List<Group> getAllGroups() {

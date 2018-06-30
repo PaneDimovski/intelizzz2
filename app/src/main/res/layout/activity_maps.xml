@@ -8,6 +8,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+        <!--<include-->
+            <!--layout="@layout/toolbar_top_first"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="25dp"-->
+            <!--/>-->
+
+
+        <!--<include layout="@layout/toolbar_item"/>-->
 
         <ImageView
             android:id="@+id/btn_home"

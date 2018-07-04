@@ -36,9 +36,13 @@ public class MapsPresenter implements MapsContract.Presenter, DatePickerDialog.O
 
     private final static int FIRST_CALENDAR = 1;
     private final static int SECOND_CALENDAR = 2;
+    private final static int CUSTOM_CALENDAR = 3;
     private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//    private final SimpleDateFormat sdf_days = new SimpleDateFormat("dd MM YY");
+//    private final SimpleDateFormat sdf_month = new SimpleDateFormat("");
     private final SimpleDateFormat sdf_days = new SimpleDateFormat("dd");
     private final SimpleDateFormat sdf_month = new SimpleDateFormat("MMM");
+    private final SimpleDateFormat sdf_year = new SimpleDateFormat("yyyy");
 
     //region Fields
     private CompositeDisposable mSubscriptions = new CompositeDisposable();
@@ -48,6 +52,7 @@ public class MapsPresenter implements MapsContract.Presenter, DatePickerDialog.O
     private boolean mIsLastKnownLocation;
     private Calendar firstCalendar;
     private Calendar secondCalendar;
+    private Calendar customCalendar;
     private int mDialog;
     //endregion
 
@@ -66,17 +71,21 @@ public class MapsPresenter implements MapsContract.Presenter, DatePickerDialog.O
         mIsLastKnownLocation = intent.getBooleanExtra(Constants.IS_LAST_KNOWN_LOCATION, false);
 
         firstCalendar = Calendar.getInstance();
-        mView.showFirstCalendarDate(sdf_days.format(firstCalendar.getTime()), sdf_month.format(firstCalendar.getTime()), mIsLastKnownLocation);
-        mView.showThirdCalendarDate(sdf_days.format(firstCalendar.getTime()), sdf_month.format(firstCalendar.getTime()));
+//        mView.showFirstCalendarDate(sdf_days.format(firstCalendar.getTime()), sdf_month.format(firstCalendar.getTime()), mIsLastKnownLocation);
+        mView.showFirstCalendarDate(sdf_days.format(firstCalendar.getTime()), sdf_month.format(firstCalendar.getTime()), sdf_year.format(firstCalendar.getTime()), mIsLastKnownLocation);
+        //mView.showThirdCalendarDate(sdf_days.format(firstCalendar.getTime()), sdf_month.format(firstCalendar.getTime()));
         fetchLastKnownLocation();
         if (mIsLastKnownLocation) {
             mView.showLastKnownLocationComponents();
         } else {
             secondCalendar = Calendar.getInstance();
             secondCalendar.add(Calendar.DATE, -7);
-            mView.showSecondCalendarDate(sdf_days.format(secondCalendar.getTime()), sdf_month.format(secondCalendar.getTime()));
+//            mView.showSecondCalendarDate(sdf_days.format(secondCalendar.getTime()), sdf_month.format(secondCalendar.getTime()));
+              mView.showSecondCalendarDate(sdf_days.format(secondCalendar.getTime()), sdf_month.format(secondCalendar.getTime()), sdf_year.format(secondCalendar.getTime()));
             mView.showLocationsComponents();
+            customCalendar = Calendar.getInstance();
             fetchLocations();
+
         }
     }
 
@@ -100,14 +109,20 @@ public class MapsPresenter implements MapsContract.Presenter, DatePickerDialog.O
     }
 
     @Override
+    public void onCalendarCustomClick() {
+        mDialog = CUSTOM_CALENDAR;
+        mView.showDatePicker(firstCalendar, this);
+    }
+
+    @Override
     public void onNextClick() {
         fetchLocations();
     }
 
-    @Override
-    public void onNextArrowClick() {
-
-    }
+//    @Override
+//    public void onNextArrowClick() {
+//
+//    }
     //endregion
 
     //region interface OnDateSetListener
@@ -115,11 +130,15 @@ public class MapsPresenter implements MapsContract.Presenter, DatePickerDialog.O
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         if (mDialog == FIRST_CALENDAR) {
             firstCalendar.set(year, month, dayOfMonth);
-            mView.showFirstCalendarDate(sdf_days.format(firstCalendar.getTime()), sdf_month.format(firstCalendar.getTime()), mIsLastKnownLocation);
-
-        } else {
+//            mView.showFirstCalendarDate(sdf_days.format(firstCalendar.getTime()), sdf_month.format(firstCalendar.getTime()), mIsLastKnownLocation);
+            mView.showFirstCalendarDate(sdf_days.format(firstCalendar.getTime()), sdf_month.format(firstCalendar.getTime()), sdf_year.format(firstCalendar.getTime()), mIsLastKnownLocation);
+        } else if (mDialog == SECOND_CALENDAR) {
             secondCalendar.set(year, month, dayOfMonth);
-            mView.showSecondCalendarDate(sdf_days.format(secondCalendar.getTime()), sdf_month.format(secondCalendar.getTime()));
+//            mView.showSecondCalendarDate(sdf_days.format(secondCalendar.getTime()), sdf_month.format(secondCalendar.getTime()));
+            mView.showSecondCalendarDate(sdf_days.format(secondCalendar.getTime()), sdf_month.format(secondCalendar.getTime()), sdf_year.format(secondCalendar.getTime()));
+        } else {
+            customCalendar.set(year, month, dayOfMonth);
+            mView.showCustomCalendarDate(sdf_days.format(customCalendar.getTime()), sdf_month.format(customCalendar.getTime()), sdf_year.format(customCalendar.getTime()));
         }
     }
     //endregion
@@ -150,7 +169,8 @@ public class MapsPresenter implements MapsContract.Presenter, DatePickerDialog.O
                                                     try {
                                                         startDate = sdf.parse(x.getStatuses()[0].getDate());
                                                         String days = sdf_days.format(startDate);
-                                                        mView.showFirstCalendarDate(days, sdf_month.format(startDate), mIsLastKnownLocation);
+//                                                        mView.showFirstCalendarDate(days, sdf_month.format(startDate), mIsLastKnownLocation);
+                                                        mView.showFirstCalendarDate(days, sdf_month.format(startDate), sdf_year.format(startDate), mIsLastKnownLocation);
                                                     } catch (NullPointerException | ParseException e) {
                                                         e.printStackTrace();
                                                     }
@@ -174,7 +194,7 @@ public class MapsPresenter implements MapsContract.Presenter, DatePickerDialog.O
         if (mVehicle.getDl() != null && !TextUtils.isEmpty(mVehicle.getDevice().getId())) {
             mSubscriptions.add(
                     mRepository.getVehicleTravelPaths(mVehicle.getDevice().getId(), sdf.format(secondCalendar.getTime()),
-                            sdf.format(firstCalendar.getTime()), "200")
+                            sdf.format(customCalendar.getTime()), "200")
                             .subscribeOn(Schedulers.newThread())
                             .subscribe(x -> {
                                         if (x.getResult().equals("0")) {

@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -28,7 +28,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.annotations.Nullable;
 import uk.co.intelitrack.Proba.ListViewItemCheckboxBaseAdapter;
 import uk.co.intelitrack.Proba.ListViewItemDTO;
 import uk.co.intelitrack.intelizz.SettingsActivity;
@@ -36,6 +35,8 @@ import uk.co.intelitrack.intelizzz.IntelizzzApplication;
 import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
+import uk.co.intelitrack.intelizzz.common.data.remote.Company;
+import uk.co.intelitrack.intelizzz.common.data.remote.Group;
 import uk.co.intelitrack.intelizzz.common.data.remote.ParentVehicle;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 import uk.co.intelitrack.intelizzz.common.utils.DialogUtils;
@@ -58,8 +59,8 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     PreviewPresenter mPresenter;
     @Inject
     VehiclesAdapter mVehiclesAdapter;
-    @Inject
-    UnitAdapter unitsAdapter;
+//    @Inject
+//    UnitAdapter unitsAdapter;
 
     @Inject
     GroupsAdapter mGroupsAdapter;
@@ -70,7 +71,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     //region VI
     @BindView(R.id.rvVehicles)
     RecyclerView mRvVehicles;
-    @Nullable
+//    @Nullable
 //    @BindView(R.id.delete_units)
 //    RecyclerView mRVunits;
     @BindView(R.id.rvGroups)
@@ -87,10 +88,10 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     ImageView add_unit;
     @BindView(R.id.btn_delete)
     ImageView mBtnDelete;
-    @BindView(R.id.delete)
-    ImageView delete;
-    @BindView(R.id.delete2)
-    ImageView delete2;
+    @BindView(R.id.unit_delete)
+    ImageView unit_delete;
+    @BindView(R.id.group_delete)
+    ImageView group_delete;
     @BindView(R.id.picSettings)
     ImageView setings;
     @BindView(R.id.toolbar_type_btn)
@@ -107,7 +108,11 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     private boolean mIsGroup;
     //endregion
     // private ArrayAdapter<Vehicle> arrayAdapter;
-    String text;
+    String text="";
+    private List<Company> mCompanies = new ArrayList<>();
+
+
+
 
     public static void start(Activity activity, boolean isGroup) {
         Intent intent = new Intent(activity, PreviewActivity.class);
@@ -185,7 +190,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
         }
         bottomBarTypeNumber.setText(String.valueOf(vehicles.size()));
         mBtnMove.setVisibility(View.GONE);
-        delete2.setVisibility(View.GONE);
+        group_delete.setVisibility(View.GONE);
     }
 
     @Override
@@ -197,8 +202,8 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
         }
         bottomBarTypeNumber.setText(String.valueOf(number));
         mBtnMove.setVisibility(View.VISIBLE);
-        delete2.setVisibility(View.VISIBLE);
-        delete.setVisibility(View.GONE);
+        group_delete.setVisibility(View.VISIBLE);
+        unit_delete.setVisibility(View.GONE);
         mBtnDelete.setVisibility(View.GONE);
         add_unit.setVisibility(View.GONE);
     }
@@ -343,7 +348,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     //    public List<Vehicle> getVehicles() {
 //        return mVehicles;
 //    }
-    @OnClick(R.id.delete)
+    @OnClick(R.id.unit_delete)
     void deleteUint() {
 
         AlertDialog.Builder dialog3 = new AlertDialog.Builder(PreviewActivity.this);
@@ -393,7 +398,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
          });
 
         // Click this button to select all listview items with checkbox checked.
-        Button selectAllButton = (Button) convertView.findViewById(R.id.list_select_all);
+        ImageView selectAllButton = (ImageView) convertView.findViewById(R.id.del_unit);
         selectAllButton.setOnClickListener(view -> {
             int size = initItemList.size();
             for (int i = 0; i < size; i++) {
@@ -420,19 +425,19 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
 
     private List<ListViewItemDTO> getInitViewItemDtoList() {
 
-        ArrayList<String> vehicles1 = new ArrayList<String>();
+        ArrayList<String> vehicles = new ArrayList<String>();
 
         for (Vehicle vehicle1 : mRepository.getVehicles()) {
 
-            vehicles1.add(vehicle1.getNm());
+            vehicles.add(vehicle1.getNm());
         }
 
         List<ListViewItemDTO> ret = new ArrayList<ListViewItemDTO>();
 
-        int length = vehicles1.size();
+        int length = vehicles.size();
 
         for (int i = 0; i < length; i++) {
-            String itemText = vehicles1.get(i);
+            String itemText = vehicles.get(i);
 
             ListViewItemDTO dto = new ListViewItemDTO();
             dto.setChecked(false);
@@ -445,10 +450,120 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     }
 
 
-    @OnClick(R.id.delete2)
+    @OnClick(R.id.group_delete)
     void deleteGroup() {
 
+        AlertDialog.Builder dialog4 = new AlertDialog.Builder(PreviewActivity.this);
 
+
+        LayoutInflater inflater2 = getLayoutInflater();
+
+        View convertView2 = (View) inflater2.inflate(R.layout.alert_dialog_delete_group, null);
+
+        dialog4.setView(convertView2);
+
+        ListView listView2 = (ListView)  convertView2.findViewById(R.id.listViewGroup);
+
+        // Initiate listview data.
+        final List<ListViewItemDTO> groupList = this.getGroup();
+
+        // Create a custom list view adapter with checkbox control.
+        ListViewItemCheckboxBaseAdapter listAdapter2 = new ListViewItemCheckboxBaseAdapter (getBaseContext() , groupList);
+
+       // listAdapter2.notifyDataSetChanged();
+
+       // convertView2.setTag(dialog4);
+        listView2.setAdapter(listAdapter2);
+
+
+        listView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View convertView2, int itemIndex, long l) {
+                // Get user selected item.
+                Object itemObject = adapterView.getAdapter().getItem(itemIndex);
+
+                // Translate the selected item to DTO object.
+                ListViewItemDTO itemDto = (ListViewItemDTO)itemObject;
+
+                // Get the checkbox.
+                CheckBox itemCheckbox = (CheckBox) convertView2.findViewById(R.id.checkMark1);
+
+                // Reverse the checkbox and clicked item check state.
+                if(itemDto.isChecked())
+                {
+                    itemCheckbox.setChecked(false);
+                    itemDto.setChecked(false);
+                }else
+                {
+                    itemCheckbox.setChecked(true);
+                    itemDto.setChecked(true);
+                }
+
+                //Toast.makeText(getApplicationContext(), "select item text : " + itemDto.getItemText(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+
+
+
+        // Click this button to select all listview items with checkbox checked.
+//        ImageView selectAllButton = (ImageView) convertView2.findViewById(R.id.del_group);
+//        selectAllButton.setOnClickListener(view -> {
+//            int size = groupList.size();
+//            for (int i = 0; i < size; i++) {
+//                ListViewItemDTO dto = groupList.get(i);
+//                dto.setChecked(true);
+//            }
+//
+//            listAdapter2.notifyDataSetChanged();
+//        });
+
+
+
+
+//       listView2.setTag(dialog4);
+
+        AlertDialog alert4 = dialog4.create();
+
+        alert4.show();
+
+        alert4.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 100, 100, 100)));
+    }
+
+    public List<Company> getCompanies() {
+        return mCompanies;
+    }
+
+    private List<ListViewItemDTO> getGroup() {
+
+
+
+        ArrayList<String> groups = new ArrayList<String>();
+        for (Group group1 : mRepository.getCompanies().get(0).getGroups()) {
+
+            groups.add(group1.getName());
+        }
+
+
+// vrakja NULL na itemText lista null vrednost
+
+        List<ListViewItemDTO> ret = new ArrayList<ListViewItemDTO>();
+
+        int length = groups.size();
+
+        for (int i = 0; i < length; i++) {
+            String itemText2 = groups.get(i);
+
+            ListViewItemDTO dto = new ListViewItemDTO();
+            dto.setChecked(false);
+            dto.setItemText(itemText2);
+
+            ret.add(dto);
+        }
+
+        return ret;
 
     }
 

@@ -25,6 +25,7 @@ import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
 import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzFloatingSearchView;
 import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzProgressDialog;
 import uk.co.intelitrack.intelizzz.components.login.LoginActivity;
+import uk.co.intelitrack.intelizzz.components.mojaProba.PaginationActivity;
 import uk.co.intelitrack.intelizzz.components.preview.PreviewActivity;
 import uk.co.intelitrack.intelizzz.components.unit.UnitActivity;
 
@@ -194,8 +195,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @OnClick (R.id.picSettings1)
     void setings1Click() {
 
-        Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-        startActivity(intent);
+
+            SettingsActivity.start(this, true);
+
 
     }
     //endregion

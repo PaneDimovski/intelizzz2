@@ -82,7 +82,11 @@
             android:name=".components.timer.TimerActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".userdetails.UserDetailsActivity" />
-        <activity android:name="uk.co.intelitrack.intelizz.SettingsActivity"></activity>
+
+        <activity android:name="uk.co.intelitrack.intelizz.SettingsActivity" />
+        <activity
+            android:name=".components.mojaProba.PaginationActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

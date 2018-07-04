@@ -31,7 +31,7 @@ import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
  * Created by Filip Stojanovski (filip100janovski@gmail.com).
  */
 
-class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.ParentVehicleViewHolder, GroupsAdapter.ChildItemViewHolder> {
+public class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.ParentVehicleViewHolder, GroupsAdapter.ChildItemViewHolder> {
 
     //region final Fields
     private final GroupsClickListener mOnItemClickListener;

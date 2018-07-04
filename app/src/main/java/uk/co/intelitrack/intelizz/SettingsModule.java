@@ -1,4 +1,4 @@
-package uk.co.intelitrack.intelizzz.components.preview;
+package uk.co.intelitrack.intelizz;
 
 import android.content.Context;
 
@@ -8,44 +8,54 @@ import java.util.List;
 
 import dagger.Module;
 import dagger.Provides;
-import uk.co.intelitrack.intelizz.SettingsActivity;
 import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
+import uk.co.intelitrack.intelizzz.common.data.Constants;
 import uk.co.intelitrack.intelizzz.common.data.remote.Company;
 import uk.co.intelitrack.intelizzz.common.data.remote.Group;
 import uk.co.intelitrack.intelizzz.common.data.remote.ParentVehicle;
+import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
+import uk.co.intelitrack.intelizzz.components.preview.GroupsAdapter;
+import uk.co.intelitrack.intelizzz.components.preview.PreviewActivity;
+import uk.co.intelitrack.intelizzz.components.preview.PreviewPresenter;
+import uk.co.intelitrack.intelizzz.components.preview.UnitAdapter;
+import uk.co.intelitrack.intelizzz.components.preview.VehiclesAdapter;
 
-/**
- * Created by Filip Stojanovski (filip100janovski@gmail.com).
- */
 
 @Module
-public class PreviewModule {
-    private final PreviewActivity mActivity;
+public class SettingsModule {
+    private final SettingsActivity mActivity;
 
     private Context mContext;
+    private List<Vehicle>vehicle;
+    private boolean isCompany;
 
-    public PreviewModule(PreviewActivity activity) {
+    public SettingsModule(SettingsActivity activity) {
         this.mActivity = activity;
 
     }
 
     @Provides
-    PreviewPresenter provideVehiclesPresenter(IntelizzzRepository repository) {
-        return new PreviewPresenter(repository, mActivity);
+    SettingsPresenter provideVehiclesPresenter(IntelizzzRepository repository) {
+        return new SettingsPresenter(repository, mActivity);
     }
 
     @Provides
     VehiclesAdapter provideVehiclesAdapter(IntelizzzRepository repository) {
         return new VehiclesAdapter(mActivity, repository, mContext);
     }
-
     @Provides
-    UnitAdapter provideUnitAdapter(IntelizzzRepository repository) {
-        return new UnitAdapter(mActivity,repository, mContext);
+    ParentVehicle provideParentVehicle(IntelizzzRepository repository){
+        return new ParentVehicle("",vehicle,"", isCompany);
     }
 
+
+//    @Provides
+//    UnitAdapter provideUnitAdapter(IntelizzzRepository repository) {
+//        return new UnitAdapter(mActivity,repository, mContext);
+//    }
+
     @Provides
-    GroupsAdapter provideGroupsAdapter(PreviewPresenter listener, IntelizzzRepository repository) {
+    GroupsAdapter provideGroupsAdapter(SettingsPresenter listener, IntelizzzRepository repository) {
         List<ParentVehicle> groups = new ArrayList<>();
         if (!repository.getCompanies().isEmpty()) {
             for (Company company : repository.getCompanies()) {

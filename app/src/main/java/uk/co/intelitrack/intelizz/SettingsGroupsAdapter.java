@@ -231,13 +231,13 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
     @Override
     public ParentVehicleViewHolder onCreateGroupViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.customtwo, parent, false);
         return new ParentVehicleViewHolder(view);
     }
 
     @Override
     public ChildItemViewHolder onCreateChildViewHolder(ViewGroup child, int viewType) {
-        View view = LayoutInflater.from(child.getContext()).inflate(R.layout.custom, child, false);
+        View view = LayoutInflater.from(child.getContext()).inflate(R.layout.customtwo, child, false);
         return new ChildItemViewHolder(view);
     }
 

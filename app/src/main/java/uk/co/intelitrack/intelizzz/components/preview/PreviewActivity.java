@@ -365,7 +365,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
         // Initiate listview data.
         final List<ListViewItemDTO> initItemList = this.getInitViewItemDtoList();
 
-        // Create a custom list view adapter with checkbox control.
+        // Create a customtwo list view adapter with checkbox control.
         ListViewItemCheckboxBaseAdapter listAdapter = new ListViewItemCheckboxBaseAdapter (getBaseContext() , initItemList);
 
         listAdapter.notifyDataSetChanged();
@@ -467,7 +467,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
         // Initiate listview data.
         final List<ListViewItemDTO> groupList = this.getGroup();
 
-        // Create a custom list view adapter with checkbox control.
+        // Create a customtwo list view adapter with checkbox control.
         ListViewItemCheckboxBaseAdapter listAdapter2 = new ListViewItemCheckboxBaseAdapter (getBaseContext() , groupList);
 
        // listAdapter2.notifyDataSetChanged();

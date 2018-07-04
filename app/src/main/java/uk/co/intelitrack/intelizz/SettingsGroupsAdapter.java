@@ -231,13 +231,13 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
     @Override
     public ParentVehicleViewHolder onCreateGroupViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.delete_row, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom, parent, false);
         return new ParentVehicleViewHolder(view);
     }
 
     @Override
     public ChildItemViewHolder onCreateChildViewHolder(ViewGroup child, int viewType) {
-        View view = LayoutInflater.from(child.getContext()).inflate(R.layout.delete_row, child, false);
+        View view = LayoutInflater.from(child.getContext()).inflate(R.layout.custom, child, false);
         return new ChildItemViewHolder(view);
     }
 
@@ -255,11 +255,11 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
     //endregion
 
     static class ParentVehicleViewHolder extends GroupViewHolder {
-        @BindView(R.id.checkMark)
+        @BindView(R.id.checkMark1)
         CheckBox checkBox;
-        @BindView(R.id.item_unit_id)
+        @BindView(R.id.item_unit_id1)
         TextView name;
-        @BindView(R.id.group_arrowEden)
+        @BindView(R.id.group_arrow)
         ImageView mGroupArrow;
         private View mView;
 
@@ -295,9 +295,9 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
 
     static class ChildItemViewHolder extends ChildViewHolder {
 
-        @BindView(R.id.checkMark)
+        @BindView(R.id.checkMark1)
         CheckBox checkBox;
-        @BindView(R.id.item_unit_id)
+        @BindView(R.id.item_unit_id1)
         TextView name;
         private View mView;
 

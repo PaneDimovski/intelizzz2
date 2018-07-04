@@ -42,10 +42,6 @@ import uk.co.intelitrack.intelizzz.components.unit.UnitActivity;
 
 public class SettingsActivity extends AppCompatActivity implements SettingsActivityInterface, SettingsContract.View, VehiclesClickListener {
 
-//    @BindView(R.id.linear1)
-//    Layout linear1;
-
-    //PreviewPresenter mPresenter;
     @Inject
     SettingsPresenter mPresenter;
     @BindView(R.id.btn_ok)
@@ -54,9 +50,6 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
     @BindView(R.id.rvSelect)
     RecyclerView rv;
 
-    //        @Nullable
-//        @BindView(R.id.rvVehicles)
-//        RecyclerView rvVehivles;
     private boolean mIsGroup;
     @Nullable
     @BindView(R.id.bottom_bar_type_name)
@@ -73,23 +66,14 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
     @Nullable
     @BindView(R.id.btn_delete)
     ImageView mBtnDelete;
-    @Nullable
-    @BindView(R.id.delete)
-    ImageView delete;
-    @Nullable
-    @BindView(R.id.delete2)
-    ImageView delete2;
-    @Nullable
-    @BindView(R.id.picSettings)
-    ImageView setings;
+
+
     @Nullable
     @BindView(R.id.toolbar_type_btn)
     ImageView mToolBarType;
     private IntelizzzProgressDialog mProgressDialog;
     @Inject
     SettingsGroupsAdapter mGroupsAdapter;
-//    @Inject
-//    GroupsAdapter mGroupsAdapter;
     List<ParentVehicle> vehicles = new ArrayList<>();
     IntelizzzRepository mRespository;
     @Inject
@@ -104,7 +88,6 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
         activity.startActivity(intent);
     }
 
-    SettingsComponent settingsComponent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

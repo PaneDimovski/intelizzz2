@@ -1,9 +1,10 @@
-package uk.co.intelitrack.intelizzz.components.preview;
+package uk.co.intelitrack.intelizz;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,12 +27,10 @@ import uk.co.intelitrack.intelizzz.common.data.remote.Company;
 import uk.co.intelitrack.intelizzz.common.data.remote.Group;
 import uk.co.intelitrack.intelizzz.common.data.remote.ParentVehicle;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
+import uk.co.intelitrack.intelizzz.components.preview.GroupsClickListener;
 
-/**
- * Created by Filip Stojanovski (filip100janovski@gmail.com).
- */
 
-public class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.ParentVehicleViewHolder, GroupsAdapter.ChildItemViewHolder> {
+public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<SettingsGroupsAdapter.ParentVehicleViewHolder, SettingsGroupsAdapter.ChildItemViewHolder> {
 
     //region final Fields
     private final GroupsClickListener mOnItemClickListener;
@@ -47,8 +46,8 @@ public class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.P
     //endregion
 
     //region Constructors
-    public GroupsAdapter(List<ParentVehicle> groups, IntelizzzRepository intelizzzRepository,
-                         GroupsClickListener listener, boolean isClicked) {
+    public SettingsGroupsAdapter(List<ParentVehicle> groups, IntelizzzRepository intelizzzRepository,
+                                 GroupsClickListener listener, boolean isClicked) {
         super(groups);
         this.mOnItemClickListener = listener;
         this.mRepository = intelizzzRepository;
@@ -57,8 +56,6 @@ public class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.P
 
     }
     //endregion
-
-
     public void setData(List<ParentVehicle> groups, boolean isClicked) {
         mGroups.clear();
         mGroups.addAll(groups);
@@ -233,13 +230,14 @@ public class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.P
     //region expandableAdapterMethods
     @Override
     public ParentVehicleViewHolder onCreateGroupViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_table, parent, false);
+
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.delete_row, parent, false);
         return new ParentVehicleViewHolder(view);
     }
 
     @Override
     public ChildItemViewHolder onCreateChildViewHolder(ViewGroup child, int viewType) {
-        View view = LayoutInflater.from(child.getContext()).inflate(R.layout.item_table, child, false);
+        View view = LayoutInflater.from(child.getContext()).inflate(R.layout.delete_row, child, false);
         return new ChildItemViewHolder(view);
     }
 
@@ -257,32 +255,11 @@ public class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.P
     //endregion
 
     static class ParentVehicleViewHolder extends GroupViewHolder {
-        @BindView(R.id.number_7)
-        TextView day7;
-        @BindView(R.id.number_6)
-        TextView day6;
-        @BindView(R.id.number_5)
-        TextView day5;
-        @BindView(R.id.number_4)
-        TextView day4;
-        @BindView(R.id.number_3)
-        TextView day3;
-        @BindView(R.id.number_2)
-        TextView day2;
-        @BindView(R.id.number_1)
-        TextView day1;
-
+        @BindView(R.id.checkMark)
+        CheckBox checkBox;
         @BindView(R.id.item_unit_id)
-        TextView mId;
-        @BindView(R.id.item_number)
-        TextView mNumber;
-        @BindView(R.id.item_battery)
-        ImageView mBattery;
-        @BindView(R.id.item_gsimbol)
-        ImageView mGsimbol;
-        @BindView(R.id.icon_warning)
-        ImageView mWarning;
-        @BindView(R.id.group_arrow)
+        TextView name;
+        @BindView(R.id.group_arrowEden)
         ImageView mGroupArrow;
         private View mView;
 
@@ -290,12 +267,12 @@ public class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.P
             super(itemView);
             this.mView = itemView;
             ButterKnife.bind(this, itemView);
+
         }
 
         public void bind(ParentVehicle parentVehicle, GroupsClickListener groupsClickListener, boolean showArrow) {
-            mNumber.setText(parentVehicle.getId());
-            mId.setText(parentVehicle.getName());
-            mId.setTextColor(mView.getContext().getResources().getColor(R.color.light_blue));
+            name.setText(parentVehicle.getName());
+            name.setTextColor(mView.getContext().getResources().getColor(R.color.light_blue));
 
             mView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -310,114 +287,30 @@ public class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.P
 
             mGroupArrow.setVisibility(showArrow ? View.VISIBLE : View.GONE);
 
-            if (parentVehicle.getVehicles() != null && !parentVehicle.getVehicles().isEmpty()) {
-                if (isGeo(parentVehicle.getVehicles())) {
-                    mGsimbol.setVisibility(View.INVISIBLE);
-                } else {
-                    mGsimbol.setVisibility(View.VISIBLE);
-                }
-
-                if (isWarning(parentVehicle.getVehicles())) {
-                    mWarning.setVisibility(View.VISIBLE);
-                } else {
-                    mWarning.setVisibility(View.INVISIBLE);
-                }
-            }
-            day1.setBackgroundResource(isActiveDay(parentVehicle.getVehicles(), 0) ? R.drawable.green_rectangle : R.drawable.red_rectangle);
-            day2.setBackgroundResource(isActiveDay(parentVehicle.getVehicles(), 1) ? R.drawable.green_rectangle : R.drawable.red_rectangle);
-            day3.setBackgroundResource(isActiveDay(parentVehicle.getVehicles(), 2) ? R.drawable.green_rectangle : R.drawable.red_rectangle);
-            day4.setBackgroundResource(isActiveDay(parentVehicle.getVehicles(), 3) ? R.drawable.green_rectangle : R.drawable.red_rectangle);
-            day5.setBackgroundResource(isActiveDay(parentVehicle.getVehicles(), 4) ? R.drawable.green_rectangle : R.drawable.red_rectangle);
-            day6.setBackgroundResource(isActiveDay(parentVehicle.getVehicles(), 5) ? R.drawable.green_rectangle : R.drawable.red_rectangle);
-            day7.setBackgroundResource(isActiveDay(parentVehicle.getVehicles(), 6) ? R.drawable.green_rectangle : R.drawable.red_rectangle);
         }
 
-        private boolean isGeo(List<Vehicle> vehicles) {
-            if (vehicles == null || vehicles.isEmpty()) {
-                return true;
-            }
-            for (Vehicle vehicle : vehicles) {
-                if (!vehicle.hasGeofenceAlarm()) {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        private boolean isWarning(List<Vehicle> vehicles) {
-            if (vehicles == null || vehicles.isEmpty()) {
-                return false;
-            }
-            for (Vehicle vehicle : vehicles) {
-                if (vehicle.isWarning()) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private boolean isActiveDay(List<Vehicle> vehicles, int day) {
-            if (vehicles == null || vehicles.isEmpty()) {
-                return true;
-            }
-            for (Vehicle vehicle : vehicles) {
-                if (vehicle.getDays() == null || vehicle.getDays().length == 0 || !vehicle.getDays()[day]) {
-                    return false;
-                }
-            }
-            return true;
-        }
 
     }
 
 
     static class ChildItemViewHolder extends ChildViewHolder {
 
-        @BindView(R.id.number_7)
-        TextView day7;
-        @BindView(R.id.number_6)
-        TextView day6;
-        @BindView(R.id.number_5)
-        TextView day5;
-        @BindView(R.id.number_4)
-        TextView day4;
-        @BindView(R.id.number_3)
-        TextView day3;
-        @BindView(R.id.number_2)
-        TextView day2;
-        @BindView(R.id.number_1)
-        TextView day1;
-
+        @BindView(R.id.checkMark)
+        CheckBox checkBox;
         @BindView(R.id.item_unit_id)
-        TextView mId;
-        @BindView(R.id.item_battery)
-        ImageView mBattery;
-        @BindView(R.id.item_gsimbol)
-        ImageView mGsimbol;
-        @BindView(R.id.icon_warning)
-        ImageView mWarning;
+        TextView name;
         private View mView;
 
         public ChildItemViewHolder(View itemView) {
             super(itemView);
             this.mView = itemView;
             ButterKnife.bind(this, itemView);
+
         }
 
         public void bind(Vehicle vehicle, GroupsClickListener onItemClickListener) {
-            mId.setText(vehicle.getName());
+            name.setText(vehicle.getName());
 
-            if (vehicle.hasGeofenceAlarm()) {
-                mGsimbol.setVisibility(View.INVISIBLE);
-            } else {
-                mGsimbol.setVisibility(View.VISIBLE);
-            }
-
-            if (vehicle.isWarning()) {
-                mWarning.setVisibility(View.VISIBLE);
-            } else {
-                mWarning.setVisibility(View.INVISIBLE);
-            }
 
             mView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -426,14 +319,7 @@ public class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.P
                 }
             });
 
-            day1.setBackgroundResource(vehicle.getDays()[0] ? R.drawable.green_rectangle : R.drawable.red_rectangle);
-            day2.setBackgroundResource(vehicle.getDays()[1] ? R.drawable.green_rectangle : R.drawable.red_rectangle);
-            day3.setBackgroundResource(vehicle.getDays()[2] ? R.drawable.green_rectangle : R.drawable.red_rectangle);
-            day4.setBackgroundResource(vehicle.getDays()[3] ? R.drawable.green_rectangle : R.drawable.red_rectangle);
-            day5.setBackgroundResource(vehicle.getDays()[4] ? R.drawable.green_rectangle : R.drawable.red_rectangle);
-            day6.setBackgroundResource(vehicle.getDays()[5] ? R.drawable.green_rectangle : R.drawable.red_rectangle);
-            day7.setBackgroundResource(vehicle.getDays()[6] ? R.drawable.green_rectangle : R.drawable.red_rectangle);
         }
-    }
 
+    }
 }

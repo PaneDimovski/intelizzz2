@@ -8,6 +8,7 @@ import java.util.List;
 
 import dagger.Module;
 import dagger.Provides;
+import uk.co.intelitrack.intelizz.SettingsActivity;
 import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
 import uk.co.intelitrack.intelizzz.common.data.remote.Company;
 import uk.co.intelitrack.intelizzz.common.data.remote.Group;
@@ -20,10 +21,12 @@ import uk.co.intelitrack.intelizzz.common.data.remote.ParentVehicle;
 @Module
 public class PreviewModule {
     private final PreviewActivity mActivity;
+
     private Context mContext;
 
     public PreviewModule(PreviewActivity activity) {
         this.mActivity = activity;
+
     }
 
     @Provides

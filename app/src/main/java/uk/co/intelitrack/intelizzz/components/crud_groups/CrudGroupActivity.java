@@ -39,9 +39,9 @@ public class CrudGroupActivity extends AppCompatActivity implements CrudGroupCon
     EditText mEtName;
     @BindView(R.id.edit_create_under)
     EditText mEtUnder;
-    @BindView(R.id.delete)
+    @BindView(R.id.unit_delete)
     ImageView delete;
-    @BindView(R.id.delete2)
+    @BindView(R.id.group_delete)
     ImageView delete2;
     @BindView(R.id.add_unit)
     ImageView add_unit;

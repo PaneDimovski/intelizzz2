@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/transparent"
+
     android:orientation="vertical">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -27,6 +28,7 @@
             android:id="@+id/checkMark1"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:layout_marginLeft="30dp"
             android:layout_gravity="center"
             android:background="@drawable/groups_custom_check"
             android:button="@null"
@@ -36,6 +38,7 @@
         <TextView
             android:id="@+id/item_unit_id1"
             android:layout_width="0dp"
+            android:paddingLeft="15dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="1dp"
             android:layout_marginRight="1dp"

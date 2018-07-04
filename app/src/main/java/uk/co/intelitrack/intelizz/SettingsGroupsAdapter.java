@@ -36,6 +36,8 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
     private final GroupsClickListener mOnItemClickListener;
     private final IntelizzzRepository mRepository;
     private boolean mIsClicked;
+    private boolean mCheck;
+    private boolean mTekst;
     private int mFilterField;
     private int mFilterType;
 
@@ -47,19 +49,23 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
 
     //region Constructors
     public SettingsGroupsAdapter(List<ParentVehicle> groups, IntelizzzRepository intelizzzRepository,
-                                 GroupsClickListener listener, boolean isClicked) {
+                                 GroupsClickListener listener, boolean isClicked,boolean isCheck,boolean isTekst) {
         super(groups);
         this.mOnItemClickListener = listener;
         this.mRepository = intelizzzRepository;
         this.mGroups = groups;
         this.mIsClicked = isClicked;
+        this.mCheck = isCheck;
+        this.mTekst = isTekst;
 
     }
     //endregion
-    public void setData(List<ParentVehicle> groups, boolean isClicked) {
+    public void setData(List<ParentVehicle> groups, boolean isClicked,boolean isCheck,boolean isTekst) {
         mGroups.clear();
         mGroups.addAll(groups);
         mIsClicked = isClicked;
+        this.mCheck = isCheck;
+        this.mTekst = isTekst;
         notifyDataSetChanged();
     }
 
@@ -249,7 +255,7 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
 
     @Override
     public void onBindGroupViewHolder(ParentVehicleViewHolder holder, int position, ExpandableGroup group) {
-        holder.bind(((ParentVehicle) group), mOnItemClickListener, mIsClicked);
+        holder.bind(((ParentVehicle) group), mOnItemClickListener, mIsClicked,mCheck,mTekst);
 
     }
     //endregion
@@ -261,6 +267,10 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
         TextView name;
         @BindView(R.id.group_arrow)
         ImageView mGroupArrow;
+        @BindView(R.id.check)
+        CheckBox check;
+        @BindView(R.id.tekstch)
+        TextView teksttch;
         private View mView;
 
         public ParentVehicleViewHolder(View itemView) {
@@ -270,9 +280,9 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
 
         }
 
-        public void bind(ParentVehicle parentVehicle, GroupsClickListener groupsClickListener, boolean showArrow) {
+        public void bind(ParentVehicle parentVehicle, GroupsClickListener groupsClickListener, boolean showArrow,boolean showCheck,boolean chowTekst) {
             name.setText(parentVehicle.getName());
-            name.setTextColor(mView.getContext().getResources().getColor(R.color.light_blue));
+           // name.setTextColor(mView.getContext().getResources().getColor(R.color.light_blue));
 
             mView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -286,7 +296,8 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
             });
 
             mGroupArrow.setVisibility(showArrow ? View.VISIBLE : View.GONE);
-
+            check.setVisibility(showCheck ? View.VISIBLE : View.GONE);
+            teksttch.setVisibility(chowTekst ? View.VISIBLE : View.GONE);
         }
 
 

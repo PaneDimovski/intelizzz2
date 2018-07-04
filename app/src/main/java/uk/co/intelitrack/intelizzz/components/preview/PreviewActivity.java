@@ -383,7 +383,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
              ListViewItemDTO itemDto = (ListViewItemDTO) itemObject;
 
              // Get the checkbox.
-             CheckBox itemCheckbox = (CheckBox) view.findViewById(R.id.checkMark1);
+             CheckBox itemCheckbox = (CheckBox) view.findViewById(R.id.checkMark5);
 
              // Reverse the checkbox and clicked item check state.
              if (itemDto.isChecked()) {
@@ -486,7 +486,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
                 ListViewItemDTO itemDto = (ListViewItemDTO)itemObject;
 
                 // Get the checkbox.
-                CheckBox itemCheckbox = (CheckBox) convertView2.findViewById(R.id.checkMark1);
+                CheckBox itemCheckbox = (CheckBox) convertView2.findViewById(R.id.checkMark5);
 
                 // Reverse the checkbox and clicked item check state.
                 if(itemDto.isChecked())

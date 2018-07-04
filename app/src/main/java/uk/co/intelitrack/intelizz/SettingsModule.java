@@ -9,15 +9,10 @@ import java.util.List;
 import dagger.Module;
 import dagger.Provides;
 import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
-import uk.co.intelitrack.intelizzz.common.data.Constants;
 import uk.co.intelitrack.intelizzz.common.data.remote.Company;
 import uk.co.intelitrack.intelizzz.common.data.remote.Group;
 import uk.co.intelitrack.intelizzz.common.data.remote.ParentVehicle;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
-import uk.co.intelitrack.intelizzz.components.preview.GroupsAdapter;
-import uk.co.intelitrack.intelizzz.components.preview.PreviewActivity;
-import uk.co.intelitrack.intelizzz.components.preview.PreviewPresenter;
-import uk.co.intelitrack.intelizzz.components.preview.UnitAdapter;
 import uk.co.intelitrack.intelizzz.components.preview.VehiclesAdapter;
 
 
@@ -65,6 +60,6 @@ public class SettingsModule {
                 }
             }
         }
-        return new SettingsGroupsAdapter(groups, repository, listener, false);
+        return new SettingsGroupsAdapter(groups, repository, listener, false,false,false);
     }
 }

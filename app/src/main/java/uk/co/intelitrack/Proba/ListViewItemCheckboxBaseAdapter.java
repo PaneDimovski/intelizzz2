@@ -62,11 +62,11 @@ public class ListViewItemCheckboxBaseAdapter extends BaseAdapter {
         }else
         {
 
-            convertView = View.inflate(ctx, R.layout.customtwo, null);
+            convertView = View.inflate(ctx, R.layout.custom, null);
 
-            CheckBox listItemCheckbox = (CheckBox) convertView.findViewById(R.id.checkMark1);
+            CheckBox listItemCheckbox = (CheckBox) convertView.findViewById(R.id.checkMark5);
 
-            TextView listItemText = (TextView) convertView.findViewById(R.id.item_unit_id1);
+            TextView listItemText = (TextView) convertView.findViewById(R.id.item_unit_id5);
 
             viewHolder = new ListViewItemViewHolder(convertView);
 

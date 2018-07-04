@@ -1,16 +1,12 @@
 package uk.co.intelitrack.intelizz;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +17,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Optional;
 import io.reactivex.annotations.Nullable;
 import uk.co.intelitrack.intelizzz.IntelizzzApplication;
 import uk.co.intelitrack.intelizzz.R;
@@ -34,7 +29,6 @@ import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzProgressDialog;
 import uk.co.intelitrack.intelizzz.components.groups.GroupsActivity;
 import uk.co.intelitrack.intelizzz.components.login.LoginActivity;
 import uk.co.intelitrack.intelizzz.components.main.MainActivity;
-import uk.co.intelitrack.intelizzz.components.preview.GroupsAdapter;
 import uk.co.intelitrack.intelizzz.components.preview.PreviewActivity;
 import uk.co.intelitrack.intelizzz.components.preview.VehiclesAdapter;
 import uk.co.intelitrack.intelizzz.components.preview.VehiclesClickListener;
@@ -207,14 +201,14 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
         if (mGroupsAdapter.isGroupExpanded(0)) {
             mGroupsAdapter.toggleGroup(0);
         }
-        mGroupsAdapter.setData(groups, false);
+        mGroupsAdapter.setData(groups, false, false, false);
     }
 
     @Override
     public void setGroup(ParentVehicle group) {
         List<ParentVehicle> groups = new ArrayList<>();
         groups.add(group);
-        mGroupsAdapter.setData(groups, true);
+        mGroupsAdapter.setData(groups, true, true,true);
         mGroupsAdapter.toggleGroup(0);
     }
 

@@ -83,7 +83,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".userdetails.UserDetailsActivity" />
 
-        <activity android:name="uk.co.intelitrack.intelizz.SettingsActivity" />
+        <activity android:name="uk.co.intelitrack.intelizz.SettingsActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".components.mojaProba.PaginationActivity"
             android:screenOrientation="portrait" />

@@ -26,6 +26,9 @@ public class IntelizzzDataSource {
     public Single<Token> login(String username, String password) {
         return apiInterface.login(username, password);
     }
+    public Single<Token> login1(String username, String password) {
+        return apiInterface.login1(username, password);
+    }
 
     public Single<Response> logout(String token) {
         return apiInterface.logout(token);
@@ -61,8 +64,8 @@ public class IntelizzzDataSource {
         return apiInterface.addGroup(token, name, id);
     }
 
-    public Single<String> deleteGroup(String token, String groupId, String company_id) {
-        return apiInterface.deleteGroup(token, groupId, company_id);
+    public Single<String> deleteGroup(String token, String groupId) {
+        return apiInterface.deleteGroup(token, groupId);
     }
 
     public Single<String> updateUnassignedVehicles(String token, String companyId, String vehicleId) {

@@ -115,5 +115,14 @@ public class SharedPreferencesUtils {
         editor.putString(TIME_ALARM_KEY, new Gson().toJson(recordTimeAlarm));
         editor.commit();
     }
+//    public static void addSessionID (String Email, Context c)  {
+//
+//        preferences(c).edit().putString("SessionID", Email).apply();
+//    }
+//
+//    public static  String getSessionID (Context c) {
+//
+//        return getPreferences(c).getString("SessionID", "");
+//    }
 
 }

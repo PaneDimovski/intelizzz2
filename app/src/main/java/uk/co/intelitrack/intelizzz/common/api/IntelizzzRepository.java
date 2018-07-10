@@ -77,6 +77,15 @@ public class IntelizzzRepository {
                     mSharedPreferencesUtils.setSharedPreferencesString(Constants.TOKEN, token.getJsession());
                     mSharedPreferencesUtils.setSharedPreferencesString(Constants.USERNAME, username);
                     mSharedPreferencesUtils.setSharedPreferencesString(Constants.PASSWORD, password);
+//                    login1(mSharedPreferencesUtils.getSharedPreferencesString(Constants.USERNAME),mSharedPreferencesUtils.getSharedPreferencesString(Constants.PASSWORD));
+                    return Single.just(token);
+                });
+    }
+    public Single<Token> login1(String username,String password){
+        return mIntelizzzDataSource.login1(mSharedPreferencesUtils.getSharedPreferencesString(Constants.USERNAME),mSharedPreferencesUtils.getSharedPreferencesString(Constants.PASSWORD))
+                .compose(RxUtils.applySingleSchedulers())
+                .flatMap(token -> {
+                    mSharedPreferencesUtils.setSharedPreferencesString(Constants.JSESSIONID,token.getJSESSIONID());
                     return Single.just(token);
                 });
     }
@@ -200,7 +209,8 @@ public class IntelizzzRepository {
 
     public Single<String> deleteGroup(String groupId) {
         return mIntelizzzDataSource.deleteGroup(
-                mSharedPreferencesUtils.getSharedPreferencesString(Constants.TOKEN), groupId, getCompanies().get(0).getId())
+
+                mSharedPreferencesUtils.getSharedPreferencesString(Constants.JSESSIONID), groupId)
                 .compose(RxUtils.applySingleSchedulers())
                 .flatMap(result -> {
                     return Single.just(result);

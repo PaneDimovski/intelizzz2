@@ -2,6 +2,7 @@ package uk.co.intelitrack.intelizzz.components.preview;
 
 import android.content.Intent;
 import android.text.TextUtils;
+import android.view.View;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -171,6 +172,16 @@ public class PreviewPresenter implements PreviewContract.Presenter, GroupsClickL
     @Override
     public void onGroupChildItemClick(String vehicleId) {
         onUnitClick(vehicleId);
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+
+    }
+
+    @Override
+    public void onDelete(View view, int position) {
+
     }
 
 

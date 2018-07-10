@@ -1,12 +1,16 @@
 package uk.co.intelitrack.intelizz;
 
+import android.content.Context;
 import android.text.TextUtils;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.thoughtbot.expandablerecyclerview.ExpandableRecyclerViewAdapter;
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
@@ -16,7 +20,9 @@ import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,12 +33,15 @@ import uk.co.intelitrack.intelizzz.common.data.remote.Company;
 import uk.co.intelitrack.intelizzz.common.data.remote.Group;
 import uk.co.intelitrack.intelizzz.common.data.remote.ParentVehicle;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
+import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
+import uk.co.intelitrack.intelizzz.common.utils.SharedPreff;
 import uk.co.intelitrack.intelizzz.components.preview.GroupsClickListener;
 
 
 public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<SettingsGroupsAdapter.ParentVehicleViewHolder, SettingsGroupsAdapter.ChildItemViewHolder> {
 
     //region final Fields
+    private Map<String, Boolean> checkBoxStates = new HashMap<>();
     private final GroupsClickListener mOnItemClickListener;
     private final IntelizzzRepository mRepository;
     private boolean mIsClicked;
@@ -40,16 +49,19 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
     private boolean mTekst;
     private int mFilterField;
     private int mFilterType;
+    private Context context;
+    public SharedPreferencesUtils mSharedPreferencesUtils;
 
     //endregion
 
     //region Fields
     private List<ParentVehicle> mGroups = new ArrayList<>();
+    SparseBooleanArray itemStateArray= new SparseBooleanArray();
     //endregion
 
     //region Constructors
     public SettingsGroupsAdapter(List<ParentVehicle> groups, IntelizzzRepository intelizzzRepository,
-                                 GroupsClickListener listener, boolean isClicked,boolean isCheck,boolean isTekst) {
+                                 GroupsClickListener listener, boolean isClicked,boolean isCheck,boolean isTekst,Context context1) {
         super(groups);
         this.mOnItemClickListener = listener;
         this.mRepository = intelizzzRepository;
@@ -57,6 +69,7 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
         this.mIsClicked = isClicked;
         this.mCheck = isCheck;
         this.mTekst = isTekst;
+        this.context=context1;
 
     }
     //endregion
@@ -255,9 +268,63 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
 
     @Override
     public void onBindGroupViewHolder(ParentVehicleViewHolder holder, int position, ExpandableGroup group) {
+        final ParentVehicle parentVehicle = mGroups.get(position);
+//                ((ParentVehicle) group);
         holder.bind(((ParentVehicle) group), mOnItemClickListener, mIsClicked,mCheck,mTekst);
+        Boolean checkedState = checkBoxStates.get(parentVehicle.getId());
+        holder.checkBox.setChecked(checkedState == null ? false : checkedState);
+        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    final ParentVehicle parentVehicle = mGroups.get(position);
+                    if (parentVehicle == null) {
+                        return;
+                    }
+                    checkBoxStates.put(parentVehicle.getId(), isChecked);
+//                    String id =   parentVehicle.getId();
+                        mSharedPreferencesUtils.setSharedPreferencesString(Constants.OLI_ID,parentVehicle.getId());
+                }
+            }
+        });
+    }
+
+    private void onCheckChanged(int position, boolean checked) {
 
     }
+
+//        holder.checkBox.setOnCheckedChangeListener(null);
+//        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked){
+//                    holder.checkBox.setChecked(false);
+//                    if (parentVehicle.getId()== String.valueOf(holder.getAdapterPosition()));{
+//                        String id =   parentVehicle.getId();
+//                        mSharedPreferencesUtils.setSharedPreferencesString(Constants.OLI_ID,id);
+//                    }
+//                }
+//            }
+//        });
+
+//        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                //                        groupsClickListener.onDelete(mView,getAdapterPosition());
+//                if (isChecked==true) {
+//                    if (((ParentVehicle) group).getId()== String.valueOf(holder.checkBox.getId())){
+//                        String id =  String.valueOf(holder.checkBox.getId());
+//                        SharedPreff.addGroupID(id,context);
+////                            mSharedPreferencesUtils.setSharedPreferencesString(Constants.ID,id);
+//                    } else {
+//                        return;
+//                    }
+//
+//                }
+//            }
+//        });
+
+
     //endregion
 
     static class ParentVehicleViewHolder extends GroupViewHolder {
@@ -272,16 +339,35 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
         @BindView(R.id.tekstch)
         TextView teksttch;
         private View mView;
+        SharedPreferencesUtils mSharedPreferencesUtils;
+        SharedPreff preff;
 
         public ParentVehicleViewHolder(View itemView) {
             super(itemView);
             this.mView = itemView;
             ButterKnife.bind(this, itemView);
-
+            itemView.setOnClickListener(this);
         }
 
-        public void bind(ParentVehicle parentVehicle, GroupsClickListener groupsClickListener, boolean showArrow,boolean showCheck,boolean chowTekst) {
+
+        public void bind(ParentVehicle parentVehicle, GroupsClickListener groupsClickListener, boolean showArrow, boolean showCheck, boolean chowTekst) {
             name.setText(parentVehicle.getName());
+
+//            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                @Override
+//                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                    //                        groupsClickListener.onDelete(mView,getAdapterPosition());
+//                    if (isChecked==true) {
+//                        if (parentVehicle.getId()== String.valueOf(checkBox.isChecked())){
+//                            String id =   parentVehicle.getId();
+//                            mSharedPreferencesUtils.setSharedPreferencesString(Constants.OLI_ID,id);
+//                        } else {
+//                            return;
+//                        }
+//
+//                    }
+//                }
+//            });
            // name.setTextColor(mView.getContext().getResources().getColor(R.color.light_blue));
 
             mView.setOnClickListener(new View.OnClickListener() {
@@ -289,11 +375,19 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
                 public void onClick(View v) {
                     if (parentVehicle.isCompany()) {
                         groupsClickListener.onCompanyItemClick(parentVehicle.getId());
-                    } else {
+                    } else if (!parentVehicle.isCompany()){
                         groupsClickListener.onGroupItemClick(parentVehicle.getId());
                     }
+
+//                          else if (v.getId()==mView.getId()){
+//                        groupsClickListener.onDelete(v,getAdapterPosition());
+//                    } else if (groupsClickListener!=null){
+//                        groupsClickListener.onItemClick(v,getAdapterPosition());
+//                    }
                 }
             });
+
+
 
             mGroupArrow.setVisibility(showArrow ? View.VISIBLE : View.GONE);
             check.setVisibility(showCheck ? View.VISIBLE : View.GONE);

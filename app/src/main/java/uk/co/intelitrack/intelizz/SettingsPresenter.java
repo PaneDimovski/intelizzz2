@@ -2,6 +2,7 @@ package uk.co.intelitrack.intelizz;
 
 import android.content.Intent;
 import android.text.TextUtils;
+import android.view.View;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import uk.co.intelitrack.intelizzz.common.data.remote.Group;
 import uk.co.intelitrack.intelizzz.common.data.remote.ParentVehicle;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 import uk.co.intelitrack.intelizzz.common.utils.RxUtils;
+import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
 import uk.co.intelitrack.intelizzz.components.preview.GroupsClickListener;
 import uk.co.intelitrack.intelizzz.components.preview.PreviewContract;
 
@@ -28,16 +30,18 @@ public class SettingsPresenter implements SettingsContract.Presenter, GroupsClic
 
     //region Fields
     private CompositeDisposable mSubscriptions = new CompositeDisposable();
+    private final SharedPreferencesUtils mSharedPreferencesUtils;
     private IntelizzzRepository mRepository;
     private SettingsContract.View mView;
     private boolean mIsGroup;
-    private String mGroupId = "";
+    private String mGroupId ;
     private String forDelete;
     //endregion
 
-    public SettingsPresenter(IntelizzzRepository repository, SettingsContract.View view) {
+    public SettingsPresenter(IntelizzzRepository repository, SettingsContract.View view,SharedPreferencesUtils sharedPreferencesUtils) {
         this.mRepository = repository;
         this.mView = view;
+        this.mSharedPreferencesUtils = sharedPreferencesUtils;
     }
 
     //region BasePresenter Methods
@@ -130,6 +134,21 @@ public class SettingsPresenter implements SettingsContract.Presenter, GroupsClic
     }
 
     @Override
+    public void onDelete1(String id) {
+
+    }
+
+    @Override
+    public void onDelete2(String id, String companija) {
+
+    }
+
+    @Override
+    public void onDelete3(String jsesion, String id, String companija) {
+
+    }
+
+    @Override
     public void onCompanyItemClick(String id) {
         if (TextUtils.isEmpty(mGroupId)) {
             mGroupId = id;
@@ -170,6 +189,35 @@ public class SettingsPresenter implements SettingsContract.Presenter, GroupsClic
     @Override
     public void onGroupChildItemClick(String vehicleId) {
         onUnitClick(vehicleId);
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+
+    }
+
+    @Override
+    public void onDelete(View view, int position) {
+
+    }
+
+
+    @Override
+    public void onDelete4(String jsesion, String id) {
+        mGroupId = id;
+         mSubscriptions.add(mRepository.deleteGroup(mGroupId)
+                .subscribe(
+                        x -> {
+                            mRepository.clearCompanies();
+                            checkAndFetchGroups();
+                            mView.showToastMessage("Group successfully deleted");
+                        },
+                        e -> {
+                            Timber.e(e);
+                            mView.showToastMessage("Delete group fail");
+                            mView.toogleProgressBar(false);
+                        }));
+        refreshGroups();
     }
 
 

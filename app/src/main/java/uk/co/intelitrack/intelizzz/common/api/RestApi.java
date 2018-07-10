@@ -41,9 +41,9 @@ public class RestApi {
         return getRetrofitInstance().create(ApiInterface.class);
     }
 
-    public Call<Token> postAuthentication(String account, String password) {
-        return request().login1(account,password);
-    }
+//    public Call<Token> postAuthentication(String account, String password) {
+//        return request().login1(account,password);
+//    }
 
 
 

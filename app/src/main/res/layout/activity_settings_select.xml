@@ -327,7 +327,7 @@
 
         <ImageView
 
-            android:id="@+id/btn_ok"
+            android:id="@+id/btn_ok_settings"
 
             android:layout_width="60dp"
 

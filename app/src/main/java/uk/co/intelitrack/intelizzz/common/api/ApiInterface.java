@@ -2,9 +2,11 @@ package uk.co.intelitrack.intelizzz.common.api;
 
 import io.reactivex.Single;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import uk.co.intelitrack.intelizzz.common.data.remote.Company;
@@ -16,11 +18,14 @@ import uk.co.intelitrack.intelizzz.common.data.remote.Token;
  */
 
 public interface ApiInterface {
-    @GET("StandardApiAction_login.action")
-    Call<Token> login1(@Query("account") String account, @Query("password") String password);
+    @GET("808gps/LoginAction_loginMobile.action")
+    Call<Token> login3(@Query("userAccount") String account, @Query("password") String password);
 
     @GET("StandardApiAction_login.action")
     Single<Token> login(@Query("account") String account, @Query("password") String password);
+
+    @GET("808gps/LoginAction_loginMobile.action")
+    Single<Token> login1(@Query("userAccount") String account, @Query("password") String password);
 
     @GET("StandardApiAction_logout.action")
     Single<Response> logout(@Query("jsession") String jsession);
@@ -58,8 +63,8 @@ public interface ApiInterface {
     Single<Company[]> addGroup(@Field("jsession") String jsession, @Field("company_name") String companyName, @Field("company_id") String companyId);
 
     @FormUrlEncoded
-    @POST("808gps/openPhp/deleteGroupById.php")
-    Single<String> deleteGroup(@Field("jsession") String jsession, @Field("group_id") String groupId, @Field("company_id") String companyId);
+    @POST("808gps/OperationManagement/StandardVehicleTeamAction_delete.action")
+    Single<String> deleteGroup(@Header("jsession") String jsession, @Field("group_id") String groupId);
 
     @FormUrlEncoded
     @POST("808gps/openPhp/updateMotorcade.php")

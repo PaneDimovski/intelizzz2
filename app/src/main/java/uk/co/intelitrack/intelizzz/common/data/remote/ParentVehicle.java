@@ -14,14 +14,24 @@ public class ParentVehicle extends ExpandableGroup<Vehicle> {
     private String mName;
     private List<Vehicle> mVehicles;
     private boolean mIsCompany;
+    private boolean mIsChecked;
 
 
-    public ParentVehicle(String name, List<Vehicle> items, String id, boolean isCompany) {
+    public ParentVehicle(String name, List<Vehicle> items, String id, boolean isCompany ) {
         super(name, items);
         this.mName = name;
         this.mVehicles = items;
         this.mId = id;
         this.mIsCompany = isCompany;
+
+    }
+
+    public boolean ismIsChecked() {
+        return mIsChecked;
+    }
+
+    public void setmIsChecked(boolean mIsChecked) {
+        this.mIsChecked = mIsChecked;
     }
 
     public String getId() {

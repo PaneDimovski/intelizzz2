@@ -47,5 +47,13 @@ public interface SettingsContract {
         void onMoveClick();
 
         void onDeleteClick();
+
+        void onDelete1(String id);
+
+        void onDelete2(String id, String companija);
+
+        void onDelete3(String jsesion, String id, String companija);
+
+        void onDelete4(String jsesion, String id);
     }
 }

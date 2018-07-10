@@ -17,14 +17,19 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
+import butterknife.OnClick;
 import io.reactivex.annotations.Nullable;
 import uk.co.intelitrack.intelizzz.IntelizzzApplication;
 import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
+import uk.co.intelitrack.intelizzz.common.data.remote.Group;
 import uk.co.intelitrack.intelizzz.common.data.remote.ParentVehicle;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 import uk.co.intelitrack.intelizzz.common.utils.DialogUtils;
+import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
+import uk.co.intelitrack.intelizzz.common.utils.SharedPreff;
 import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzProgressDialog;
 import uk.co.intelitrack.intelizzz.components.groups.GroupsActivity;
 import uk.co.intelitrack.intelizzz.components.login.LoginActivity;
@@ -34,12 +39,17 @@ import uk.co.intelitrack.intelizzz.components.preview.VehiclesAdapter;
 import uk.co.intelitrack.intelizzz.components.preview.VehiclesClickListener;
 import uk.co.intelitrack.intelizzz.components.unit.UnitActivity;
 
+/**
+ * Created by Oliver :-).
+ */
 public class SettingsActivity extends AppCompatActivity implements SettingsActivityInterface, SettingsContract.View, VehiclesClickListener {
 
     @Inject
     SettingsPresenter mPresenter;
-    @BindView(R.id.btn_ok)
-    ImageView kopceNext;
+    //    @BindView(R.id.btn_ok)
+//    ImageView kopceNext;
+    @BindView(R.id.btn_ok_settings)
+    ImageView kopceBrisi;
 
     @BindView(R.id.rvSelect)
     RecyclerView rv;
@@ -74,6 +84,10 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
     VehiclesAdapter mVehiclesAdapter;
     @Inject
     ParentVehicle parentVehicle;
+    @Inject
+    SharedPreferencesUtils mSharedPreferencesUtils;
+    String kompanija = "2";
+    String pane = "24";
 
 
     public static void start(Activity activity, boolean isGroup) {
@@ -101,6 +115,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
         if (getIntent().getExtras() != null)
             mIsGroup = getIntent().getExtras().getBoolean(Constants.IS_GROUP);
         mPresenter.subscribe(getIntent());
+
         //   mBtnDelete.setVisibility(mIsGroup ? View.VISIBLE : View.GONE);
 
 //        if (mIsGroup) {
@@ -139,6 +154,18 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
 
     void onGroupsClick() {
         PreviewActivity.start(this, true);
+    }
+
+
+    @OnClick(R.id.btn_ok_settings)
+    public void klik() {
+//            String groupId = SharedPreff.getGroupID(getApplicationContext());
+        String groupId = "105";
+//                mSharedPreferencesUtils.getSharedPreferencesString(Constants.OLI_ID);
+        String jsession = mSharedPreferencesUtils.getSharedPreferencesString(Constants.TOKEN);
+        mPresenter.onDelete4(Constants.JSESSIONID,groupId);
+        mGroupsAdapter.notifyDataSetChanged();
+
     }
 
     @Override
@@ -183,17 +210,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
 
     //    @Override
     public void setGroupNumber(int number) {
-//        if (number == 1) {
-//            bottomBarTypeName.setText(R.string.label_group);
-//        } else {
-//            bottomBarTypeName.setText(R.string.label_groups);
-//        }
-//        bottomBarTypeNumber.setText(String.valueOf(number));
-//        mBtnMove.setVisibility(View.GONE);
-//        delete2.setVisibility(View.GONE);
-//        delete.setVisibility(View.GONE);
-//        mBtnDelete.setVisibility(View.GONE);
-//        add_unit.setVisibility(View.GONE);
+//
     }
 
     @Override
@@ -208,22 +225,18 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
     public void setGroup(ParentVehicle group) {
         List<ParentVehicle> groups = new ArrayList<>();
         groups.add(group);
-        mGroupsAdapter.setData(groups, true, true,true);
+        mGroupsAdapter.setData(groups, true, true, true);
         mGroupsAdapter.toggleGroup(0);
     }
 
     @Override
     public void setVehiclesListVisible() {
-//        rvVehivles.setAdapter(mVehiclesAdapter);
-//        rvVehivles.setVisibility(View.VISIBLE);
-//        rv.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void setGroupsListVisible() {
         rv.setAdapter(mGroupsAdapter);
         rv.setVisibility(View.VISIBLE);
-//        rvVehivles.setVisibility(View.GONE);
     }
 
     @Override
@@ -268,29 +281,6 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
         mPresenter.onUnitClick2(vehicleId);
     }
 
-
-//    public void Pocni_Adapter(){
-//        adapter = new GroupsAdapter(vehicles, mRespository, new GroupsClickListener() {
-//            @Override
-//            public void onCompanyItemClick(String id) {
-//
-//            }
-//
-//            @Override
-//            public void onGroupItemClick(String groupId) {
-//
-//            }
-//
-//            @Override
-//            public void onGroupChildItemClick(String vehicleId) {
-//
-//            }
-//        },true);
-//
-//        rv.setHasFixedSize(true);
-//        rv.setLayoutManager(new LinearLayoutManager(this));
-//        rv.setAdapter(adapter);
-//    }
 
 
     private void hideProgressBar() {

@@ -155,31 +155,31 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     //endregion
 
     //region ButterKnife Methods
-    @OnClick(R.id.button_login)
-    void onLoginClick() {
-
-        api = new RestApi(LoginActivity.this);
-        String a = mUsername.getText().toString();
-        String b = mPassword.getText().toString();
-        Call<Token> call = api.postAuthentication(a,b);
-        call.enqueue(new Callback<Token>() {
-            @Override
-            public void onResponse(Call<Token> call, Response<Token> response) {
-                if (response.isSuccessful()){
-                    token = new Token();
-                    token = response.body();
+//    @OnClick(R.id.button_login)
+//    void onLoginClick() {
 //
-                    Toast.makeText(LoginActivity.this, "Uspesno Retrofit", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(LoginActivity.this, "NE PROAGJA", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Token> call, Throwable t) {
-
-            }
-        });
+//        api = new RestApi(LoginActivity.this);
+//        String a = mUsername.getText().toString();
+//        String b = mPassword.getText().toString();
+//        Call<Token> call = api.postAuthentication(a,b);
+//        call.enqueue(new Callback<Token>() {
+//            @Override
+//            public void onResponse(Call<Token> call, Response<Token> response) {
+//                if (response.isSuccessful()){
+//                    token = new Token();
+//                    token = response.body();
+////
+//                    Toast.makeText(LoginActivity.this, "Uspesno Retrofit", Toast.LENGTH_LONG).show();
+//                } else {
+//                    Toast.makeText(LoginActivity.this, "NE PROAGJA", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Token> call, Throwable t) {
+//
+//            }
+//        });
 
 
 
@@ -194,7 +194,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
 //        mPresenter.login(mUsername.getText().toString().trim(), mPassword.getText().toString().trim(),
 //                mKeepSigned.isChecked());
-    }
+//    }
     //endregion
     public void kopceLogIn() {
         mPresenter.login(mUsername.getText().toString().trim(), mPassword.getText().toString().trim(),

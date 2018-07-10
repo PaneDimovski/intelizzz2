@@ -232,14 +232,6 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
         mRvGroups.setVisibility(View.GONE);
     }
 
-
-//    @Override
-//    public void setUnitsList() {
-//        mRVunits.setAdapter(unitsAdapter);
-//        mRVunits.setVisibility(View.VISIBLE);
-//        mRvGroups.setVisibility(View.GONE);
-//    }
-
     @Override
     public void setGroupsListVisible() {
         mRvGroups.setAdapter(mGroupsAdapter);
@@ -345,9 +337,6 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
 
     }
 
-    //    public List<Vehicle> getVehicles() {
-//        return mVehicles;
-//    }
     @OnClick(R.id.unit_delete)
     void deleteUint() {
 

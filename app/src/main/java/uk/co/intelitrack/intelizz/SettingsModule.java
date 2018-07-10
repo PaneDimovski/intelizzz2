@@ -8,11 +8,13 @@ import java.util.List;
 
 import dagger.Module;
 import dagger.Provides;
+import uk.co.intelitrack.intelizzz.common.api.IntelizzzDataSource;
 import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
 import uk.co.intelitrack.intelizzz.common.data.remote.Company;
 import uk.co.intelitrack.intelizzz.common.data.remote.Group;
 import uk.co.intelitrack.intelizzz.common.data.remote.ParentVehicle;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
+import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
 import uk.co.intelitrack.intelizzz.components.preview.VehiclesAdapter;
 
 
@@ -30,8 +32,8 @@ public class SettingsModule {
     }
 
     @Provides
-    SettingsPresenter provideVehiclesPresenter(IntelizzzRepository repository) {
-        return new SettingsPresenter(repository, mActivity);
+    SettingsPresenter provideVehiclesPresenter(IntelizzzRepository repository,SharedPreferencesUtils sharedPreferencesUtils) {
+        return new SettingsPresenter(repository, mActivity,sharedPreferencesUtils);
     }
 
     @Provides
@@ -43,6 +45,10 @@ public class SettingsModule {
         return new ParentVehicle("",vehicle,"", isCompany);
     }
 
+//    @Provides
+//    IntelizzzRepository provideRespository(IntelizzzRepository repository, IntelizzzDataSource source,SharedPreferencesUtils sharedPreferencesUtils){
+//        return new IntelizzzRepository(source,sharedPreferencesUtils);
+//    }
 
 //    @Provides
 //    UnitAdapter provideUnitAdapter(IntelizzzRepository repository) {
@@ -60,6 +66,6 @@ public class SettingsModule {
                 }
             }
         }
-        return new SettingsGroupsAdapter(groups, repository, listener, false,false,false);
+        return new SettingsGroupsAdapter(groups, repository, listener, false,false,false,mContext);
     }
 }

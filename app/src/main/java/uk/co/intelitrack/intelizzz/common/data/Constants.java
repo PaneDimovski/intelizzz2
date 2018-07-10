@@ -5,7 +5,8 @@ package uk.co.intelitrack.intelizzz.common.data;
  */
 
 public class Constants {
-    public static final String BASE_URL = "https://server2.intelitrack.co.uk/";
+    public static final String BASE_URL = "http://server2.intelitrack.co.uk/";
+
 //    public static final String BASE_URL = "http://intelitrack.itility.co.uk";
 
     public static final String TOKEN = "token";
@@ -15,6 +16,8 @@ public class Constants {
     public static final String IS_GROUP = "is_group";
     public static final String IS_LAST_KNOWN_LOCATION = "is_last_known_location";
     public static final String ID = "id";
+    public static final String OLI_ID = "oli_id";
+    public static final String JSESSIONID = "jsessionID";
 
 
     // Alarm Type

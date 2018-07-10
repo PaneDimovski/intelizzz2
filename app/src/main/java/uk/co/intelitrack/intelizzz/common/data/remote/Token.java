@@ -7,6 +7,11 @@ package uk.co.intelitrack.intelizzz.common.data.remote;
 public class Token {
     private int result;
     private String jsession;
+    private String JSESSIONID;
+
+    public String getJSESSIONID() {
+        return JSESSIONID;
+    }
 
     public int getResult() {
         return result;

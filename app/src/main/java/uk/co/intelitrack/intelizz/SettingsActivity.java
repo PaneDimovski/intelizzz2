@@ -162,8 +162,9 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
 //            String groupId = SharedPreff.getGroupID(getApplicationContext());
         String groupId = "105";
 //                mSharedPreferencesUtils.getSharedPreferencesString(Constants.OLI_ID);
+        String ooo = mSharedPreferencesUtils.getSharedPreferencesString(Constants.JSESSIONID);
         String jsession = mSharedPreferencesUtils.getSharedPreferencesString(Constants.TOKEN);
-        mPresenter.onDelete4(Constants.JSESSIONID,groupId);
+        mPresenter.onDelete4(ooo,groupId);
         mGroupsAdapter.notifyDataSetChanged();
 
     }

@@ -19,9 +19,7 @@ public class IntelizzzDataSource {
     public IntelizzzDataSource(@NonNull ApiInterface apiInterface) {
         this.apiInterface = apiInterface;
     }
-//    public retrofit2.Call<Token>login1(String username, String password){
-//        return apiInterface.login1(username, password);
-//    }
+
 
     public Single<Token> login(String username, String password) {
         return apiInterface.login(username, password);

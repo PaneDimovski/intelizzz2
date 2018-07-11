@@ -65,6 +65,9 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     private IntelizzzProgressDialog mProgressDialog;
     SharedPreferencesUtils sharedPreferencesUtils;
     IntelizzzDataSource intelizzzDataSource;
+    String token2;
+
+//    IntelizzzDataSource mData;
     //endregion
 
     public static void start(Activity activity) {
@@ -134,10 +137,10 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @Override
     public void toogleProgressBar(boolean show) {
         hideProgressBar();
-        if (show) {
-            mProgressDialog = DialogUtils.getProgressBarDialog(this);
-            mProgressDialog.show();
-        }
+//        if (show) {
+//            mProgressDialog = DialogUtils.getProgressBarDialog(this);
+//            mProgressDialog.show();
+//        }
     }
     //endregion
 
@@ -180,26 +183,79 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 //
 //            }
 //        });
-
-
-
-
-
-
-
-
-
-
-
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //        mPresenter.login(mUsername.getText().toString().trim(), mPassword.getText().toString().trim(),
 //                mKeepSigned.isChecked());
 //    }
     //endregion
-    public void kopceLogIn() {
-        mPresenter.login(mUsername.getText().toString().trim(), mPassword.getText().toString().trim(),
-                mKeepSigned.isChecked());
-    }
+//    public void kopceLogIn() {
+//        String username = mUsername.getText().toString();
+//        String password = mPassword.getText().toString();
+//        api = new RestApi(getApplicationContext());
+//            Call<Token> call = api.login3(username,password);
+//            call.enqueue(new Callback<Token>() {
+//                @Override
+//                public void onResponse(Call<Token> call, retrofit2.Response<Token> response) {
+//                    if (response.isSuccessful()) {
+//                        token = new Token();
+//                        token = response.body();
+//                        token2 = token.getJsession();
+////                        sharedPreferencesUtils.setSharedPreferencesString(Constants.TOKEN,token2);
+//////                        sharedPreferencesUtils.setSharedPreferencesString(Constants.TOKEN, token.getJsession());
+////                        sharedPreferencesUtils.setSharedPreferencesString(Constants.USERNAME, username);
+////                        sharedPreferencesUtils.setSharedPreferencesString(Constants.PASSWORD, password);
+//                        logiranje2();
+//                    } else {
+//
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<Token> call, Throwable t) {
+//
+//                }
+//            });
+//        }
+
+//        public void logiranje2(){
+//        api = new RestApi(getApplicationContext());
+//            String username = mUsername.getText().toString();
+//            String password = mPassword.getText().toString();
+//            Call<Token> call2 = api.login4(username,password);
+//            call2.enqueue(new Callback<Token>() {
+//                @Override
+//                public void onResponse(Call<Token> call, retrofit2.Response<Token> response) {
+//                    if (response.isSuccessful()){
+//                        token=response.body();
+//                        String token3 = token.getJSESSIONID();
+////                        sharedPreferencesUtils.setSharedPreferencesString(Constants.JSESSIONID,token3);
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<Token> call, Throwable t) {
+//
+//                }
+//            });
+//        }
+
+
+
+//
+//        mPresenter.login(mUsername.getText().toString().trim(), mPassword.getText().toString().trim(),
+//                mKeepSigned.isChecked());
+
 
     //region Helper Methods
     private void hideProgressBar() {
@@ -209,7 +265,10 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         }
     }
     //endregion
-
+    public void kopceLogIn() {
+        mPresenter.login(mUsername.getText().toString().trim(), mPassword.getText().toString().trim(),
+                mKeepSigned.isChecked());
+    }
     @OnClick(R.id.create_account)
     public void click (View view) {
         Intent intent = new Intent(LoginActivity.this, UserDetailsActivity.class);

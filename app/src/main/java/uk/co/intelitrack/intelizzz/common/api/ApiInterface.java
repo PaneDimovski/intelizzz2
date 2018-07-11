@@ -18,8 +18,11 @@ import uk.co.intelitrack.intelizzz.common.data.remote.Token;
  */
 
 public interface ApiInterface {
+    @GET("StandardApiAction_login.action")
+    Call<Token> login3(@Query("account") String account, @Query("password") String password);
+
     @GET("808gps/LoginAction_loginMobile.action")
-    Call<Token> login3(@Query("userAccount") String account, @Query("password") String password);
+    Call<Token> login4(@Query("userAccount") String account, @Query("password") String password);
 
     @GET("StandardApiAction_login.action")
     Single<Token> login(@Query("account") String account, @Query("password") String password);
@@ -64,7 +67,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("808gps/OperationManagement/StandardVehicleTeamAction_delete.action")
-    Single<String> deleteGroup(@Header("jsession") String jsession, @Field("group_id") String groupId);
+    Single<String> deleteGroup(@Header("JSESSIONID") String jsession, @Field("group_id") String groupId);
 
     @FormUrlEncoded
     @POST("808gps/openPhp/updateMotorcade.php")

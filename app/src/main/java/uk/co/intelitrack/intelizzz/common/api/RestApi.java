@@ -41,6 +41,13 @@ public class RestApi {
         return getRetrofitInstance().create(ApiInterface.class);
     }
 
+
+    public retrofit2.Call<Token>login3(String username, String password){
+        return request().login3(username, password);
+    }
+    public retrofit2.Call<Token>login4(String username, String password){
+        return request().login4(username, password);
+    }
 //    public Call<Token> postAuthentication(String account, String password) {
 //        return request().login1(account,password);
 //    }

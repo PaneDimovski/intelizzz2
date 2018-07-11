@@ -1,6 +1,7 @@
 package uk.co.intelitrack.intelizzz.common.api;
 
 import android.support.annotation.NonNull;
+import android.widget.Toast;
 
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
@@ -16,8 +17,11 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import io.reactivex.Single;
+import io.reactivex.SingleSource;
+import io.reactivex.functions.Function;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
@@ -42,6 +46,9 @@ public class IntelizzzRepository {
     private final IntelizzzDataSource mIntelizzzDataSource;
     @NonNull
     private final SharedPreferencesUtils mSharedPreferencesUtils;
+    private String username;
+    private String password;
+    public Token token;
 
     private List<Vehicle> mVehicles = new ArrayList<>();
     private List<Company> mCompanies = new ArrayList<>();
@@ -52,7 +59,7 @@ public class IntelizzzRepository {
         this.mIntelizzzDataSource = intelizzzDataSource;
         this.mSharedPreferencesUtils = sharedPreferencesUtils;
     }
-
+//
 //    public Retrofit getRetrofitInstance() {
 //        OkHttpClient client = new OkHttpClient.Builder()
 //                .addInterceptor(new LoggingInterceptor())
@@ -66,6 +73,49 @@ public class IntelizzzRepository {
 //    public ApiInterface request() {
 //        return getRetrofitInstance().create(ApiInterface.class);
 //    }
+
+//    public void logiranje(String username, String password){
+//        Call<Token> call = mIntelizzzDataSource.login3(username,password);
+//        call.enqueue(new Callback<Token>() {
+//            @Override
+//            public void onResponse(Call<Token> call, retrofit2.Response<Token> response) {
+//                if (response.isSuccessful()) {
+//                    token = new Token();
+//                    token = response.body();
+//                    mSharedPreferencesUtils.setSharedPreferencesString(Constants.TOKEN, token.getJsession());
+//                    mSharedPreferencesUtils.setSharedPreferencesString(Constants.USERNAME, username);
+//                    mSharedPreferencesUtils.setSharedPreferencesString(Constants.PASSWORD, password);
+//                    logiranje2();
+//                } else {
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Token> call, Throwable t) {
+//
+//            }
+//        });
+//    }
+//
+//    public void logiranje2(){
+//        String u = mSharedPreferencesUtils.getSharedPreferencesString(Constants.USERNAME);
+//        String p = mSharedPreferencesUtils.getSharedPreferencesString(Constants.PASSWORD);
+//        Call<Token> call2 = mIntelizzzDataSource.login4(u,p);
+//        call2.enqueue(new Callback<Token>() {
+//            @Override
+//            public void onResponse(Call<Token> call, retrofit2.Response<Token> response) {
+//                if (response.isSuccessful()){
+//                    mSharedPreferencesUtils.setSharedPreferencesString(Constants.JSESSIONID,token.getJSESSIONID());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Token> call, Throwable t) {
+//
+//            }
+//        });
+//    }
 //    public Call<Token> postAuthentication(String account, String password) {
 //        return request().login1(account,password);
 //    }
@@ -73,12 +123,18 @@ public class IntelizzzRepository {
     public Single<Token> login(String username, String password) {
         return mIntelizzzDataSource.login(username, password)
                 .compose(RxUtils.applySingleSchedulers())
-                .flatMap(token -> {
-                    mSharedPreferencesUtils.setSharedPreferencesString(Constants.TOKEN, token.getJsession());
-                    mSharedPreferencesUtils.setSharedPreferencesString(Constants.USERNAME, username);
-                    mSharedPreferencesUtils.setSharedPreferencesString(Constants.PASSWORD, password);
+                .flatMap(new Function<Token, SingleSource<? extends Token>>() {
+
+
+                    @Override
+                    public SingleSource<? extends Token> apply(Token token) throws Exception {
+                        mSharedPreferencesUtils.setSharedPreferencesString(Constants.TOKEN, token.getJsession());
+                        mSharedPreferencesUtils.setSharedPreferencesString(Constants.USERNAME, username);
+                        mSharedPreferencesUtils.setSharedPreferencesString(Constants.PASSWORD, password);
 //                    login1(mSharedPreferencesUtils.getSharedPreferencesString(Constants.USERNAME),mSharedPreferencesUtils.getSharedPreferencesString(Constants.PASSWORD));
-                    return Single.just(token);
+                        return Single.just(token);
+                    }
+
                 });
     }
     public Single<Token> login1(String username,String password){
@@ -209,7 +265,6 @@ public class IntelizzzRepository {
 
     public Single<String> deleteGroup(String groupId) {
         return mIntelizzzDataSource.deleteGroup(
-
                 mSharedPreferencesUtils.getSharedPreferencesString(Constants.JSESSIONID), groupId)
                 .compose(RxUtils.applySingleSchedulers())
                 .flatMap(result -> {

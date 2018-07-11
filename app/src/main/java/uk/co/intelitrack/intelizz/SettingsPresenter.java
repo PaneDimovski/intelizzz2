@@ -207,12 +207,12 @@ public class SettingsPresenter implements SettingsContract.Presenter, GroupsClic
         mGroupId = id;
          mSubscriptions.add(mRepository.deleteGroup(mGroupId)
                 .subscribe(
-                        x -> {
+                        (String x) -> {
                             mRepository.clearCompanies();
                             checkAndFetchGroups();
                             mView.showToastMessage("Group successfully deleted");
                         },
-                        e -> {
+                        (Throwable e) -> {
                             Timber.e(e);
                             mView.showToastMessage("Delete group fail");
                             mView.toogleProgressBar(false);

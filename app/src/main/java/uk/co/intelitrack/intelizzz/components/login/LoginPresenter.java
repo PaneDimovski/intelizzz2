@@ -8,6 +8,7 @@ import timber.log.Timber;
 import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
+import uk.co.intelitrack.intelizzz.common.data.remote.Token;
 import uk.co.intelitrack.intelizzz.common.utils.RxUtils;
 import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
 
@@ -37,7 +38,8 @@ public class LoginPresenter implements LoginContract.Presenter {
         if (mSharedPreferencesUtils.getSharedPreferencesBoolean(Constants.KEEP_SINGED)) {
             if (!TextUtils.isEmpty(mSharedPreferencesUtils.getSharedPreferencesString(Constants.TOKEN))) {
                 mView.startVehiclesActivity();
-            } else {
+            } else
+                {
                 login(mSharedPreferencesUtils.getSharedPreferencesString(Constants.USERNAME),
                         mSharedPreferencesUtils.getSharedPreferencesString(Constants.PASSWORD), true);
             }
@@ -57,14 +59,23 @@ public class LoginPresenter implements LoginContract.Presenter {
         mSharedPreferencesUtils.setSharedPreferencesBoolean(Constants.KEEP_SINGED, keepSigned);
         mSubscriptions.add(mRepository.login(username, password)
                 .subscribe(
-                        x -> {
+                        (Token x) -> {
                             int result = x.getResult();
                             if (result == 0) {
                                 Timber.d("login successful");
-                                mView.toogleProgressBar(false);
 
-                                mView.startVehiclesActivity();
-                            } else {
+                                    mSubscriptions.add(mRepository.login1(username, password) .subscribe(
+                                            (Token y) -> {
+                                               if (result == 0)
+                                    mView.toogleProgressBar(false);
+
+                                    mView.startVehiclesActivity();
+                                }
+
+                                    )); }
+
+
+                             else {
                                 Timber.d("login successful");
                                 int message = 0;
                                 int title = R.string.login_alert_title;

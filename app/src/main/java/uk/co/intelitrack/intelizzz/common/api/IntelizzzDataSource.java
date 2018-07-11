@@ -69,4 +69,8 @@ public class IntelizzzDataSource {
     public Single<String> updateUnassignedVehicles(String token, String companyId, String vehicleId) {
         return apiInterface.updateMotorcade(token, companyId, vehicleId);
     }
+
+    public Single<String> delete1(String jsession, String groupId) {
+        return apiInterface.delete1("JSESSIONID=277689E5D0DC754A907AFBCB581C823A", groupId);
+    }
 }

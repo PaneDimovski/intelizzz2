@@ -152,7 +152,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
     @Override
     public void startVehiclesActivity() {
-        MainActivity.start(this);
+        MainActivity.start(this,true);
         finish();
     }
     //endregion

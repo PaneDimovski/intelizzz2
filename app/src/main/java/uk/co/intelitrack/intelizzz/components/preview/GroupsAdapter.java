@@ -31,7 +31,8 @@ import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
  * Created by Filip Stojanovski (filip100janovski@gmail.com).
  */
 
-public class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.ParentVehicleViewHolder, GroupsAdapter.ChildItemViewHolder> {
+
+class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.ParentVehicleViewHolder, GroupsAdapter.ChildItemViewHolder> {
 
     //region final Fields
     private final GroupsClickListener mOnItemClickListener;
@@ -39,11 +40,11 @@ public class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.P
     private boolean mIsClicked;
     private int mFilterField;
     private int mFilterType;
-
     //endregion
 
     //region Fields
-    private List<ParentVehicle> mGroups = new ArrayList<>();
+    private List<ParentVehicle> mCurrentGroups;
+    private List<ParentVehicle> mGroups;
     //endregion
 
     //region Constructors
@@ -52,23 +53,22 @@ public class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.P
         super(groups);
         this.mOnItemClickListener = listener;
         this.mRepository = intelizzzRepository;
-        this.mGroups = groups;
+        this.mCurrentGroups = groups;
+        this.mGroups = new ArrayList<>(groups);
         this.mIsClicked = isClicked;
-
     }
     //endregion
 
-
     public void setData(List<ParentVehicle> groups, boolean isClicked) {
-        mGroups.clear();
-        mGroups.addAll(groups);
+        mCurrentGroups.clear();
+        mCurrentGroups.addAll(groups);
         mIsClicked = isClicked;
         notifyDataSetChanged();
     }
 
     public void setGroup(ParentVehicle group) {
-        mGroups.clear();
-        mGroups.add(group);
+        mCurrentGroups.clear();
+        mCurrentGroups.add(group);
         notifyDataSetChanged();
     }
 
@@ -76,23 +76,23 @@ public class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.P
         if (mFilterField == Constants.FIELD_NAME) {
             if (mFilterType == Constants.DECREASING) {
                 mFilterType = Constants.INCREASING;
-                Collections.sort(mGroups, new ParentVehicle.NameComparator());
+                Collections.sort(mCurrentGroups, new ParentVehicle.NameComparator());
                 if (mIsClicked) {
-                    Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.NameComparator());
+                    Collections.sort(mCurrentGroups.get(0).getVehicles(), new Vehicle.NameComparator());
                 }
             } else {
                 mFilterType = Constants.DECREASING;
-                Collections.sort(mGroups, Collections.reverseOrder(new ParentVehicle.NameComparator()));
+                Collections.sort(mCurrentGroups, Collections.reverseOrder(new ParentVehicle.NameComparator()));
                 if (mIsClicked) {
-                    Collections.sort(mGroups.get(0).getVehicles(), Collections.reverseOrder(new Vehicle.NameComparator()));
+                    Collections.sort(mCurrentGroups.get(0).getVehicles(), Collections.reverseOrder(new Vehicle.NameComparator()));
                 }
             }
         } else {
             mFilterType = Constants.INCREASING;
             mFilterField = Constants.FIELD_NAME;
-            Collections.sort(mGroups, new ParentVehicle.NameComparator());
+            Collections.sort(mCurrentGroups, new ParentVehicle.NameComparator());
             if (mIsClicked) {
-                Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.NameComparator());
+                Collections.sort(mCurrentGroups.get(0).getVehicles(), new Vehicle.NameComparator());
             }
         }
         notifyDataSetChanged();
@@ -102,23 +102,23 @@ public class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.P
         if (mFilterField == Constants.FIELD_ID) {
             if (mFilterType == Constants.DECREASING) {
                 mFilterType = Constants.INCREASING;
-                Collections.sort(mGroups, new ParentVehicle.IdComparator());
+                Collections.sort(mCurrentGroups, new ParentVehicle.IdComparator());
                 if (mIsClicked) {
-                    Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.IdComparator());
+                    Collections.sort(mCurrentGroups.get(0).getVehicles(), new Vehicle.IdComparator());
                 }
             } else {
                 mFilterType = Constants.DECREASING;
-                Collections.sort(mGroups, Collections.reverseOrder(new ParentVehicle.IdComparator()));
+                Collections.sort(mCurrentGroups, Collections.reverseOrder(new ParentVehicle.IdComparator()));
                 if (mIsClicked) {
-                    Collections.sort(mGroups.get(0).getVehicles(), Collections.reverseOrder(new Vehicle.IdComparator()));
+                    Collections.sort(mCurrentGroups.get(0).getVehicles(), Collections.reverseOrder(new Vehicle.IdComparator()));
                 }
             }
         } else {
             mFilterType = Constants.INCREASING;
             mFilterField = Constants.FIELD_ID;
-            Collections.sort(mGroups, new ParentVehicle.IdComparator());
+            Collections.sort(mCurrentGroups, new ParentVehicle.IdComparator());
             if (mIsClicked) {
-                Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.IdComparator());
+                Collections.sort(mCurrentGroups.get(0).getVehicles(), new Vehicle.IdComparator());
             }
         }
         notifyDataSetChanged();
@@ -129,23 +129,23 @@ public class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.P
         if (mFilterField == Constants.FIELD_DAYS) {
             if (mFilterType == Constants.DECREASING) {
                 mFilterType = Constants.INCREASING;
-                Collections.sort(mGroups, new ParentVehicle.DaysComparator());
+                Collections.sort(mCurrentGroups, new ParentVehicle.DaysComparator());
                 if (mIsClicked) {
-                    Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.DaysComparator());
+                    Collections.sort(mCurrentGroups.get(0).getVehicles(), new Vehicle.DaysComparator());
                 }
             } else {
                 mFilterType = Constants.DECREASING;
-                Collections.sort(mGroups, Collections.reverseOrder(new ParentVehicle.DaysComparator()));
+                Collections.sort(mCurrentGroups, Collections.reverseOrder(new ParentVehicle.DaysComparator()));
                 if (mIsClicked) {
-                    Collections.sort(mGroups.get(0).getVehicles(), Collections.reverseOrder(new Vehicle.DaysComparator()));
+                    Collections.sort(mCurrentGroups.get(0).getVehicles(), Collections.reverseOrder(new Vehicle.DaysComparator()));
                 }
             }
         } else {
             mFilterType = Constants.INCREASING;
             mFilterField = Constants.FIELD_DAYS;
-            Collections.sort(mGroups, new ParentVehicle.DaysComparator());
+            Collections.sort(mCurrentGroups, new ParentVehicle.DaysComparator());
             if (mIsClicked) {
-                Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.DaysComparator());
+                Collections.sort(mCurrentGroups.get(0).getVehicles(), new Vehicle.DaysComparator());
             }
         }
         notifyDataSetChanged();
@@ -155,23 +155,23 @@ public class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.P
         if (mFilterField == Constants.FIELD_GEO) {
             if (mFilterType == Constants.DECREASING) {
                 mFilterType = Constants.INCREASING;
-                Collections.sort(mGroups, new ParentVehicle.GeoComparator());
+                Collections.sort(mCurrentGroups, new ParentVehicle.GeoComparator());
                 if (mIsClicked) {
-                    Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.GeoComparator());
+                    Collections.sort(mCurrentGroups.get(0).getVehicles(), new Vehicle.GeoComparator());
                 }
             } else {
                 mFilterType = Constants.DECREASING;
-                Collections.sort(mGroups, Collections.reverseOrder(new ParentVehicle.GeoComparator()));
+                Collections.sort(mCurrentGroups, Collections.reverseOrder(new ParentVehicle.GeoComparator()));
                 if (mIsClicked) {
-                    Collections.sort(mGroups.get(0).getVehicles(), Collections.reverseOrder(new Vehicle.GeoComparator()));
+                    Collections.sort(mCurrentGroups.get(0).getVehicles(), Collections.reverseOrder(new Vehicle.GeoComparator()));
                 }
             }
         } else {
             mFilterType = Constants.INCREASING;
             mFilterField = Constants.FIELD_GEO;
-            Collections.sort(mGroups, new ParentVehicle.GeoComparator());
+            Collections.sort(mCurrentGroups, new ParentVehicle.GeoComparator());
             if (mIsClicked) {
-                Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.GeoComparator());
+                Collections.sort(mCurrentGroups.get(0).getVehicles(), new Vehicle.GeoComparator());
             }
         }
         notifyDataSetChanged();
@@ -181,43 +181,42 @@ public class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.P
         if (mFilterField == Constants.FIELD_WARNING) {
             if (mFilterType == Constants.DECREASING) {
                 mFilterType = Constants.INCREASING;
-                Collections.sort(mGroups, new ParentVehicle.WarningComparator());
+                Collections.sort(mCurrentGroups, new ParentVehicle.WarningComparator());
                 if (mIsClicked) {
-                    Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.WarningComparator());
+                    Collections.sort(mCurrentGroups.get(0).getVehicles(), new Vehicle.WarningComparator());
                 }
             } else {
                 mFilterType = Constants.DECREASING;
-                Collections.sort(mGroups, Collections.reverseOrder(new ParentVehicle.WarningComparator()));
+                Collections.sort(mCurrentGroups, Collections.reverseOrder(new ParentVehicle.WarningComparator()));
 
                 if (mIsClicked) {
-                    Collections.sort(mGroups.get(0).getVehicles(), Collections.reverseOrder(new Vehicle.WarningComparator()));
+                    Collections.sort(mCurrentGroups.get(0).getVehicles(), Collections.reverseOrder(new Vehicle.WarningComparator()));
                 }
             }
         } else {
             mFilterType = Constants.INCREASING;
             mFilterField = Constants.FIELD_WARNING;
-            Collections.sort(mGroups, new ParentVehicle.WarningComparator());
+            Collections.sort(mCurrentGroups, new ParentVehicle.WarningComparator());
 
             if (mIsClicked) {
-                Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.WarningComparator());
+                Collections.sort(mCurrentGroups.get(0).getVehicles(), new Vehicle.WarningComparator());
             }
         }
         notifyDataSetChanged();
     }
 
-
     void filter(String text) {
-        List<Group> temp = new ArrayList();
-        for (Group group : getAllGroups()) {
-            if (group.getName().toLowerCase().contains(text)) {
-                temp.add(group);
+        List<ParentVehicle> temp = new ArrayList();
+        for (ParentVehicle parentVehicle : mGroups) {
+            if (parentVehicle.getName().toLowerCase().contains(text)) {
+                temp.add(parentVehicle);
             }
         }
         if (TextUtils.isEmpty(text)) {
-            temp = getAllGroups();
+            temp = mGroups;
         }
-        //update recyclerview
-        //setData(temp);
+//        update recyclerview
+        setData(temp, false);
     }
 
     private List<Group> getAllGroups() {
@@ -244,19 +243,19 @@ public class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.P
     }
 
     @Override
-    public void onBindChildViewHolder(ChildItemViewHolder holder, int position, ExpandableGroup group, int childIndex) {
+    public void onBindChildViewHolder(ChildItemViewHolder holder, int flatPosition, ExpandableGroup group, int childIndex) {
         final Vehicle vehicle = ((ParentVehicle) group).getItems().get(childIndex);
         holder.bind(vehicle, mOnItemClickListener);
     }
 
     @Override
-    public void onBindGroupViewHolder(ParentVehicleViewHolder holder, int position, ExpandableGroup group) {
+    public void onBindGroupViewHolder(ParentVehicleViewHolder holder, int flatPosition, ExpandableGroup group) {
         holder.bind(((ParentVehicle) group), mOnItemClickListener, mIsClicked);
-
     }
     //endregion
 
     static class ParentVehicleViewHolder extends GroupViewHolder {
+
         @BindView(R.id.number_7)
         TextView day7;
         @BindView(R.id.number_6)
@@ -312,9 +311,9 @@ public class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.P
 
             if (parentVehicle.getVehicles() != null && !parentVehicle.getVehicles().isEmpty()) {
                 if (isGeo(parentVehicle.getVehicles())) {
-                    mGsimbol.setVisibility(View.INVISIBLE);
-                } else {
                     mGsimbol.setVisibility(View.VISIBLE);
+                } else {
+                    mGsimbol.setVisibility(View.INVISIBLE);
                 }
 
                 if (isWarning(parentVehicle.getVehicles())) {
@@ -322,7 +321,18 @@ public class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.P
                 } else {
                     mWarning.setVisibility(View.INVISIBLE);
                 }
+            } else {
+                mGsimbol.setVisibility(View.INVISIBLE);
+                mWarning.setVisibility(View.INVISIBLE);
             }
+//            day1.setBackgroundResource(R.drawable.red_rectangle);
+//            day2.setBackgroundResource(R.drawable.red_rectangle);
+//            day3.setBackgroundResource(R.drawable.red_rectangle);
+//            day4.setBackgroundResource(R.drawable.red_rectangle);
+//            day5.setBackgroundResource(R.drawable.red_rectangle);
+//            day6.setBackgroundResource(R.drawable.red_rectangle);
+//            day7.setBackgroundResource(R.drawable.red_rectangle);
+
             day1.setBackgroundResource(isActiveDay(parentVehicle.getVehicles(), 0) ? R.drawable.green_rectangle : R.drawable.red_rectangle);
             day2.setBackgroundResource(isActiveDay(parentVehicle.getVehicles(), 1) ? R.drawable.green_rectangle : R.drawable.red_rectangle);
             day3.setBackgroundResource(isActiveDay(parentVehicle.getVehicles(), 2) ? R.drawable.green_rectangle : R.drawable.red_rectangle);
@@ -334,42 +344,49 @@ public class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.P
 
         private boolean isGeo(List<Vehicle> vehicles) {
             if (vehicles == null || vehicles.isEmpty()) {
-                return true;
+                return false;
             }
+            boolean flag = true;
             for (Vehicle vehicle : vehicles) {
                 if (!vehicle.hasGeofenceAlarm()) {
-                    return false;
+                    flag = flag && true;
+                } else {
+                    flag = false;
                 }
             }
-            return true;
+            return false;
         }
 
         private boolean isWarning(List<Vehicle> vehicles) {
             if (vehicles == null || vehicles.isEmpty()) {
                 return false;
             }
+            boolean flag = true;
             for (Vehicle vehicle : vehicles) {
                 if (vehicle.isWarning()) {
-                    return true;
+                    flag = flag && true;
+                } else {
+                    flag = false;
                 }
             }
-            return false;
+            return flag;
         }
 
         private boolean isActiveDay(List<Vehicle> vehicles, int day) {
             if (vehicles == null || vehicles.isEmpty()) {
-                return true;
+                return false;
             }
+            boolean flag = true;
             for (Vehicle vehicle : vehicles) {
-                if (vehicle.getDays() == null || vehicle.getDays().length == 0 || !vehicle.getDays()[day]) {
-                    return false;
+                if (vehicle.getDays() != null && vehicle.getDays().length != 0 && vehicle.getDays()[day]) {
+                    flag = flag && true;
+                } else {
+                    flag = false;
                 }
             }
-            return true;
+            return flag;
         }
-
     }
-
 
     static class ChildItemViewHolder extends ChildViewHolder {
 
@@ -435,5 +452,6 @@ public class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.P
             day7.setBackgroundResource(vehicle.getDays()[6] ? R.drawable.green_rectangle : R.drawable.red_rectangle);
         }
     }
+
 
 }

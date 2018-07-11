@@ -35,6 +35,8 @@ import uk.co.intelitrack.intelizzz.components.unit.UnitActivity;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View {
 
+    public static final String LOAD = "load";
+
     //region DI
     @Inject
     MainPresenter mPresenter;
@@ -65,11 +67,21 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     private IntelizzzProgressDialog mProgressDialog;
     //endregion
 
-    public static void start(Activity activity) {
+//    public static void start(Activity activity) {
+//        Intent intent = new Intent(activity, MainActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        activity.startActivity(intent);
+//        activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+//    }
+
+    public static void start(Activity activity, boolean load) {
         Intent intent = new Intent(activity, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra(LOAD, load);
         activity.startActivity(intent);
-        activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        if(!load) {
+            activity.overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_right);
+        }
     }
 
     @Override
@@ -84,9 +96,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        mPresenter.subscribe(null);
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayShowTitleEnabled(false);
+//        mPresenter.subscribe(null);
+        mPresenter.subscribe(getIntent());
         video.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,6 +134,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             mProgressDialog.show();
         }
     }
+
+
+
     //endregion
 
     //region MainView Interface
@@ -181,6 +197,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             mProgressDialog = null;
         }
     }
+
+
     public void playVideo() throws IOException {
 //        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://pixabay.com/en/videos/star-long-exposure-starry-sky-sky-6962/"));
 //        intent.setDataAndType(Uri.parse("https://pixabay.com/en/videos/star-long-exposure-starry-sky-sky-6962/"), "video/*");

@@ -11,6 +11,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
+            android:textStyle="bold"
             android:layout_marginLeft="15dp"
             android:paddingBottom="10dp"
             android:textSize="@dimen/font_largest" />
@@ -22,6 +23,7 @@
             android:layout_toRightOf="@id/tv_day"
             android:layout_marginLeft="15dp"
             android:textColor="@android:color/black"
+            android:textStyle="bold"
             android:paddingBottom="10dp"
             android:textSize="@dimen/font_largest"/>
 
@@ -32,6 +34,7 @@
             android:layout_toRightOf="@id/tv_month"
             android:layout_marginLeft="15dp"
             android:textColor="@android:color/black"
+            android:textStyle="bold"
             android:paddingBottom="10dp"
             android:textSize="@dimen/font_largest"/>
 

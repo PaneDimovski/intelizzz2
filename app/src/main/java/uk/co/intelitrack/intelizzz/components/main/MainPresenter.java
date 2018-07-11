@@ -22,6 +22,8 @@ import uk.co.intelitrack.intelizzz.common.data.SuggestionsItem;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 import uk.co.intelitrack.intelizzz.common.utils.RxUtils;
 
+import static uk.co.intelitrack.intelizzz.components.main.MainActivity.LOAD;
+
 /**
  * Created by Filip Stojanovski (filip100janovski@gmail.com).
  */
@@ -44,10 +46,21 @@ public class MainPresenter implements MainContract.Presenter,
     //endregion
 
     //region BasePresenter Methods
+//    @Override
+//    public void subscribe(Intent intent) {
+//        checkAndFetchVehicles();
+//        checkAndFetchGroups();
+//        mView.setListeners();
+//    }
     @Override
     public void subscribe(Intent intent) {
-        checkAndFetchVehicles();
-        checkAndFetchGroups();
+        if(intent.getBooleanExtra(LOAD, true)) {
+            checkAndFetchVehicles();
+            checkAndFetchGroups();
+        } else {
+            mView.showGroupsNumber(mRepository.getGroupsAndCompaniesNumber());
+            mView.showUnitsNumber(mRepository.getVehicles().size());
+        }
         mView.setListeners();
     }
 

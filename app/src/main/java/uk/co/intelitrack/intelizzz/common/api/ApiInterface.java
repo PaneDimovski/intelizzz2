@@ -72,4 +72,9 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("808gps/openPhp/updateMotorcade.php")
     Single<String> updateMotorcade(@Field("jsession") String jsession, @Field("company_id") String companyId, @Field("vehicle_id") String vehicleId);
+
+
+    @FormUrlEncoded
+    @POST("808gps/OperationManagement/StandardVehicleTeamAction_delete.action?id=${groupId}")
+    Single<String> delete1(@Header("jsession") String jsession, @Field("id") String groupId);
 }

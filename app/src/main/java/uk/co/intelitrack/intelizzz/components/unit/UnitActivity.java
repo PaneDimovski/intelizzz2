@@ -24,6 +24,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import uk.co.intelitrack.intelizz.SettingsActivity;
 import uk.co.intelitrack.intelizzz.IntelizzzApplication;
 import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.broadcastreceivers.SmsDeliveredBroadcastReceiver;
@@ -34,6 +35,7 @@ import uk.co.intelitrack.intelizzz.common.utils.DialogUtils;
 import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
 import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzProgressDialog;
 import uk.co.intelitrack.intelizzz.components.login.LoginActivity;
+import uk.co.intelitrack.intelizzz.components.main.MainActivity;
 import uk.co.intelitrack.intelizzz.components.maps.MapsActivity;
 
 /**
@@ -189,11 +191,20 @@ public class UnitActivity extends AppCompatActivity implements UnitContract.View
         mPresenter.onPreviousLocations();
     }
 
-//    @OnClick(R.id.btn_home)
-//    void onHomeClick() {
-//        MainActivity.start(this);
-//        finish();
-//    }
+    @OnClick(R.id.btn_home)
+    void onHomeClick() {
+        MainActivity.start(this,false);
+        finish();
+    }
+
+    @OnClick (R.id.picSettings)
+    void onSettingsClick() {
+
+
+        SettingsActivity.start(this, true);
+
+
+    }
 
     @OnClick(R.id.btn_back)
     void onBackClick() {

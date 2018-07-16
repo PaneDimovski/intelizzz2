@@ -57,5 +57,9 @@ public class RestApi {
 //    }
 
 
+    public Call<Vehicle> postaddUnit (String jsession, String vehiIdno, String devIdno, String devType, int factoryType,String companyName, String account){
+        return request().addUnit(jsession,vehiIdno,devIdno,devType,factoryType,companyName, account);
+    }
+
 
 }

@@ -125,7 +125,7 @@ public class CrudGroupActivity extends AppCompatActivity implements CrudGroupCon
 
     @OnClick(R.id.btn_home)
     void onHomeClick() {
-        MainActivity.start(this);
+        MainActivity.start(this,false);
         finish();
     }
 

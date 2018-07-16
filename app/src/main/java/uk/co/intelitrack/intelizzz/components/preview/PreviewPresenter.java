@@ -1,14 +1,8 @@
 package uk.co.intelitrack.intelizzz.components.preview;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,26 +13,20 @@ import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import timber.log.Timber;
-import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
-import uk.co.intelitrack.intelizzz.common.api.RestApi;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
 import uk.co.intelitrack.intelizzz.common.data.remote.Company;
 import uk.co.intelitrack.intelizzz.common.data.remote.Group;
 import uk.co.intelitrack.intelizzz.common.data.remote.ParentVehicle;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 import uk.co.intelitrack.intelizzz.common.utils.RxUtils;
-import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
 
 /**
  * Created by Filip Stojanovski (filip100janovski@gmail.com).
  */
 
-public class PreviewPresenter extends SharedPreferencesUtils implements PreviewContract.Presenter, GroupsClickListener {
+public class PreviewPresenter implements PreviewContract.Presenter, GroupsClickListener {
 
     //region Fields
     private CompositeDisposable mSubscriptions = new CompositeDisposable();
@@ -47,20 +35,11 @@ public class PreviewPresenter extends SharedPreferencesUtils implements PreviewC
     private boolean mIsGroup;
     private String mGroupId = "";
     private String forDelete;
-    private Context context;
-    public RestApi api;
-    public SharedPreferencesUtils sharedPreferencesUtils;
     //endregion
 
     public PreviewPresenter(IntelizzzRepository repository, PreviewContract.View view) {
-        super();
         this.mRepository = repository;
         this.mView = view;
-
-    }
-
-    public PreviewPresenter(Context mContext) {
-        super(mContext);
     }
 
     //region BasePresenter Methods
@@ -113,64 +92,10 @@ public class PreviewPresenter extends SharedPreferencesUtils implements PreviewC
         mView.startUnitActivity(id);
     }
 
-    @Override
+
     public void onUnitClick2(String id) {
-        mView.cancelTamper();
-//        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-//                    //  builder.setMessage("Do you want to remove ?");
-//                    builder.setCancelable(true);
-////                    builder.setView(R.layout.   )    tuka da se vmetne layout od alertdialog
-//                    builder.setView(R.layout.alert_dialog_reset);
-////                    Button buttonYes=mView.findViewById(R.id.yes);
-//
-//                              buttonYes.setOnClickListener(new View.OnClickListener() {
-//                                  @Override
-//                                  public void onClick(View v) {
-//                                      api = new RestApi(context);
-//                                      String JSESSIONIN = sharedPreferencesUtils.getSharedPreferencesString(Constants.JSESSIONID);
-//                                      String condiIdno = "handled";
-//                                      String typeIdno = "17";
-//                                      String sourceIdno="2018-07-10 00:00:00";
-//                                      String vehiColor = "2018-07-10 23:59:59";
-//
-//                                      Call<Vehicle>call = api.resetTamper(JSESSIONIN,condiIdno,typeIdno,sourceIdno,vehiColor);
-//                                      call.enqueue(new Callback<Vehicle>() {
-//                                          @Override
-//                                          public void onResponse(Call<Vehicle> call, Response<Vehicle> response) {
-//                                              if (response.isSuccessful()){
-//                                                  Toast.makeText(context, "USPESNO TAMPER", Toast.LENGTH_SHORT).show();
-//                                              } else if (!response.isSuccessful()){
-//                                                  Toast.makeText(context, "NEUSPESNO TAMPER", Toast.LENGTH_SHORT).show();
-//                                              }
-//                                          }
-//
-//                                          @Override
-//                                          public void onFailure(Call<Vehicle> call, Throwable t) {
-//
-//                                          }
-//                                      });
-//                                  }
-//                              });
-//
-//
-//
-//
-//
-//
-//                    builder.setNegativeButton(
-//                            "",
-//                            new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int id) {
-//                                    dialog.cancel();
-//                                }
-//                            });
-//
-//                    AlertDialog alert11 = builder.create();
-//                    alert11.show();
-//                    alert11.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 200, 200, 200)));
-                }
-
-
+//        mView.startUnitActivity(id);
+    }
 
 
     @Override
@@ -185,25 +110,25 @@ public class PreviewPresenter extends SharedPreferencesUtils implements PreviewC
 
     @Override
     public void onDeleteClick() {
-//        if (TextUtils.isEmpty(forDelete)) {
-//            //TODO: put this in  strings
-//            mView.showToastMessage("Please select group");
-//            return;
-//        }
-//
-//        mView.toogleProgressBar(true);
-//        mSubscriptions.add(mRepository.deleteGroup(mGroupId)
-//                .subscribe(
-//                        x -> {
-//                            mRepository.clearCompanies();
-//                            checkAndFetchGroups();
-//                            mView.showToastMessage("Group successfully deleted");
-//                        },
-//                        e -> {
-//                            Timber.e(e);
-//                            mView.showToastMessage("Delete group fail");
-//                            mView.toogleProgressBar(false);
-//                        }));
+        if (TextUtils.isEmpty(forDelete)) {
+            //TODO: put this in  strings
+            mView.showToastMessage("Please select group");
+            return;
+        }
+
+        mView.toogleProgressBar(true);
+        mSubscriptions.add(mRepository.deleteGroup(mGroupId)
+                .subscribe(
+                        x -> {
+                            mRepository.clearCompanies();
+                            checkAndFetchGroups();
+                            mView.showToastMessage("Group successfully deleted");
+                        },
+                        e -> {
+                            Timber.e(e);
+                            mView.showToastMessage("Delete group fail");
+                            mView.toogleProgressBar(false);
+                        }));
     }
 
     @Override

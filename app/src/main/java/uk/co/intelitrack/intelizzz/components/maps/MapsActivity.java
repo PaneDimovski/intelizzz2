@@ -28,6 +28,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import uk.co.intelitrack.intelizz.SettingsActivity;
 import uk.co.intelitrack.intelizzz.IntelizzzApplication;
 import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
@@ -263,7 +264,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @OnClick(R.id.btn_home)
     void onHomeClick() {
-        MainActivity.start(this);
+        MainActivity.start(this,false);
         finish();
     }
 
@@ -297,6 +298,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @OnClick(R.id.btn_next)
     void onNextClick() {
         mPresenter.onNextClick();
+    }
+
+    @OnClick (R.id.picSettings)
+    void onSettingsClick() {
+
+
+        SettingsActivity.start(this, true);
+
+
     }
 
 //    @OnClick(R.id.btn_arrow_next)

@@ -83,6 +83,7 @@
                     android:paddingBottom="5dp"
                     android:layout_marginLeft="5dp"
                     android:textColor="@color/black"
+                    android:textStyle="bold"
                     android:textSize="@dimen/font_larger" />
 
                 <TextView
@@ -92,6 +93,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_toRightOf="@id/tv_second_day"
                     android:textColor="@android:color/black"
+                    android:textStyle="bold"
                     android:textSize="@dimen/font_larger" />
 
                 <TextView
@@ -102,6 +104,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_toRightOf="@id/tv_second_month"
                     android:textColor="@android:color/black"
+                    android:textStyle="bold"
                     android:textSize="@dimen/font_larger" />
 
             </RelativeLayout>
@@ -133,6 +136,7 @@
                     android:paddingBottom="5dp"
                     android:layout_marginLeft="5dp"
                     android:textColor="@color/black"
+                    android:textStyle="bold"
                     android:textSize="@dimen/font_larger" />
 
                 <TextView
@@ -142,6 +146,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_toRightOf="@id/tv_custom_day"
                     android:textColor="@android:color/black"
+                    android:textStyle="bold"
                     android:textSize="@dimen/font_larger" />
 
                 <TextView
@@ -152,6 +157,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_toRightOf="@id/tv_custom_month"
                     android:textColor="@android:color/black"
+                    android:textStyle="bold"
                     android:textSize="@dimen/font_larger" />
 
             </RelativeLayout>

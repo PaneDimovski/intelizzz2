@@ -34,7 +34,7 @@ public class Vehicle implements Parcelable {
     private Dl[] dl;
     private Dl device;
     private String pid;
-    private String nm;
+    private String nm; // name your device
     private String phone;
     private boolean isTamper;
     private boolean hasGeofenceAlarm;

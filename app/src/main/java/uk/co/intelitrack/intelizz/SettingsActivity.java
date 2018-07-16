@@ -264,7 +264,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
 
     @Override
     public void startMainActivity() {
-        MainActivity.start(this);
+        MainActivity.start(this,false);
         finish();
     }
 

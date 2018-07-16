@@ -144,6 +144,7 @@
             android:src="@drawable/ic_action_back" />
 
         <ImageView
+            android:id="@+id/proba"
             android:layout_width="@dimen/logo_width"
             android:layout_height="@dimen/logo_height"
             android:layout_alignParentBottom="true"

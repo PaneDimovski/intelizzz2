@@ -5,6 +5,9 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
+
+
+
     tools:context="uk.co.intelitrack.intelizzz.components.timer.TimerActivity">
 
     <TextView
@@ -30,8 +33,7 @@
         android:layout_width="@dimen/logo_width"
         android:layout_height="@dimen/logo_height"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
         android:padding="5dp"
         android:src="@drawable/logo" />
 

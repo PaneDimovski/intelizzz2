@@ -68,7 +68,7 @@
             />
 
         <Button
-            android:id="@+id/ok"
+            android:id="@+id/okkopce"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_below="@id/reset"

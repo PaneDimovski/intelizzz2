@@ -12,6 +12,7 @@ import retrofit2.http.Query;
 import uk.co.intelitrack.intelizzz.common.data.remote.Company;
 import uk.co.intelitrack.intelizzz.common.data.remote.Response;
 import uk.co.intelitrack.intelizzz.common.data.remote.Token;
+import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 
 /**
  * Created by Filip Stojanovski (filip100janovski@gmail.com).
@@ -77,4 +78,16 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("808gps/OperationManagement/StandardVehicleTeamAction_delete.action?id=${groupId}")
     Single<String> delete1(@Header("jsession") String jsession, @Field("id") String groupId);
+
+
+
+    @GET("StandardApiAction_addVehicle.action?")
+    Call<Vehicle> addUnit (@Query("jsession") String jsession,
+                           @Query("vehiIdno") String vehiIdno,
+                           @Query("devIdno") String devIdno,
+                           @Query("devType") String devType,
+                           @Query("factoryType") int factoryType,
+                           @Query("companyName") String compamyName,
+                           @Query("account") String account);
+
 }

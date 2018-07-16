@@ -7,7 +7,7 @@ package uk.co.intelitrack.intelizzz.common.data.remote;
 public class Device {
     private String did;
     private String type;
-    private String vid;
+    private String vid; // device number
 
     public String getDid() {
         return did;

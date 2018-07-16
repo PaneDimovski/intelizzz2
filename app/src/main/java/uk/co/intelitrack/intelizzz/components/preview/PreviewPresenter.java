@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.prefs.Preferences;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -35,6 +36,7 @@ public class PreviewPresenter implements PreviewContract.Presenter, GroupsClickL
     private boolean mIsGroup;
     private String mGroupId = "";
     private String forDelete;
+
     //endregion
 
     public PreviewPresenter(IntelizzzRepository repository, PreviewContract.View view) {

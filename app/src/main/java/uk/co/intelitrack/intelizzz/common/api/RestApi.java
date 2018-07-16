@@ -11,6 +11,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
 import uk.co.intelitrack.intelizzz.common.data.remote.Token;
+import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 
 
 public class RestApi {
@@ -52,6 +53,10 @@ public class RestApi {
 //        return request().login1(account,password);
 //    }
 
+
+    public Call<Vehicle> postaddUnit (String jsession, String vehiIdno, String devIdno, String devType, int factoryType,String companyName, String account){
+        return request().addUnit(jsession,vehiIdno,devIdno,devType,factoryType,companyName, account);
+    }
 
 
 }

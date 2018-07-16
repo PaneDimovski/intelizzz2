@@ -11,7 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,18 +30,23 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import uk.co.intelitrack.Proba.ListViewItemCheckboxBaseAdapter;
 import uk.co.intelitrack.Proba.ListViewItemDTO;
 import uk.co.intelitrack.intelizz.SettingsActivity;
 import uk.co.intelitrack.intelizzz.IntelizzzApplication;
 import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
+import uk.co.intelitrack.intelizzz.common.api.RestApi;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
 import uk.co.intelitrack.intelizzz.common.data.remote.Company;
 import uk.co.intelitrack.intelizzz.common.data.remote.Group;
 import uk.co.intelitrack.intelizzz.common.data.remote.ParentVehicle;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 import uk.co.intelitrack.intelizzz.common.utils.DialogUtils;
+import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
 import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzFloatingSearchView;
 import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzProgressDialog;
 import uk.co.intelitrack.intelizzz.components.groups.GroupsActivity;
@@ -53,6 +60,9 @@ import uk.co.intelitrack.intelizzz.components.unit.UnitActivity;
 
 public class PreviewActivity extends AppCompatActivity implements PreviewContract.View, VehiclesClickListener,
         FloatingSearchView.OnQueryChangeListener, FloatingSearchView.OnSearchListener {
+
+    RestApi api;
+
 
     //region DI
     @Inject
@@ -96,6 +106,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     ImageView setings;
     @BindView(R.id.toolbar_type_btn)
     ImageView mToolBarType;
+
 
     ListViewItemCheckboxBaseAdapter listViewDataAdapter;
     //endregion
@@ -321,15 +332,61 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
         dialog2.setCancelable(true);
 
 
-        dialog2.setPositiveButton("", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        LayoutInflater inflater = getLayoutInflater();
 
+        View convertView = (View) inflater.inflate(R.layout.alert_dialog_add_unit, null);
+
+        dialog2.setView(convertView);
+
+        EditText init_id = (EditText) convertView.findViewById(R.id.init_id);
+        EditText init_name = (EditText) convertView.findViewById(R.id.init_name);
+        Button ok = (Button) convertView.findViewById(R.id.okkopce);
+
+
+
+
+
+        convertView.setTag(dialog2);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                SharedPreferencesUtils mSharedpref = new SharedPreferencesUtils(getApplicationContext());
+                String jsession = mSharedpref.getSharedPreferencesString(Constants.TOKEN);
+                String vehIdno = init_id.getText().toString();
+                String devIdno = init_name.getText().toString();
+                String devType = "2";
+                int factoryType = 0;
+                String companyName = "testDesktop";
+                String account = "admin";
+
+
+                api = new RestApi(PreviewActivity.this);
+                {
+                    Call<Vehicle> call = api.postaddUnit(jsession,vehIdno, devIdno,devType,factoryType,companyName, account);
+                    call.enqueue(new Callback<Vehicle>() {
+                        @Override
+                        public void onResponse(Call<Vehicle> call, Response<Vehicle> response) {
+                            if (response.code() == 200) {
+                                vehicle = response.body();
+                                Toast.makeText(PreviewActivity.this, "You are login", Toast.LENGTH_SHORT).show();
+                            } else if (response.code() == 401) {
+                                Toast.makeText(PreviewActivity.this, "Error please try again", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Vehicle> call, Throwable t) {
+                            Toast.makeText(PreviewActivity.this, "Something went wrong!", Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+                }
             }
         });
 
-        dialog2.setView(getLayoutInflater().inflate(R.layout.alert_dialog_add_unit, null));
         AlertDialog alert2 = dialog2.create();
+
         alert2.show();
         alert2.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 100, 100, 100)));
 
@@ -640,4 +697,5 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
         }
     }
     //endregion
+
 }

@@ -40,11 +40,6 @@ public class PreviewModule {
     }
 
     @Provides
-    UnitAdapter provideUnitAdapter(IntelizzzRepository repository) {
-        return new UnitAdapter(mActivity,repository, mContext);
-    }
-
-    @Provides
     GroupsAdapter provideGroupsAdapter(PreviewPresenter listener, IntelizzzRepository repository) {
         List<ParentVehicle> groups = new ArrayList<>();
         if (!repository.getCompanies().isEmpty()) {

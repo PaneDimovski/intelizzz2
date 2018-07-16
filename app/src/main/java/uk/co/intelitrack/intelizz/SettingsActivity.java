@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -160,11 +161,11 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
     @OnClick(R.id.btn_ok_settings)
     public void klik() {
 //            String groupId = SharedPreff.getGroupID(getApplicationContext());
-        String groupId = "105";
-//                mSharedPreferencesUtils.getSharedPreferencesString(Constants.OLI_ID);
-        String ooo = mSharedPreferencesUtils.getSharedPreferencesString(Constants.JSESSIONID);
-        String jsession = mSharedPreferencesUtils.getSharedPreferencesString(Constants.TOKEN);
-        mPresenter.onDelete4(ooo,groupId);
+        String groupId = mSharedPreferencesUtils.getSharedPreferencesString(Constants.OLI_ID);
+        //HashMap<String, String> cookies = new HashMap();
+        //cookies.put("JSESSIONID", mSharedPreferencesUtils.getSharedPreferencesString(Constants.JSESSIONID));
+        String jsession = mSharedPreferencesUtils.getSharedPreferencesString(Constants.JSESSIONID);
+        mPresenter.onDelete6(jsession,groupId);
         mGroupsAdapter.notifyDataSetChanged();
 
     }

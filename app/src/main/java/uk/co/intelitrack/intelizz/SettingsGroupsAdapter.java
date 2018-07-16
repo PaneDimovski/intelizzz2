@@ -267,26 +267,43 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
     }
 
     @Override
+    public long getItemId(int position) {
+        return Long.parseLong(mGroups.get(position).getId());
+    }
+
+    @Override
     public void onBindGroupViewHolder(ParentVehicleViewHolder holder, int position, ExpandableGroup group) {
         final ParentVehicle parentVehicle = mGroups.get(position);
 //                ((ParentVehicle) group);
         holder.bind(((ParentVehicle) group), mOnItemClickListener, mIsClicked,mCheck,mTekst);
-        Boolean checkedState = checkBoxStates.get(parentVehicle.getId());
-        holder.checkBox.setChecked(checkedState == null ? false : checkedState);
-        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    final ParentVehicle parentVehicle = mGroups.get(position);
-                    if (parentVehicle == null) {
-                        return;
-                    }
-                    checkBoxStates.put(parentVehicle.getId(), isChecked);
-//                    String id =   parentVehicle.getId();
-                        mSharedPreferencesUtils.setSharedPreferencesString(Constants.OLI_ID,parentVehicle.getId());
-                }
+
+        if (holder.checkBox.isChecked()==true){
+            holder.checkBox.setTag(mGroups.get(position));
+            holder.checkBox.setId(position);
+            if (parentVehicle.getId()== String.valueOf(holder.checkBox.getId())){
+                mSharedPreferencesUtils.setSharedPreferencesString(Constants.OLI_ID,parentVehicle.getId());
             }
-        });
+        }
+
+
+
+//        Boolean checkedState = checkBoxStates.get(parentVehicle.getId());
+//        holder.checkBox.setChecked(checkedState == null ? false : checkedState);
+//        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked){
+//                    final ParentVehicle parentVehicle = mGroups.get(position);
+//                    if (parentVehicle == null) {
+//                        return;
+//                    }
+//                    checkBoxStates.put(parentVehicle.getId(), isChecked);
+//
+////                    String id =   parentVehicle.getId();
+//                        mSharedPreferencesUtils.setSharedPreferencesString(Constants.OLI_ID,parentVehicle.getId());
+//                }
+//            }
+//        });
     }
 
     private void onCheckChanged(int position, boolean checked) {

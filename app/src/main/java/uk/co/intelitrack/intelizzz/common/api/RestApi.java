@@ -11,6 +11,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
 import uk.co.intelitrack.intelizzz.common.data.remote.Token;
+import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 
 
 public class RestApi {
@@ -47,6 +48,9 @@ public class RestApi {
     }
     public retrofit2.Call<Token>login4(String username, String password){
         return request().login4(username, password);
+    }
+    public Call<Vehicle>resetTamper(String JSESSIONID, String condiIdno,String typeIdno,String sourceIdno, String vehiColor){
+        return request().resetTamper(JSESSIONID,condiIdno,typeIdno,sourceIdno,vehiColor);
     }
 //    public Call<Token> postAuthentication(String account, String password) {
 //        return request().login1(account,password);

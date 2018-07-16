@@ -1,5 +1,6 @@
 package uk.co.intelitrack.intelizz;
 
+import java.util.HashMap;
 import java.util.List;
 
 import uk.co.intelitrack.intelizzz.common.base.BasePresenter;
@@ -55,5 +56,11 @@ public interface SettingsContract {
         void onDelete3(String jsesion, String id, String companija);
 
         void onDelete4(String jsesion, String id);
+
+        void onDelete4(HashMap<String, String> cookie, String id);
+
+        void onDelete5(HashMap<String, String> cookie, String id);
+
+        void onDelete6(String s, String id);
     }
 }

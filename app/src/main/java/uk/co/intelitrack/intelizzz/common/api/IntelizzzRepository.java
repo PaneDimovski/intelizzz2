@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -263,9 +264,11 @@ public class IntelizzzRepository {
                 });
     }
 
-    public Single<String> deleteGroup(String groupId) {
+    public Single<String> deleteGroup(String s,String groupId) {
+        String ss = "JSESSIONID=" + s;
         return mIntelizzzDataSource.deleteGroup(
-                mSharedPreferencesUtils.getSharedPreferencesString(Constants.JSESSIONID), groupId)
+
+                ss, groupId)
                 .compose(RxUtils.applySingleSchedulers())
                 .flatMap(result -> {
                     return Single.just(result);

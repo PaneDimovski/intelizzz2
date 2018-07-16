@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -112,25 +113,25 @@ public class SettingsPresenter implements SettingsContract.Presenter, GroupsClic
 
     @Override
     public void onDeleteClick() {
-        if (TextUtils.isEmpty(forDelete)) {
-            //TODO: put this in  strings
-            mView.showToastMessage("Please select group");
-            return;
-        }
-
-        mView.toogleProgressBar(true);
-        mSubscriptions.add(mRepository.deleteGroup(mGroupId)
-                .subscribe(
-                        x -> {
-                            mRepository.clearCompanies();
-                            checkAndFetchGroups();
-                            mView.showToastMessage("Group successfully deleted");
-                        },
-                        e -> {
-                            Timber.e(e);
-                            mView.showToastMessage("Delete group fail");
-                            mView.toogleProgressBar(false);
-                        }));
+//        if (TextUtils.isEmpty(forDelete)) {
+//            //TODO: put this in  strings
+//            mView.showToastMessage("Please select group");
+//            return;
+//        }
+//
+//        mView.toogleProgressBar(true);
+//        mSubscriptions.add(mRepository.deleteGroup(mGroupId)
+//                .subscribe(
+//                        x -> {
+//                            mRepository.clearCompanies();
+//                            checkAndFetchGroups();
+//                            mView.showToastMessage("Group successfully deleted");
+//                        },
+//                        e -> {
+//                            Timber.e(e);
+//                            mView.showToastMessage("Delete group fail");
+//                            mView.toogleProgressBar(false);
+//                        }));
     }
 
     @Override
@@ -145,6 +146,21 @@ public class SettingsPresenter implements SettingsContract.Presenter, GroupsClic
 
     @Override
     public void onDelete3(String jsesion, String id, String companija) {
+
+    }
+
+    @Override
+    public void onDelete4(String jsesion, String id) {
+
+    }
+
+    @Override
+    public void onDelete4(HashMap<String, String> cookie, String id) {
+
+    }
+
+    @Override
+    public void onDelete5(HashMap<String, String> cookie, String id) {
 
     }
 
@@ -203,16 +219,16 @@ public class SettingsPresenter implements SettingsContract.Presenter, GroupsClic
 
 
     @Override
-    public void onDelete4(String jsesion, String id) {
+    public void onDelete6(String s, String id) {
         mGroupId = id;
-         mSubscriptions.add(mRepository.deleteGroup(mGroupId)
+         mSubscriptions.add(mRepository.deleteGroup(s,mGroupId)
                 .subscribe(
                         (String x) -> {
                             mRepository.clearCompanies();
                             checkAndFetchGroups();
                             mView.showToastMessage("Group successfully deleted");
                         },
-                        (Throwable e) -> {
+                        e -> {
                             Timber.e(e);
                             mView.showToastMessage("Delete group fail");
                             mView.toogleProgressBar(false);

@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -20,26 +21,34 @@ import android.widget.Toast;
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import uk.co.intelitrack.Proba.ListViewItemCheckboxBaseAdapter;
 import uk.co.intelitrack.Proba.ListViewItemDTO;
 import uk.co.intelitrack.intelizz.SettingsActivity;
 import uk.co.intelitrack.intelizzz.IntelizzzApplication;
 import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
+import uk.co.intelitrack.intelizzz.common.api.RestApi;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
 import uk.co.intelitrack.intelizzz.common.data.remote.Company;
 import uk.co.intelitrack.intelizzz.common.data.remote.Group;
 import uk.co.intelitrack.intelizzz.common.data.remote.ParentVehicle;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 import uk.co.intelitrack.intelizzz.common.utils.DialogUtils;
+import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
 import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzFloatingSearchView;
 import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzProgressDialog;
 import uk.co.intelitrack.intelizzz.components.groups.GroupsActivity;
@@ -96,12 +105,14 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     ImageView setings;
     @BindView(R.id.toolbar_type_btn)
     ImageView mToolBarType;
+    RestApi api;
+
 
     ListViewItemCheckboxBaseAdapter listViewDataAdapter;
     //endregion
     int posit;
     private List<Vehicle> mVehicles = new ArrayList<>();
-    Vehicle vehicle;
+    public Vehicle vehicle;
 
     //region Fields
     private IntelizzzProgressDialog mProgressDialog;
@@ -255,9 +266,90 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     }
 
     @Override
+    public void cancelTamper() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//                    //  builder.setMessage("Do you want to remove ?");
+                    builder.setCancelable(true);
+        LayoutInflater inflater = getLayoutInflater();
+        View convertView = (View) inflater.inflate(R.layout.alert_dialog_reset, null);
+                    builder.setView(convertView   );
+//                    builder.setView(R.layout.alert_dialog_reset);
+                    Button buttonYes=(Button) convertView.findViewById(R.id.yes);
+
+                              buttonYes.setOnClickListener(new View.OnClickListener() {
+                                  @Override
+                                  public void onClick(View v) {
+                                      SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
+                                     RestApi api = new RestApi(getApplicationContext());
+                                      String JSESSIONIN = sharedPreferencesUtils.getSharedPreferencesString(Constants.JSESSIONID);
+                                      String condiIdno = "handled";
+                                      String typeIdno = "17";
+
+
+                                      String sourceIdno=getCurrentDateAndTimeFirst();
+                                      String vehiColor = getCurrentDateAndTimeSecond();
+
+                                      Call<Vehicle> call = api.resetTamper(JSESSIONIN,condiIdno,typeIdno,sourceIdno,vehiColor);
+                                      call.enqueue(new Callback<Vehicle>() {
+                                          @Override
+                                          public void onResponse(Call<Vehicle> call, Response<Vehicle> response) {
+                                              if (response.isSuccessful()){
+                                                 Vehicle vehicle = new Vehicle();
+                                                vehicle=response.body();
+                                                  Toast.makeText(getApplicationContext(), "successfully Tamper reset", Toast.LENGTH_SHORT).show();
+                                              } else if (!response.isSuccessful()){
+                                                  Toast.makeText(getApplicationContext(), "NEUSPESNO TAMPER", Toast.LENGTH_SHORT).show();
+                                              }
+                                          }
+
+                                          @Override
+                                          public void onFailure(Call<Vehicle> call, Throwable t) {
+
+                                          }
+                                      });
+                                  }
+                              });
+
+
+
+
+
+
+                    builder.setNegativeButton(
+                            "",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+
+                    AlertDialog alert11 = builder.create();
+                    alert11.show();
+                    alert11.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 200, 200, 200)));
+    }
+
+    @Override
     public void startLoginActivity() {
         LoginActivity.start(this);
         finish();
+    }
+    public static String getCurrentDateAndTimeFirst() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 00);
+        calendar.set(Calendar.MINUTE,00);
+        calendar.set(Calendar.SECOND,00);
+        return dateFormat.format(calendar.getTime());
+    }
+    public static String getCurrentDateAndTimeSecond() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE,59);
+        calendar.set(Calendar.SECOND,59);
+        return dateFormat.format(calendar.getTime());
     }
 
     @Override

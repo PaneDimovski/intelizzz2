@@ -12,6 +12,7 @@ import retrofit2.http.Query;
 import uk.co.intelitrack.intelizzz.common.data.remote.Company;
 import uk.co.intelitrack.intelizzz.common.data.remote.Response;
 import uk.co.intelitrack.intelizzz.common.data.remote.Token;
+import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 
 /**
  * Created by Filip Stojanovski (filip100janovski@gmail.com).
@@ -67,9 +68,16 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("808gps/OperationManagement/StandardVehicleTeamAction_delete.action")
-    Single<String> deleteGroup(@Header("JSESSIONID") String jsession, @Field("group_id") String groupId);
+    Single<String> deleteGroup(@Header("Cookie") String jsession, @Field("id") String groupId);
 
     @FormUrlEncoded
     @POST("808gps/openPhp/updateMotorcade.php")
     Single<String> updateMotorcade(@Field("jsession") String jsession, @Field("company_id") String companyId, @Field("vehicle_id") String vehicleId);
+
+    @FormUrlEncoded
+    @POST("808gps/LocationManagement/StandardPositionAction_saveAlarmHandle.action")
+    Call<Vehicle> resetTamper(@Header("vehiIdnos") String jsessionid,@Field("condiIdno") String condiIdno,
+                              @Field("typeIdno") String typeIdno,
+                              @Field("sourceIdno") String sourceIdno,
+                              @Field("vehiColor") String vehiColor);
 }

@@ -15,6 +15,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.arlib.floatingsearchview.util.adapter.OnItemTouchListenerAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,11 +26,18 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Optional;
+import io.reactivex.annotations.Nullable;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
+import uk.co.intelitrack.intelizzz.common.api.RestApi;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
 import uk.co.intelitrack.intelizzz.common.data.remote.ParentVehicle;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
+import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
 
 /**
  * Created by Filip Stojanovski (filip100janovski@gmail.com).
@@ -241,6 +251,11 @@ public class VehiclesAdapter extends RecyclerView.Adapter<VehiclesAdapter.ViewHo
         ImageView mGsimbol;
         @BindView(R.id.icon_warning)
         ImageView mWarning;
+        RestApi api;
+        SharedPreferencesUtils sharedPreferencesUtils;
+//        @Nullable
+//        @BindView(R.id.yes)
+//        public ImageView buttonYes;
 //        @BindView(R.id.delete)
 //        ImageView delete;
 
@@ -281,31 +296,58 @@ public class VehiclesAdapter extends RecyclerView.Adapter<VehiclesAdapter.ViewHo
                 @Override
                 public void onClick(View v) {
                     onItemClickListener.onItemClick2(vehicle.getId());
-                    AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
-                    //  builder.setMessage("Do you want to remove ?");
-                    builder.setCancelable(true);
-//                    builder.setView(R.layout.   )    tuka da se vmetne layout od alertdialog
-                    builder.setView(R.layout.alert_dialog_reset);
-
-                    builder.setPositiveButton(
-                            "",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    //Do your code...
-                                }
-                            });
-
-                    builder.setNegativeButton(
-                            "",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                }
-                            });
-
-                    AlertDialog alert11 = builder.create();
-                    alert11.show();
-                    alert11.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 200, 200, 200)));
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
+//                    //  builder.setMessage("Do you want to remove ?");
+//                    builder.setCancelable(true);
+////                    builder.setView(R.layout.   )    tuka da se vmetne layout od alertdialog
+//                    builder.setView(R.layout.alert_dialog_reset);
+//                    Button buttonYes=itemView.findViewById(R.id.yes);
+//
+//                              buttonYes.setOnClickListener(new View.OnClickListener() {
+//                                  @Override
+//                                  public void onClick(View v) {
+//                                      api = new RestApi(itemView.getContext());
+//                                      String JSESSIONIN = sharedPreferencesUtils.getSharedPreferencesString(Constants.JSESSIONID);
+//                                      String condiIdno = "handled";
+//                                      String typeIdno = "17";
+//                                      String sourceIdno="2018-07-10 00:00:00";
+//                                      String vehiColor = "2018-07-10 23:59:59";
+//
+//                                      Call<Vehicle>call = api.resetTamper(JSESSIONIN,condiIdno,typeIdno,sourceIdno,vehiColor);
+//                                      call.enqueue(new Callback<Vehicle>() {
+//                                          @Override
+//                                          public void onResponse(Call<Vehicle> call, Response<Vehicle> response) {
+//                                              if (response.isSuccessful()){
+//                                                  Toast.makeText(itemView.getContext(), "USPESNO TAMPER", Toast.LENGTH_SHORT).show();
+//                                              } else if (!response.isSuccessful()){
+//                                                  Toast.makeText(itemView.getContext(), "NEUSPESNO TAMPER", Toast.LENGTH_SHORT).show();
+//                                              }
+//                                          }
+//
+//                                          @Override
+//                                          public void onFailure(Call<Vehicle> call, Throwable t) {
+//
+//                                          }
+//                                      });
+//                                  }
+//                              });
+//
+//
+//
+//
+//
+//
+//                    builder.setNegativeButton(
+//                            "",
+//                            new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int id) {
+//                                    dialog.cancel();
+//                                }
+//                            });
+//
+//                    AlertDialog alert11 = builder.create();
+//                    alert11.show();
+//                    alert11.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 200, 200, 200)));
                 }
             });
 

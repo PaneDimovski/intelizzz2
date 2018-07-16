@@ -24,6 +24,10 @@ public class SharedPreferencesUtils {
         this.mContext = mContext;
     }
 
+    public SharedPreferencesUtils() {
+
+    }
+
     public String getSharedPreferencesString(String keySharedPreferences) {
         return PreferenceManager.getDefaultSharedPreferences(mContext)
                 .getString(keySharedPreferences, "");

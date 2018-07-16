@@ -82,12 +82,12 @@ public interface ApiInterface {
 
 
     @GET("StandardApiAction_addVehicle.action?")
-    Call<Vehicle> addUnit (@Query("jsession") String jsession,
-                           @Query("vehiIdno") String vehiIdno,
-                           @Query("devIdno") String devIdno,
-                           @Query("devType") String devType,
-                           @Query("factoryType") int factoryType,
-                           @Query("companyName") String compamyName,
-                           @Query("account") String account);
+    Call<Vehicle> addUnit(@Query("jsession") String jsession,
+                          @Query("vehiIdno") String vehiIdno,
+                          @Query("devIdno") String devIdno,
+                          @Query("devType") String devType,
+                          @Query("factoryType") int factoryType,
+                          @Query("companyName") String compamyName,
+                          @Query("account") String account);
 
 }

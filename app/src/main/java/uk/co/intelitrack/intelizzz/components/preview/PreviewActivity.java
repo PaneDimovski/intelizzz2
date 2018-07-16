@@ -81,7 +81,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     //region VI
     @BindView(R.id.rvVehicles)
     RecyclerView mRvVehicles;
-//    @Nullable
+    //    @Nullable
 //    @BindView(R.id.delete_units)
 //    RecyclerView mRVunits;
     @BindView(R.id.rvGroups)
@@ -111,18 +111,15 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     ListViewItemCheckboxBaseAdapter listViewDataAdapter;
     //endregion
     int posit;
-    private List<Vehicle> mVehicles = new ArrayList<>();
     Vehicle vehicle;
-
+    //endregion
+    // private ArrayAdapter<Vehicle> arrayAdapter;
+    String text = "";
+    private List<Vehicle> mVehicles = new ArrayList<>();
     //region Fields
     private IntelizzzProgressDialog mProgressDialog;
     private boolean mIsGroup;
-    //endregion
-    // private ArrayAdapter<Vehicle> arrayAdapter;
-    String text="";
     private List<Company> mCompanies = new ArrayList<>();
-
-
 
 
     public static void start(Activity activity, boolean isGroup) {
@@ -273,7 +270,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
 
     @Override
     public void startMainActivity() {
-        MainActivity.start(this,false);
+        MainActivity.start(this, false);
         finish();
     }
 
@@ -321,7 +318,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     //region ButterKnife Methods
     @OnClick(R.id.btn_home)
     void onHomeClick() {
-        MainActivity.start(this,false);
+        MainActivity.start(this, false);
     }
 
     @OnClick(R.id.add_unit)
@@ -343,9 +340,6 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
         Button ok = (Button) convertView.findViewById(R.id.okkopce);
 
 
-
-
-
         convertView.setTag(dialog2);
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -363,7 +357,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
 
                 api = new RestApi(PreviewActivity.this);
                 {
-                    Call<Vehicle> call = api.postaddUnit(jsession,vehIdno, devIdno,devType,factoryType,companyName, account);
+                    Call<Vehicle> call = api.postaddUnit(jsession, vehIdno, devIdno, devType, factoryType, companyName, account);
                     call.enqueue(new Callback<Vehicle>() {
                         @Override
                         public void onResponse(Call<Vehicle> call, Response<Vehicle> response) {
@@ -405,13 +399,13 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
 
         dialog3.setView(convertView);
 
-        ListView listView = (ListView)  convertView.findViewById(R.id.listView1);
+        ListView listView = (ListView) convertView.findViewById(R.id.listView1);
 
         // Initiate listview data.
         final List<ListViewItemDTO> initItemList = this.getInitViewItemDtoList();
 
         // Create a customtwo list view adapter with checkbox control.
-        ListViewItemCheckboxBaseAdapter listAdapter = new ListViewItemCheckboxBaseAdapter (getBaseContext() , initItemList);
+        ListViewItemCheckboxBaseAdapter listAdapter = new ListViewItemCheckboxBaseAdapter(getBaseContext(), initItemList);
 
         listAdapter.notifyDataSetChanged();
 
@@ -420,27 +414,27 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
 
         // When list view item is clicked.
 
-         listView.setOnItemClickListener((adapterView, view, itemIndex, l) -> {
-             // Get user selected item.
-             Object itemObject = adapterView.getAdapter().getItem(itemIndex);
+        listView.setOnItemClickListener((adapterView, view, itemIndex, l) -> {
+            // Get user selected item.
+            Object itemObject = adapterView.getAdapter().getItem(itemIndex);
 
-             // Translate the selected item to DTO object.
-             ListViewItemDTO itemDto = (ListViewItemDTO) itemObject;
+            // Translate the selected item to DTO object.
+            ListViewItemDTO itemDto = (ListViewItemDTO) itemObject;
 
-             // Get the checkbox.
-             CheckBox itemCheckbox = (CheckBox) view.findViewById(R.id.checkMark5);
+            // Get the checkbox.
+            CheckBox itemCheckbox = (CheckBox) view.findViewById(R.id.checkMark5);
 
-             // Reverse the checkbox and clicked item check state.
-             if (itemDto.isChecked()) {
-                 itemCheckbox.setChecked(false);
-                 itemDto.setChecked(false);
-             } else {
-                 itemCheckbox.setChecked(true);
-                 itemDto.setChecked(true);
-             }
+            // Reverse the checkbox and clicked item check state.
+            if (itemDto.isChecked()) {
+                itemCheckbox.setChecked(false);
+                itemDto.setChecked(false);
+            } else {
+                itemCheckbox.setChecked(true);
+                itemDto.setChecked(true);
+            }
 
-             //Toast.makeText(getApplicationContext(), "select item text : " + itemDto.getItemText(), Toast.LENGTH_SHORT).show();
-         });
+            //Toast.makeText(getApplicationContext(), "select item text : " + itemDto.getItemText(), Toast.LENGTH_SHORT).show();
+        });
 
         // Click this button to select all listview items with checkbox checked.
         ImageView selectAllButton = (ImageView) convertView.findViewById(R.id.del_unit);
@@ -459,7 +453,6 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
         listView.setAdapter(listAdapter);
 
         AlertDialog alert3 = dialog3.create();
-
 
 
         alert3.show();

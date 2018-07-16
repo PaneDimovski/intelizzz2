@@ -37,6 +37,7 @@ import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzProgressDialog;
 import uk.co.intelitrack.intelizzz.components.login.LoginActivity;
 import uk.co.intelitrack.intelizzz.components.main.MainActivity;
 import uk.co.intelitrack.intelizzz.components.maps.MapsActivity;
+import uk.co.intelitrack.intelizzz.components.timer.TimerActivity;
 
 /**
  * Created by Filip Stojanovski (filip100janovski@gmail.com).
@@ -203,6 +204,12 @@ public class UnitActivity extends AppCompatActivity implements UnitContract.View
 
         SettingsActivity.start(this, true);
 
+
+    }
+    @OnClick(R.id.proba)
+    void proba(){
+        Intent intent = new Intent(UnitActivity.this, TimerActivity.class);
+        startActivity(intent);
 
     }
 

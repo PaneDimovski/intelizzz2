@@ -17,10 +17,12 @@ public interface UnitContract {
         void startMapActivity(String id, boolean isLastKnownLocation);
 
         void startLoginActivity();
+        void startTimeActivity(String id, boolean isLastKnownLocation);
     }
 
     interface Presenter extends BasePresenter {
         void onLastKnownLocation();
+        void onLastKnownLocation1();
 
         void onPreviousLocations();
     }

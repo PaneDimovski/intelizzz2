@@ -22,6 +22,31 @@ public class Company {
     @SerializedName("ID")
     private String id;
 
+    @SerializedName("encryptPwd")
+    private String password;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @SerializedName("address")
+    private String address;
+
+    @SerializedName("introduction")
+    private String email;
+
     public Group[] getGroups() {
         return groups;
     }

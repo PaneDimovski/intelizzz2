@@ -3,12 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@color/transparent_gray"
     android:orientation="vertical"
 
 
 
     tools:context="uk.co.intelitrack.intelizzz.components.timer.TimerActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/txtTimerValue"
+        android:gravity="center"
+        android:text="Time remaining"
+        android:layout_centerInParent="true"
+        android:textColor="@color/black"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/txtTimerValue"
@@ -17,24 +27,11 @@
         android:gravity="center"
         android:layout_centerInParent="true"
         android:text="13:00:14"
-        android:textColor="@color/text_white"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         android:textSize="@dimen/font_biggest" />
 
 
-    <ImageView
-        android:id="@+id/btn_back"
-        android:layout_width="@dimen/unit_back_icon_size"
-        android:layout_height="@dimen/unit_back_icon_size"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="5dp"
-        android:src="@drawable/ic_action_back" />
 
-    <ImageView
-        android:layout_width="@dimen/logo_width"
-        android:layout_height="@dimen/logo_height"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:padding="5dp"
-        android:src="@drawable/logo" />
 
 </RelativeLayout>

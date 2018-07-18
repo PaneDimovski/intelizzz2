@@ -62,9 +62,9 @@
             android:layout_weight="0"
             tools:context="uk.co.intelitrack.intelizzz.components.maps.MapsActivity" />
 
-
+            <include layout="@layout/activity_timer"  android:visibility="visible"/>
     </RelativeLayout>
-        <include layout="@layout/bottom_map_last_location"  />
+        <include layout="@layout/bottom_time_last_location"  />
 
         <include layout="@layout/bottom_map_custom_location" />
     </LinearLayout>

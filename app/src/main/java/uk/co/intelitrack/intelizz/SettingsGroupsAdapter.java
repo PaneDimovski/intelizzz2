@@ -277,13 +277,13 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
 //                ((ParentVehicle) group);
         holder.bind(((ParentVehicle) group), mOnItemClickListener, mIsClicked,mCheck,mTekst);
 
-        if (holder.checkBox.isChecked()==true){
-            holder.checkBox.setTag(mGroups.get(position));
-            holder.checkBox.setId(position);
-            if (parentVehicle.getId()== String.valueOf(holder.checkBox.getId())){
-                mSharedPreferencesUtils.setSharedPreferencesString(Constants.OLI_ID,parentVehicle.getId());
-            }
-        }
+//        if (holder.checkBox.isChecked()==true){
+//            holder.checkBox.setTag(mGroups.get(position));
+//            holder.checkBox.setId(position);
+//            if (parentVehicle.getId()== String.valueOf(holder.checkBox.getId())){
+//                mSharedPreferencesUtils.setSharedPreferencesString(Constants.OLI_ID,parentVehicle.getId());
+//            }
+//        }
 
 
 
@@ -392,7 +392,10 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
                 public void onClick(View v) {
                     if (parentVehicle.isCompany()) {
                         groupsClickListener.onCompanyItemClick(parentVehicle.getId());
-                    } else if (!parentVehicle.isCompany()){
+                    }
+
+
+                    else if (!parentVehicle.isCompany()){
                         groupsClickListener.onGroupItemClick(parentVehicle.getId());
                     }
 

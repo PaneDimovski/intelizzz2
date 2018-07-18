@@ -35,6 +35,7 @@ public class PreviewPresenter implements PreviewContract.Presenter, GroupsClickL
     private boolean mIsGroup;
     private String mGroupId = "";
     private String forDelete;
+    private String s;
     //endregion
 
     public PreviewPresenter(IntelizzzRepository repository, PreviewContract.View view) {
@@ -94,7 +95,7 @@ public class PreviewPresenter implements PreviewContract.Presenter, GroupsClickL
 
 
     public void onUnitClick2(String id) {
-//        mView.startUnitActivity(id);
+        mView.cancelTamper();
     }
 
 
@@ -110,25 +111,25 @@ public class PreviewPresenter implements PreviewContract.Presenter, GroupsClickL
 
     @Override
     public void onDeleteClick() {
-        if (TextUtils.isEmpty(forDelete)) {
-            //TODO: put this in  strings
-            mView.showToastMessage("Please select group");
-            return;
-        }
-
-        mView.toogleProgressBar(true);
-        mSubscriptions.add(mRepository.deleteGroup(mGroupId)
-                .subscribe(
-                        x -> {
-                            mRepository.clearCompanies();
-                            checkAndFetchGroups();
-                            mView.showToastMessage("Group successfully deleted");
-                        },
-                        e -> {
-                            Timber.e(e);
-                            mView.showToastMessage("Delete group fail");
-                            mView.toogleProgressBar(false);
-                        }));
+//        if (TextUtils.isEmpty(forDelete)) {
+//            //TODO: put this in  strings
+//            mView.showToastMessage("Please select group");
+//            return;
+//        }
+//
+//        mView.toogleProgressBar(true);
+//        mSubscriptions.add(mRepository.deleteGroup(s,mGroupId)
+//                .subscribe(
+//                        x -> {
+//                            mRepository.clearCompanies();
+//                            checkAndFetchGroups();
+//                            mView.showToastMessage("Group successfully deleted");
+//                        },
+//                        e -> {
+//                            Timber.e(e);
+//                            mView.showToastMessage("Delete group fail");
+//                            mView.toogleProgressBar(false);
+//                        }));
     }
 
     @Override

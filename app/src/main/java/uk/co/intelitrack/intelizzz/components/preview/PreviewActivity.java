@@ -44,6 +44,7 @@ import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
 import uk.co.intelitrack.intelizzz.common.api.RestApi;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
+import uk.co.intelitrack.intelizzz.common.data.remote.Alarm;
 import uk.co.intelitrack.intelizzz.common.data.remote.Company;
 import uk.co.intelitrack.intelizzz.common.data.remote.Group;
 import uk.co.intelitrack.intelizzz.common.data.remote.ParentVehicle;
@@ -109,7 +110,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     ImageView setings;
     @BindView(R.id.toolbar_type_btn)
     ImageView mToolBarType;
-    RestApi api;
+
 
 
 
@@ -286,21 +287,29 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
                                   public void onClick(View v) {
                                       SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
                                      RestApi api = new RestApi(getApplicationContext());
-                                      String JSESSIONIN = sharedPreferencesUtils.getSharedPreferencesString(Constants.JSESSIONID);
+                                     String JSESSIONIN = sharedPreferencesUtils.getSharedPreferencesString(Constants.JSESSIONID);
+                                      String ss = "JSESSIONID=" + JSESSIONIN;
+
                                       String condiIdno = "handled";
                                       String typeIdno = "17";
+                                      String aaa = "590C8609DEDE47598B0338BD41DBD2EB";
 
 
                                       String sourceIdno=getCurrentDateAndTimeFirst();
                                       String vehiColor = getCurrentDateAndTimeSecond();
+                                      Alarm alarm = new Alarm();
+                                      alarm.setCondiIdno(condiIdno);
+                                      alarm.setGuid(aaa);
+                                      alarm.setTypeIdno(typeIdno);
+                                      alarm.setSourceIdno(sourceIdno);
+                                      alarm.setVehiColor(vehiColor);
 
-                                      Call<Vehicle> call = api.resetTamper(JSESSIONIN,condiIdno,typeIdno,sourceIdno,vehiColor);
-                                      call.enqueue(new Callback<Vehicle>() {
+                                      Call<Alarm> call = api.resetTamper(ss,alarm);
+                                      call.enqueue(new Callback<Alarm>() {
                                           @Override
-                                          public void onResponse(Call<Vehicle> call, Response<Vehicle> response) {
+                                          public void onResponse(Call<Alarm> call, Response<Alarm> response) {
                                               if (response.isSuccessful()){
-                                                 Vehicle vehicle = new Vehicle();
-                                                vehicle=response.body();
+
                                                   Toast.makeText(getApplicationContext(), "successfully Tamper reset", Toast.LENGTH_SHORT).show();
                                               } else if (!response.isSuccessful()){
                                                   Toast.makeText(getApplicationContext(), "NEUSPESNO TAMPER", Toast.LENGTH_SHORT).show();
@@ -308,7 +317,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
                                           }
 
                                           @Override
-                                          public void onFailure(Call<Vehicle> call, Throwable t) {
+                                          public void onFailure(Call<Alarm> call, Throwable t) {
 
                                           }
                                       });

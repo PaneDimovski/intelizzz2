@@ -35,12 +35,16 @@ public interface PreviewContract {
         void startGroupsActivity();
 
         void showToastMessage(String message);
+
+        void cancelTamper();
     }
 
     interface Presenter extends BasePresenter {
         void refreshGroups();
 
         void onUnitClick(String id);
+
+        void onUnitClick2(String id);
 
         void onGroupClick(String id, boolean isGroup);
 

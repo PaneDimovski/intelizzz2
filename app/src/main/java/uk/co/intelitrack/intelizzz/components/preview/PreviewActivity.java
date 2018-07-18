@@ -22,8 +22,11 @@ import android.widget.Toast;
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -41,6 +44,7 @@ import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
 import uk.co.intelitrack.intelizzz.common.api.RestApi;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
+import uk.co.intelitrack.intelizzz.common.data.remote.Alarm;
 import uk.co.intelitrack.intelizzz.common.data.remote.Company;
 import uk.co.intelitrack.intelizzz.common.data.remote.Group;
 import uk.co.intelitrack.intelizzz.common.data.remote.ParentVehicle;
@@ -81,7 +85,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     //region VI
     @BindView(R.id.rvVehicles)
     RecyclerView mRvVehicles;
-    //    @Nullable
+//    @Nullable
 //    @BindView(R.id.delete_units)
 //    RecyclerView mRVunits;
     @BindView(R.id.rvGroups)
@@ -108,18 +112,23 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     ImageView mToolBarType;
 
 
+
+
     ListViewItemCheckboxBaseAdapter listViewDataAdapter;
     //endregion
     int posit;
-    Vehicle vehicle;
-    //endregion
-    // private ArrayAdapter<Vehicle> arrayAdapter;
-    String text = "";
     private List<Vehicle> mVehicles = new ArrayList<>();
+    public Vehicle vehicle;
+
     //region Fields
     private IntelizzzProgressDialog mProgressDialog;
     private boolean mIsGroup;
+    //endregion
+    // private ArrayAdapter<Vehicle> arrayAdapter;
+    String text="";
     private List<Company> mCompanies = new ArrayList<>();
+
+
 
 
     public static void start(Activity activity, boolean isGroup) {
@@ -263,14 +272,103 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     }
 
     @Override
+    public void cancelTamper() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//                    //  builder.setMessage("Do you want to remove ?");
+                    builder.setCancelable(true);
+        LayoutInflater inflater = getLayoutInflater();
+        View convertView = (View) inflater.inflate(R.layout.alert_dialog_reset, null);
+                    builder.setView(convertView   );
+//                    builder.setView(R.layout.alert_dialog_reset);
+                    Button buttonYes=(Button) convertView.findViewById(R.id.yes);
+
+                              buttonYes.setOnClickListener(new View.OnClickListener() {
+                                  @Override
+                                  public void onClick(View v) {
+                                      SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
+                                     RestApi api = new RestApi(getApplicationContext());
+                                     String JSESSIONIN = sharedPreferencesUtils.getSharedPreferencesString(Constants.JSESSIONID);
+                                      String ss = "JSESSIONID=" + JSESSIONIN;
+
+                                      String condiIdno = "handled";
+                                      String typeIdno = "17";
+                                      String aaa = "590C8609DEDE47598B0338BD41DBD2EB";
+
+
+                                      String sourceIdno=getCurrentDateAndTimeFirst();
+                                      String vehiColor = getCurrentDateAndTimeSecond();
+                                      Alarm alarm = new Alarm();
+                                      alarm.setCondiIdno(condiIdno);
+                                      alarm.setGuid(aaa);
+                                      alarm.setTypeIdno(typeIdno);
+                                      alarm.setSourceIdno(sourceIdno);
+                                      alarm.setVehiColor(vehiColor);
+
+                                      Call<Alarm> call = api.resetTamper(ss,alarm);
+                                      call.enqueue(new Callback<Alarm>() {
+                                          @Override
+                                          public void onResponse(Call<Alarm> call, Response<Alarm> response) {
+                                              if (response.isSuccessful()){
+
+                                                  Toast.makeText(getApplicationContext(), "successfully Tamper reset", Toast.LENGTH_SHORT).show();
+                                              } else if (!response.isSuccessful()){
+                                                  Toast.makeText(getApplicationContext(), "NEUSPESNO TAMPER", Toast.LENGTH_SHORT).show();
+                                              }
+                                          }
+
+                                          @Override
+                                          public void onFailure(Call<Alarm> call, Throwable t) {
+
+                                          }
+                                      });
+                                  }
+                              });
+
+
+
+
+
+
+                    builder.setNegativeButton(
+                            "",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+
+                    AlertDialog alert11 = builder.create();
+                    alert11.show();
+                    alert11.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 200, 200, 200)));
+    }
+
+    @Override
     public void startLoginActivity() {
         LoginActivity.start(this);
         finish();
     }
+    public static String getCurrentDateAndTimeFirst() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 00);
+        calendar.set(Calendar.MINUTE,00);
+        calendar.set(Calendar.SECOND,00);
+        return dateFormat.format(calendar.getTime());
+    }
+    public static String getCurrentDateAndTimeSecond() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE,59);
+        calendar.set(Calendar.SECOND,59);
+        return dateFormat.format(calendar.getTime());
+    }
 
     @Override
     public void startMainActivity() {
-        MainActivity.start(this, false);
+        MainActivity.start(this,false);
         finish();
     }
 
@@ -318,7 +416,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     //region ButterKnife Methods
     @OnClick(R.id.btn_home)
     void onHomeClick() {
-        MainActivity.start(this, false);
+        MainActivity.start(this,false);
     }
 
     @OnClick(R.id.add_unit)
@@ -340,6 +438,9 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
         Button ok = (Button) convertView.findViewById(R.id.okkopce);
 
 
+
+
+
         convertView.setTag(dialog2);
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -357,7 +458,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
 
                 api = new RestApi(PreviewActivity.this);
                 {
-                    Call<Vehicle> call = api.postaddUnit(jsession, vehIdno, devIdno, devType, factoryType, companyName, account);
+                    Call<Vehicle> call = api.postaddUnit(jsession,vehIdno, devIdno,devType,factoryType,companyName, account);
                     call.enqueue(new Callback<Vehicle>() {
                         @Override
                         public void onResponse(Call<Vehicle> call, Response<Vehicle> response) {
@@ -399,13 +500,13 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
 
         dialog3.setView(convertView);
 
-        ListView listView = (ListView) convertView.findViewById(R.id.listView1);
+        ListView listView = (ListView)  convertView.findViewById(R.id.listView1);
 
         // Initiate listview data.
         final List<ListViewItemDTO> initItemList = this.getInitViewItemDtoList();
 
         // Create a customtwo list view adapter with checkbox control.
-        ListViewItemCheckboxBaseAdapter listAdapter = new ListViewItemCheckboxBaseAdapter(getBaseContext(), initItemList);
+        ListViewItemCheckboxBaseAdapter listAdapter = new ListViewItemCheckboxBaseAdapter (getBaseContext() , initItemList);
 
         listAdapter.notifyDataSetChanged();
 
@@ -414,27 +515,27 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
 
         // When list view item is clicked.
 
-        listView.setOnItemClickListener((adapterView, view, itemIndex, l) -> {
-            // Get user selected item.
-            Object itemObject = adapterView.getAdapter().getItem(itemIndex);
+         listView.setOnItemClickListener((adapterView, view, itemIndex, l) -> {
+             // Get user selected item.
+             Object itemObject = adapterView.getAdapter().getItem(itemIndex);
 
-            // Translate the selected item to DTO object.
-            ListViewItemDTO itemDto = (ListViewItemDTO) itemObject;
+             // Translate the selected item to DTO object.
+             ListViewItemDTO itemDto = (ListViewItemDTO) itemObject;
 
-            // Get the checkbox.
-            CheckBox itemCheckbox = (CheckBox) view.findViewById(R.id.checkMark5);
+             // Get the checkbox.
+             CheckBox itemCheckbox = (CheckBox) view.findViewById(R.id.checkMark5);
 
-            // Reverse the checkbox and clicked item check state.
-            if (itemDto.isChecked()) {
-                itemCheckbox.setChecked(false);
-                itemDto.setChecked(false);
-            } else {
-                itemCheckbox.setChecked(true);
-                itemDto.setChecked(true);
-            }
+             // Reverse the checkbox and clicked item check state.
+             if (itemDto.isChecked()) {
+                 itemCheckbox.setChecked(false);
+                 itemDto.setChecked(false);
+             } else {
+                 itemCheckbox.setChecked(true);
+                 itemDto.setChecked(true);
+             }
 
-            //Toast.makeText(getApplicationContext(), "select item text : " + itemDto.getItemText(), Toast.LENGTH_SHORT).show();
-        });
+             //Toast.makeText(getApplicationContext(), "select item text : " + itemDto.getItemText(), Toast.LENGTH_SHORT).show();
+         });
 
         // Click this button to select all listview items with checkbox checked.
         ImageView selectAllButton = (ImageView) convertView.findViewById(R.id.del_unit);
@@ -453,6 +554,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
         listView.setAdapter(listAdapter);
 
         AlertDialog alert3 = dialog3.create();
+
 
 
         alert3.show();

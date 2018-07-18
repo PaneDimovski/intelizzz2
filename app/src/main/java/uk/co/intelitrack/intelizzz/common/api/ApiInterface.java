@@ -90,8 +90,4 @@ public interface ApiInterface {
                           @Query("companyName") String compamyName,
                           @Query("account") String account);
 
-
-    @POST("http://intelizzz-app.server.pkristijan.xyz/api/admin/accountcreate")
-    Call<Company> createUser(@Body Company formData);
-
 }

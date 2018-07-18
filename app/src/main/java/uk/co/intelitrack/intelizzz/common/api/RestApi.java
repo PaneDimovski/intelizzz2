@@ -10,7 +10,6 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
-import uk.co.intelitrack.intelizzz.common.data.remote.Company;
 import uk.co.intelitrack.intelizzz.common.data.remote.Token;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 
@@ -57,10 +56,6 @@ public class RestApi {
 
     public Call<Vehicle> postaddUnit (String jsession, String vehiIdno, String devIdno, String devType, int factoryType,String companyName, String account){
         return request().addUnit(jsession,vehiIdno,devIdno,devType,factoryType,companyName, account);
-    }
-
-    public Call<Company> createUser (Company company){
-        return request().createUser(company);
     }
 
 

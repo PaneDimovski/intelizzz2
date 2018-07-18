@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -20,10 +21,15 @@ import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import io.reactivex.annotations.Nullable;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import uk.co.intelitrack.intelizzz.IntelizzzApplication;
 import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
+import uk.co.intelitrack.intelizzz.common.api.RestApi;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
+import uk.co.intelitrack.intelizzz.common.data.remote.Device;
 import uk.co.intelitrack.intelizzz.common.data.remote.Group;
 import uk.co.intelitrack.intelizzz.common.data.remote.ParentVehicle;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
@@ -86,6 +92,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
     ParentVehicle parentVehicle;
     @Inject
     SharedPreferencesUtils mSharedPreferencesUtils;
+    RestApi api;
     String kompanija = "2";
     String pane = "24";
 
@@ -159,13 +166,46 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
 
     @OnClick(R.id.btn_ok_settings)
     public void klik() {
-//            String groupId = SharedPreff.getGroupID(getApplicationContext());
-        String groupId = "105";
-//                mSharedPreferencesUtils.getSharedPreferencesString(Constants.OLI_ID);
-        String ooo = mSharedPreferencesUtils.getSharedPreferencesString(Constants.JSESSIONID);
-        String jsession = mSharedPreferencesUtils.getSharedPreferencesString(Constants.TOKEN);
-        mPresenter.onDelete4(ooo,groupId);
-        mGroupsAdapter.notifyDataSetChanged();
+        String prv = "08:00";
+        String vtor = "12:00";
+        String tret = "15:00";
+        String cetri = "22:00";
+        ArrayList<String> alarmi = new ArrayList<>();
+        alarmi.add(prv);
+        alarmi.add(vtor);
+        alarmi.add(tret);
+        alarmi.add(cetri);
+        String deviceId = "15";
+
+        api = new RestApi(getApplicationContext());
+        Call<Device> call = api.setupAlarm(deviceId,alarmi);
+        call.enqueue(new Callback<Device>() {
+            @Override
+            public void onResponse(Call<Device> call, Response<Device> response) {
+                if (response.isSuccessful()){
+                    Toast.makeText(SettingsActivity.this, "USPESNO", Toast.LENGTH_SHORT).show();
+                } else if (!response.isSuccessful()){
+                    Toast.makeText(SettingsActivity.this, "MAJKATI U PICKA", Toast.LENGTH_SHORT).show();
+                }
+                
+            }
+
+            @Override
+            public void onFailure(Call<Device> call, Throwable t) {
+
+            }
+        });
+
+
+
+
+
+
+//        OVA E ZA DELETE GROUP SHTO RABOTI !!!!
+//        String groupId = mSharedPreferencesUtils.getSharedPreferencesString(Constants.OLI_ID);
+//        String jsession = mSharedPreferencesUtils.getSharedPreferencesString(Constants.JSESSIONID);
+//        mPresenter.onDelete6(jsession,groupId);
+//        mGroupsAdapter.notifyDataSetChanged();
 
     }
 

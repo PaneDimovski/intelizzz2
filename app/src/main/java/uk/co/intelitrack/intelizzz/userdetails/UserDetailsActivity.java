@@ -22,6 +22,7 @@ public class UserDetailsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
+    
     @OnClick(R.id.btn_user_back)
     public void click (View view) {
         Intent intent = new Intent(UserDetailsActivity.this, LoginActivity.class);

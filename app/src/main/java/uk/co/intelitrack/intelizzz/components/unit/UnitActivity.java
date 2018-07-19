@@ -2,13 +2,10 @@ package uk.co.intelitrack.intelizzz.components.unit;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.PendingIntent;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -212,11 +209,11 @@ public class UnitActivity extends AppCompatActivity implements UnitContract.View
 
 
     }
-    @OnClick(R.id.proba)
-        void onLastKnownLocationClicked1() {
-            mPresenter.onLastKnownLocation1();
-
-        }
+//    @OnClick(R.id.proba)
+//        void onLastKnownLocationClicked1() {
+//            mPresenter.onLastKnownLocation1();
+//
+//        }
 
 
     @OnClick(R.id.btn_back)
@@ -224,11 +221,11 @@ public class UnitActivity extends AppCompatActivity implements UnitContract.View
         onBackPressed();
     }
 
-//    @OnClick(R.id.btn_activate_tracker)
-//    void onLastKnownLocationClicked1() {
-//        mPresenter.onLastKnownLocation();
-//
-//    }
+    @OnClick(R.id.btn_activate_tracker)
+    void onLastKnownLocationClicked1() {
+        mPresenter.onLastKnownLocation1();
+
+    }
 
 //    public void onActivateTrackerClicked() {
 //        Calendar calendar = Calendar.getInstance();

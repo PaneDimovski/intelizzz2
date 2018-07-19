@@ -1,5 +1,6 @@
 package uk.co.intelitrack.intelizzz.common.api;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import io.reactivex.Single;
@@ -11,8 +12,11 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
+import uk.co.intelitrack.intelizzz.common.data.remote.Alarm;
 import uk.co.intelitrack.intelizzz.common.data.remote.Company;
+import uk.co.intelitrack.intelizzz.common.data.remote.Device;
 import uk.co.intelitrack.intelizzz.common.data.remote.Response;
 import uk.co.intelitrack.intelizzz.common.data.remote.Token;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
@@ -71,7 +75,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("808gps/OperationManagement/StandardVehicleTeamAction_delete.action")
-    Single<String> deleteGroup(@Header("JSESSIONID") String jsession, @Field("group_id") String groupId);
+    Single<String> deleteGroup(@Header("Cookie") String jsession, @Field("group_id") String groupId);
 
     @FormUrlEncoded
     @POST("808gps/openPhp/updateMotorcade.php")
@@ -82,6 +86,14 @@ public interface ApiInterface {
     @POST("808gps/OperationManagement/StandardVehicleTeamAction_delete.action?id=${groupId}")
     Single<String> delete1(@Header("jsession") String jsession, @Field("id") String groupId);
 
+    @Multipart
+    @POST("808gps/LocationManagement/StandardPositionAction_saveAlarmHandle.action")
+    Call<Alarm> resetTamper(@Header("Cookie") String jsessionid,
+                            @Part("json:") Alarm alarm);
+
+
+    @POST("http://intelizzz-app.server.pkristijan.xyz/api/admin/accountcreate")
+    Call<Company> createUser(@Body Company formData);
 
 
     @GET("StandardApiAction_addVehicle.action?")
@@ -92,7 +104,8 @@ public interface ApiInterface {
                           @Query("factoryType") int factoryType,
                           @Query("companyName") String compamyName,
                           @Query("account") String account);
-
+    @POST(" http://intelizzz-app.server.pkristijan.xyz/api/alarms/addalarms")
+    Call<Device> setWakeUpAlarm(@Header("deviceId") String deviceId, @Body ArrayList<String> wakeupTimes);
 
     @POST("api/admin/accountcreate")
     Call<Company> createUser (@Body HashMap<String, Object> data);

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -39,12 +38,12 @@
         android:layout_marginRight="5dp"
         android:src="@drawable/ic_profile_icon" />
 
-    <ImageView
-        android:id="@+id/toolbar_type_btn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_weight="0.20"
-        android:src="@drawable/logo" />
+    <!--<ImageView-->
+        <!--android:id="@+id/toolbar_type_btn"-->
+        <!--android:layout_width="50dp"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_weight="0.20"-->
+        <!--android:src="@drawable/logo" />-->
 
 </android.support.v7.widget.Toolbar>

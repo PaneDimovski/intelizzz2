@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -36,8 +35,8 @@ import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import uk.co.intelitrack.Proba.ListViewItemCheckboxBaseAdapter;
-import uk.co.intelitrack.Proba.ListViewItemDTO;
+import uk.co.intelitrack.Proba.CustomAdapter;
+import uk.co.intelitrack.Proba.ListenerOdbereno;
 import uk.co.intelitrack.intelizz.SettingsActivity;
 import uk.co.intelitrack.intelizzz.IntelizzzApplication;
 import uk.co.intelitrack.intelizzz.R;
@@ -85,7 +84,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     //region VI
     @BindView(R.id.rvVehicles)
     RecyclerView mRvVehicles;
-//    @Nullable
+    //    @Nullable
 //    @BindView(R.id.delete_units)
 //    RecyclerView mRVunits;
     @BindView(R.id.rvGroups)
@@ -111,10 +110,9 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     @BindView(R.id.toolbar_type_btn)
     ImageView mToolBarType;
 
+    CustomAdapter adapter;
 
 
-
-    ListViewItemCheckboxBaseAdapter listViewDataAdapter;
     //endregion
     int posit;
     private List<Vehicle> mVehicles = new ArrayList<>();
@@ -125,10 +123,8 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     private boolean mIsGroup;
     //endregion
     // private ArrayAdapter<Vehicle> arrayAdapter;
-    String text="";
+    String text = "";
     private List<Company> mCompanies = new ArrayList<>();
-
-
 
 
     public static void start(Activity activity, boolean isGroup) {
@@ -275,71 +271,67 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     public void cancelTamper() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 //                    //  builder.setMessage("Do you want to remove ?");
-                    builder.setCancelable(true);
+        builder.setCancelable(true);
         LayoutInflater inflater = getLayoutInflater();
         View convertView = (View) inflater.inflate(R.layout.alert_dialog_reset, null);
-                    builder.setView(convertView   );
+        builder.setView(convertView);
 //                    builder.setView(R.layout.alert_dialog_reset);
-                    Button buttonYes=(Button) convertView.findViewById(R.id.yes);
+        Button buttonYes = (Button) convertView.findViewById(R.id.yes);
 
-//                              buttonYes.setOnClickListener(new View.OnClickListener() {
-//                                  @Override
-//                                  public void onClick(View v) {
-//                                      SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
-//                                     RestApi api = new RestApi(getApplicationContext());
-//                                     String JSESSIONIN = sharedPreferencesUtils.getSharedPreferencesString(Constants.JSESSIONID);
-//                                      String ss = "JSESSIONID=" + JSESSIONIN;
-//
-//                                      String condiIdno = "handled";
-//                                      String typeIdno = "17";
-//                                      String aaa = "590C8609DEDE47598B0338BD41DBD2EB";
-//
-//
-//                                      String sourceIdno=getCurrentDateAndTimeFirst();
-//                                      String vehiColor = getCurrentDateAndTimeSecond();
-//                                      Alarm alarm = new Alarm();
-//                                      alarm.setCondiIdno(condiIdno);
-//                                      alarm.setGuid(aaa);
-//                                      alarm.setTypeIdno(typeIdno);
-//                                      alarm.setSourceIdno(sourceIdno);
-//                                      alarm.setVehiColor(vehiColor);
-//
-//                                      Call<Alarm> call = api.resetTamper(ss,alarm);
-//                                      call.enqueue(new Callback<Alarm>() {
-//                                          @Override
-//                                          public void onResponse(Call<Alarm> call, Response<Alarm> response) {
-//                                              if (response.isSuccessful()){
-//
-//                                                  Toast.makeText(getApplicationContext(), "successfully Tamper reset", Toast.LENGTH_SHORT).show();
-//                                              } else if (!response.isSuccessful()){
-//                                                  Toast.makeText(getApplicationContext(), "NEUSPESNO TAMPER", Toast.LENGTH_SHORT).show();
-//                                              }
-//                                          }
-//
-//                                          @Override
-//                                          public void onFailure(Call<Alarm> call, Throwable t) {
-//
-//                                          }
-//                                      });
-//                                  }
-//                              });
+        buttonYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
+                RestApi api = new RestApi(getApplicationContext());
+                String JSESSIONIN = sharedPreferencesUtils.getSharedPreferencesString(Constants.JSESSIONID);
+                String ss = "JSESSIONID=" + JSESSIONIN;
+
+                String condiIdno = "handled";
+                String typeIdno = "17";
+                String aaa = "590C8609DEDE47598B0338BD41DBD2EB";
 
 
+                String sourceIdno = getCurrentDateAndTimeFirst();
+                String vehiColor = getCurrentDateAndTimeSecond();
+                Alarm alarm = new Alarm();
+                alarm.setCondiIdno(condiIdno);
+                alarm.setGuid(aaa);
+                alarm.setTypeIdno(typeIdno);
+                alarm.setSourceIdno(sourceIdno);
+                alarm.setVehiColor(vehiColor);
+
+                Call<Alarm> call = api.resetTamper(ss, alarm);
+                call.enqueue(new Callback<Alarm>() {
+                    @Override
+                    public void onResponse(Call<Alarm> call, Response<Alarm> response) {
+                        if (response.isSuccessful()) {
+
+                            Toast.makeText(getApplicationContext(), "successfully Tamper reset", Toast.LENGTH_SHORT).show();
+                        } else if (!response.isSuccessful()) {
+                            Toast.makeText(getApplicationContext(), "NEUSPESNO TAMPER", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Alarm> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
 
 
+        builder.setNegativeButton(
+                "",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
 
-
-                    builder.setNegativeButton(
-                            "",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                }
-                            });
-
-                    AlertDialog alert11 = builder.create();
-                    alert11.show();
-                    alert11.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 200, 200, 200)));
+        AlertDialog alert11 = builder.create();
+        alert11.show();
+        alert11.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 200, 200, 200)));
     }
 
     @Override
@@ -347,28 +339,30 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
         LoginActivity.start(this);
         finish();
     }
+
     public static String getCurrentDateAndTimeFirst() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
                 "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 00);
-        calendar.set(Calendar.MINUTE,00);
-        calendar.set(Calendar.SECOND,00);
+        calendar.set(Calendar.MINUTE, 00);
+        calendar.set(Calendar.SECOND, 00);
         return dateFormat.format(calendar.getTime());
     }
+
     public static String getCurrentDateAndTimeSecond() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
                 "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 23);
-        calendar.set(Calendar.MINUTE,59);
-        calendar.set(Calendar.SECOND,59);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
         return dateFormat.format(calendar.getTime());
     }
 
     @Override
     public void startMainActivity() {
-        MainActivity.start(this,false);
+        MainActivity.start(this, false);
         finish();
     }
 
@@ -416,7 +410,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     //region ButterKnife Methods
     @OnClick(R.id.btn_home)
     void onHomeClick() {
-        MainActivity.start(this,false);
+        MainActivity.start(this, false);
     }
 
     @OnClick(R.id.add_unit)
@@ -438,9 +432,6 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
         Button ok = (Button) convertView.findViewById(R.id.okkopce);
 
 
-
-
-
         convertView.setTag(dialog2);
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -458,7 +449,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
 
                 api = new RestApi(PreviewActivity.this);
                 {
-                    Call<Vehicle> call = api.postaddUnit(jsession,vehIdno, devIdno,devType,factoryType,companyName, account);
+                    Call<Vehicle> call = api.postaddUnit(jsession, vehIdno, devIdno, devType, factoryType, companyName, account);
                     call.enqueue(new Callback<Vehicle>() {
                         @Override
                         public void onResponse(Call<Vehicle> call, Response<Vehicle> response) {
@@ -488,228 +479,202 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
 
     }
 
-    @OnClick(R.id.unit_delete)
-    void deleteUint() {
-
-        AlertDialog.Builder dialog3 = new AlertDialog.Builder(PreviewActivity.this);
-
-
-        LayoutInflater inflater = getLayoutInflater();
-
-        View convertView = (View) inflater.inflate(R.layout.alert_dialog_delete_unit, null);
-
-        dialog3.setView(convertView);
-
-        ListView listView = (ListView)  convertView.findViewById(R.id.listView1);
-
-        // Initiate listview data.
-        final List<ListViewItemDTO> initItemList = this.getInitViewItemDtoList();
-
-        // Create a customtwo list view adapter with checkbox control.
-        ListViewItemCheckboxBaseAdapter listAdapter = new ListViewItemCheckboxBaseAdapter (getBaseContext() , initItemList);
-
-        listAdapter.notifyDataSetChanged();
-
-        convertView.setTag(dialog3);
-
-
-        // When list view item is clicked.
-
-         listView.setOnItemClickListener((adapterView, view, itemIndex, l) -> {
-             // Get user selected item.
-             Object itemObject = adapterView.getAdapter().getItem(itemIndex);
-
-             // Translate the selected item to DTO object.
-             ListViewItemDTO itemDto = (ListViewItemDTO) itemObject;
-
-             // Get the checkbox.
-             CheckBox itemCheckbox = (CheckBox) view.findViewById(R.id.checkMark5);
-
-             // Reverse the checkbox and clicked item check state.
-             if (itemDto.isChecked()) {
-                 itemCheckbox.setChecked(false);
-                 itemDto.setChecked(false);
-             } else {
-                 itemCheckbox.setChecked(true);
-                 itemDto.setChecked(true);
-             }
-
-             //Toast.makeText(getApplicationContext(), "select item text : " + itemDto.getItemText(), Toast.LENGTH_SHORT).show();
-         });
-
-        // Click this button to select all listview items with checkbox checked.
-        ImageView selectAllButton = (ImageView) convertView.findViewById(R.id.del_unit);
-        selectAllButton.setOnClickListener(view -> {
-            int size = initItemList.size();
-            for (int i = 0; i < size; i++) {
-                ListViewItemDTO dto = initItemList.get(i);
-                dto.setChecked(true);
-            }
-
-            listAdapter.notifyDataSetChanged();
-        });
-
-        listView.setTag(dialog3);
-
-        listView.setAdapter(listAdapter);
-
-        AlertDialog alert3 = dialog3.create();
-
-
-
-        alert3.show();
-
-        alert3.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 100, 100, 100)));
-    }
-
-
-    private List<ListViewItemDTO> getInitViewItemDtoList() {
-
-        ArrayList<String> vehicles = new ArrayList<String>();
-
-        for (Vehicle vehicle1 : mRepository.getVehicles()) {
-
-            vehicles.add(vehicle1.getNm());
-        }
-
-        List<ListViewItemDTO> ret = new ArrayList<ListViewItemDTO>();
-
-        int length = vehicles.size();
-
-        for (int i = 0; i < length; i++) {
-            String itemText = vehicles.get(i);
-
-            ListViewItemDTO dto = new ListViewItemDTO();
-            dto.setChecked(false);
-            dto.setItemText(itemText);
-
-            ret.add(dto);
-        }
-
-        return ret;
-    }
-
-
-//    @OnClick(R.id.group_delete)
-//    void deleteGroup() {
+//    @OnClick(R.id.unit_delete)
+//    void deleteUint() {
 //
-//        AlertDialog.Builder dialog4 = new AlertDialog.Builder(PreviewActivity.this);
+//        AlertDialog.Builder dialog3 = new AlertDialog.Builder(PreviewActivity.this);
 //
 //
-//        LayoutInflater inflater2 = getLayoutInflater();
+//        LayoutInflater inflater = getLayoutInflater();
 //
-//        View convertView2 = (View) inflater2.inflate(R.layout.alert_dialog_delete_group, null);
+//        View convertView = (View) inflater.inflate(R.layout.alert_dialog_delete_unit, null);
 //
-//        dialog4.setView(convertView2);
+//        dialog3.setView(convertView);
 //
-//        ListView listView2 = (ListView)  convertView2.findViewById(R.id.listViewGroup);
+//        ListView listView = (ListView) convertView.findViewById(R.id.listView1);
 //
 //        // Initiate listview data.
-//        final List<ListViewItemDTO> groupList = this.getGroup();
+//        final List<Item> initItemList = this.getInitViewItemDtoList();
 //
 //        // Create a customtwo list view adapter with checkbox control.
-//        ListViewItemCheckboxBaseAdapter listAdapter2 = new ListViewItemCheckboxBaseAdapter (getBaseContext() , groupList);
-//
-//       // listAdapter2.notifyDataSetChanged();
-//
-//       // convertView2.setTag(dialog4);
-//        listView2.setAdapter(listAdapter2);
-//
-//
-//        listView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//        CustomAdapter listAdapter = new CustomAdapter(getBaseContext(), initItemList, new ListenerOdbereno() {
 //            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View convertView2, int itemIndex, long l) {
-//                // Get user selected item.
-//                Object itemObject = adapterView.getAdapter().getItem(itemIndex);
+//            public void Cekirano(Group grup, Boolean odbrano) {
 //
-//                // Translate the selected item to DTO object.
-//                ListViewItemDTO itemDto = (ListViewItemDTO)itemObject;
-//
-//                // Get the checkbox.
-//                CheckBox itemCheckbox = (CheckBox) convertView2.findViewById(R.id.checkMark5);
-//
-//                // Reverse the checkbox and clicked item check state.
-//                if(itemDto.isChecked())
-//                {
-//                    itemCheckbox.setChecked(false);
-//                    itemDto.setChecked(false);
-//                }else
-//                {
-//                    itemCheckbox.setChecked(true);
-//                    itemDto.setChecked(true);
-//                }
-//
-//                //Toast.makeText(getApplicationContext(), "select item text : " + itemDto.getItemText(), Toast.LENGTH_SHORT).show();
 //            }
 //        });
 //
+//        listAdapter.notifyDataSetChanged();
+//
+//        convertView.setTag(dialog3);
 //
 //
+//        // When list view item is clicked.
+//
+//        listView.setOnItemClickListener((adapterView, view, itemIndex, l) -> {
+//            // Get user selected item.
+//            Object itemObject = adapterView.getAdapter().getItem(itemIndex);
+//
+//            // Translate the selected item to DTO object.
+//            Item itemDto = (Item) itemObject;
+//
+//            // Get the checkbox.
+//            CheckBox itemCheckbox = (CheckBox) view.findViewById(R.id.checkMark5);
+//
+//            // Reverse the checkbox and clicked item check state.
+//            if (itemDto.isChecked()) {
+//                itemCheckbox.setChecked(true);
 //
 //
+//            } else {
+//                itemCheckbox.setChecked(false);
+//
+//            }
+//
+//
+//        });
 //
 //        // Click this button to select all listview items with checkbox checked.
-////        ImageView selectAllButton = (ImageView) convertView2.findViewById(R.id.del_group);
-////        selectAllButton.setOnClickListener(view -> {
-////            int size = groupList.size();
-////            for (int i = 0; i < size; i++) {
-////                ListViewItemDTO dto = groupList.get(i);
-////                dto.setChecked(true);
-////            }
-////
-////            listAdapter2.notifyDataSetChanged();
-////        });
+//        ImageView selectAllButton = (ImageView) convertView.findViewById(R.id.del_unit);
+//        selectAllButton.setOnClickListener(view -> {
 //
 //
+//            Item itemDto2 = new Item();
+//
+//            if (itemDto2.isChecked()) {
 //
 //
-////       listView2.setTag(dialog4);
+//                String proba = String.valueOf(listAdapter.getItemId(Integer.parseInt(itemDto2.getIdText())));
+//                Log.d(proba, "ODBERENO");
+//            }
 //
-//        AlertDialog alert4 = dialog4.create();
+//            listAdapter.notifyDataSetChanged();
+//        });
 //
-//        alert4.show();
+//        listView.setTag(dialog3);
 //
-//        alert4.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 100, 100, 100)));
+//        listView.setAdapter(listAdapter);
+//
+//        AlertDialog alert3 = dialog3.create();
+//
+//
+//        alert3.show();
+//        alert3.setCanceledOnTouchOutside(true);
+//        alert3.setCancelable(true);
+//        alert3.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 100, 100, 100)));
 //    }
 //
-//    public List<Company> getCompanies() {
-//        return mCompanies;
-//    }
 //
-//    private List<ListViewItemDTO> getGroup() {
+//    private List<Item> getInitViewItemDtoList() {
 //
+//        ArrayList<String> vehicles = new ArrayList<String>();
+//        ArrayList<String> vehicles2 = new ArrayList<String>();
+//        for (Vehicle vehicle1 : mRepository.getVehicles()) {
 //
-//
-//        ArrayList<String> groups = new ArrayList<String>();
-//        for (Group group1 : mRepository.getCompanies().get(0).getGroups()) {
-//
-//            groups.add(group1.getName());
+//            vehicles.add(vehicle1.getNm());
 //        }
+//        for (Vehicle vehicle3 : mRepository.getVehicles()) {
 //
+//            vehicles2.add(vehicle3.getId());
+//        }
+//        List<Item> ret = new ArrayList<Item>();
 //
-//// vrakja NULL na itemText lista null vrednost
-//
-//        List<ListViewItemDTO> ret = new ArrayList<ListViewItemDTO>();
-//
-//        int length = groups.size();
+//        int length = vehicles.size();
 //
 //        for (int i = 0; i < length; i++) {
-//            String itemText2 = groups.get(i);
+//            String itemText = vehicles.get(i);
+//            String itemText4 = vehicles2.get(i);
 //
-//            ListViewItemDTO dto = new ListViewItemDTO();
-//            dto.setChecked(false);
-//            dto.setItemText(itemText2);
+//            Item dto = new Item();
+//            // dto.setChecked(false);
+//            dto.setIdText(itemText4);
+//            dto.setItemText(itemText);
 //
 //            ret.add(dto);
 //        }
 //
 //        return ret;
-//
 //    }
 
     @OnClick(R.id.group_delete)
-    void del() {
+    void deleteGroup() {
 
+        AlertDialog.Builder dialog4 = new AlertDialog.Builder(PreviewActivity.this);
+
+        LayoutInflater inflater2 = getLayoutInflater();
+        View convertView2 = (View) inflater2.inflate(R.layout.alert_dialog_delete_group, null);
+        dialog4.setView(convertView2);
+
+        ListView listView2 = (ListView) convertView2.findViewById(R.id.listViewGroup);
+
+        final Group[] groupList = this.getGroup();
+
+        ArrayList<Group> grupa = new ArrayList<>();
+
+        CustomAdapter listAdapter2 = new CustomAdapter(getBaseContext(), groupList, new ListenerOdbereno() {
+            @Override
+            public void Cekirano(Group grup, Boolean odbrano) {
+
+                if (odbrano) {
+                    grupa.add(grup);
+
+
+
+                } else {
+                    grupa.remove(grup);
+                }
+
+
+            }
+        });
+
+
+        convertView2.setTag(dialog4);
+
+        listView2.setAdapter(listAdapter2);
+        listView2.setTag(dialog4);
+
+
+        ImageView delete = (ImageView) convertView2.findViewById(R.id.del_group);
+        delete.setOnClickListener((View view) -> {
+
+            CheckBox itemCheckbox = (CheckBox) convertView2.findViewById(R.id.checkMark5);
+            String xy = "";
+            for (int i = 0; i < grupa.size(); i++) {
+
+                String x = grupa.get(i).getId();
+
+                 xy = xy + x;
+
+
+
+            }
+
+
+
+            listAdapter2.notifyDataSetChanged();
+        });
+
+
+        AlertDialog alert4 = dialog4.create();
+
+        alert4.show();
+
+        alert4.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 100, 100, 100)));
+    }
+
+    public List<Company> getCompanies() {
+        return mCompanies;
+    }
+
+    private Group[] getGroup() {
+
+
+        Group[] groups;
+
+        groups = mRepository.getCompanies().get(posit).getGroups();
+
+        return groups;
 
     }
 

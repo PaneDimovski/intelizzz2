@@ -282,47 +282,47 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
 //                    builder.setView(R.layout.alert_dialog_reset);
                     Button buttonYes=(Button) convertView.findViewById(R.id.yes);
 
-                              buttonYes.setOnClickListener(new View.OnClickListener() {
-                                  @Override
-                                  public void onClick(View v) {
-                                      SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
-                                     RestApi api = new RestApi(getApplicationContext());
-                                     String JSESSIONIN = sharedPreferencesUtils.getSharedPreferencesString(Constants.JSESSIONID);
-                                      String ss = "JSESSIONID=" + JSESSIONIN;
-
-                                      String condiIdno = "handled";
-                                      String typeIdno = "17";
-                                      String aaa = "590C8609DEDE47598B0338BD41DBD2EB";
-
-
-                                      String sourceIdno=getCurrentDateAndTimeFirst();
-                                      String vehiColor = getCurrentDateAndTimeSecond();
-                                      Alarm alarm = new Alarm();
-                                      alarm.setCondiIdno(condiIdno);
-                                      alarm.setGuid(aaa);
-                                      alarm.setTypeIdno(typeIdno);
-                                      alarm.setSourceIdno(sourceIdno);
-                                      alarm.setVehiColor(vehiColor);
-
-                                      Call<Alarm> call = api.resetTamper(ss,alarm);
-                                      call.enqueue(new Callback<Alarm>() {
-                                          @Override
-                                          public void onResponse(Call<Alarm> call, Response<Alarm> response) {
-                                              if (response.isSuccessful()){
-
-                                                  Toast.makeText(getApplicationContext(), "successfully Tamper reset", Toast.LENGTH_SHORT).show();
-                                              } else if (!response.isSuccessful()){
-                                                  Toast.makeText(getApplicationContext(), "NEUSPESNO TAMPER", Toast.LENGTH_SHORT).show();
-                                              }
-                                          }
-
-                                          @Override
-                                          public void onFailure(Call<Alarm> call, Throwable t) {
-
-                                          }
-                                      });
-                                  }
-                              });
+//                              buttonYes.setOnClickListener(new View.OnClickListener() {
+//                                  @Override
+//                                  public void onClick(View v) {
+//                                      SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
+//                                     RestApi api = new RestApi(getApplicationContext());
+//                                     String JSESSIONIN = sharedPreferencesUtils.getSharedPreferencesString(Constants.JSESSIONID);
+//                                      String ss = "JSESSIONID=" + JSESSIONIN;
+//
+//                                      String condiIdno = "handled";
+//                                      String typeIdno = "17";
+//                                      String aaa = "590C8609DEDE47598B0338BD41DBD2EB";
+//
+//
+//                                      String sourceIdno=getCurrentDateAndTimeFirst();
+//                                      String vehiColor = getCurrentDateAndTimeSecond();
+//                                      Alarm alarm = new Alarm();
+//                                      alarm.setCondiIdno(condiIdno);
+//                                      alarm.setGuid(aaa);
+//                                      alarm.setTypeIdno(typeIdno);
+//                                      alarm.setSourceIdno(sourceIdno);
+//                                      alarm.setVehiColor(vehiColor);
+//
+//                                      Call<Alarm> call = api.resetTamper(ss,alarm);
+//                                      call.enqueue(new Callback<Alarm>() {
+//                                          @Override
+//                                          public void onResponse(Call<Alarm> call, Response<Alarm> response) {
+//                                              if (response.isSuccessful()){
+//
+//                                                  Toast.makeText(getApplicationContext(), "successfully Tamper reset", Toast.LENGTH_SHORT).show();
+//                                              } else if (!response.isSuccessful()){
+//                                                  Toast.makeText(getApplicationContext(), "NEUSPESNO TAMPER", Toast.LENGTH_SHORT).show();
+//                                              }
+//                                          }
+//
+//                                          @Override
+//                                          public void onFailure(Call<Alarm> call, Throwable t) {
+//
+//                                          }
+//                                      });
+//                                  }
+//                              });
 
 
 

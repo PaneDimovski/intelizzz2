@@ -13,7 +13,7 @@ public class Company {
     @SerializedName("Groups")
     private Group[] groups;
 
-    @SerializedName("Name")
+    @SerializedName("name")
     private String name;
 
     @SerializedName("unassigned_vehicles")
@@ -25,9 +25,30 @@ public class Company {
     @SerializedName("encryptPwd")
     private String password;
 
-    public void setName(String name) {
-        this.name = name;
+    @SerializedName("abbreviation")
+    private String abbreviation;
+    @SerializedName("legal")
+    private String legal;
+    @SerializedName("address")
+    private String address;
+    @SerializedName("introduction")
+    private String email;
+    @SerializedName("remark")
+    private String remark;
+
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
     }
+
+    public void setLegal(String legal) {
+        this.legal = legal;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+
 
     public void setPassword(String password) {
         this.password = password;
@@ -41,12 +62,6 @@ public class Company {
         this.email = email;
     }
 
-    @SerializedName("address")
-    private String address;
-
-    @SerializedName("introduction")
-    private String email;
-
     public Group[] getGroups() {
         return groups;
     }
@@ -57,6 +72,10 @@ public class Company {
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Vehicle[] getUnassignedVehicles() {

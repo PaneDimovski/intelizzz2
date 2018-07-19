@@ -164,37 +164,37 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
     }
 
 
-    @OnClick(R.id.btn_ok_settings)
-    public void klik() {
-        String prv = "08:00";
-        String vtor = "12:00";
-        String tret = "15:00";
-        String cetri = "22:00";
-        ArrayList<String> alarmi = new ArrayList<>();
-        alarmi.add(prv);
-        alarmi.add(vtor);
-        alarmi.add(tret);
-        alarmi.add(cetri);
-        String deviceId = "15";
-
-        api = new RestApi(getApplicationContext());
-        Call<Device> call = api.setupAlarm(deviceId,alarmi);
-        call.enqueue(new Callback<Device>() {
-            @Override
-            public void onResponse(Call<Device> call, Response<Device> response) {
-                if (response.isSuccessful()){
-                    Toast.makeText(SettingsActivity.this, "USPESNO", Toast.LENGTH_SHORT).show();
-                } else if (!response.isSuccessful()){
-                    Toast.makeText(SettingsActivity.this, "MAJKATI U PICKA", Toast.LENGTH_SHORT).show();
-                }
-                
-            }
-
-            @Override
-            public void onFailure(Call<Device> call, Throwable t) {
-
-            }
-        });
+//    @OnClick(R.id.btn_ok_settings)
+//    public void klik() {
+//        String prv = "08:00";
+//        String vtor = "12:00";
+//        String tret = "15:00";
+//        String cetri = "22:00";
+//        ArrayList<String> alarmi = new ArrayList<>();
+//        alarmi.add(prv);
+//        alarmi.add(vtor);
+//        alarmi.add(tret);
+//        alarmi.add(cetri);
+//        String deviceId = "15";
+//
+//        api = new RestApi(getApplicationContext());
+//        Call<Device> call = api.setupAlarm(deviceId,alarmi);
+//        call.enqueue(new Callback<Device>() {
+//            @Override
+//            public void onResponse(Call<Device> call, Response<Device> response) {
+//                if (response.isSuccessful()){
+//                    Toast.makeText(SettingsActivity.this, "USPESNO", Toast.LENGTH_SHORT).show();
+//                } else if (!response.isSuccessful()){
+//                    Toast.makeText(SettingsActivity.this, "MAJKATI U PICKA", Toast.LENGTH_SHORT).show();
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Device> call, Throwable t) {
+//
+//            }
+//        });
 
 
 
@@ -207,7 +207,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
 //        mPresenter.onDelete6(jsession,groupId);
 //        mGroupsAdapter.notifyDataSetChanged();
 
-    }
+
 
     @Override
     protected void onResume() {

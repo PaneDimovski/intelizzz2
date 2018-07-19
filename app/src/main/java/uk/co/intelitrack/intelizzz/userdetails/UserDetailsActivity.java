@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -95,20 +97,37 @@ public class UserDetailsActivity extends AppCompatActivity {
 //        );
 
         String user = full_name.getText().toString();
-        String address = adress.getText().toString();
+        String address = "testKris2,123,St.test";
         String pass = create_password.getText().toString();
-        String em = email.getText().toString();
+        String legal = user; //"testKris2Account";
+        String abbreviation = user; //"testKris2";
+        String introduction = user + "@testDesktop.com"; //"Test+Desktop+Account testDesktop@testDesktop.com";
+        String remark = "test+remark+from+testDesktop+Account";
+
 
         Company company = new Company();
 
         company.setName(user);
         company.setAddress(address);
         company.setPassword(convertPassMd5(pass));
-        company.setEmail(em);
+        company.setLegal(legal);
+        company.setAbbreviation(abbreviation);
+        company.setEmail(introduction);
+        company.setRemark(remark);
+
+
+        //Gson gson = new Gson();
+        //String com = gson.toJson(company);
+
+
+
+        HashMap<String, Object> requestBody = new HashMap<>();
+        requestBody.put("formData", company);
+
 
 
         api = new RestApi(context);
-        Call<Company> companyCall = api.createUser(company);
+        Call<Company> companyCall = api.creatUSer(requestBody);
         companyCall.enqueue(new Callback<Company>() {
             @Override
             public void onResponse(Call<Company> call, Response<Company> response) {

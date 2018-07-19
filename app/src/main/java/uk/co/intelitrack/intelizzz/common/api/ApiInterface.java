@@ -1,5 +1,7 @@
 package uk.co.intelitrack.intelizzz.common.api;
 
+import java.util.HashMap;
+
 import io.reactivex.Single;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -7,6 +9,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import uk.co.intelitrack.intelizzz.common.data.remote.Company;
@@ -89,5 +92,10 @@ public interface ApiInterface {
                           @Query("factoryType") int factoryType,
                           @Query("companyName") String compamyName,
                           @Query("account") String account);
+
+
+    @POST("api/admin/accountcreate")
+    Call<Company> createUser (@Body HashMap<String, Object> data);
+
 
 }

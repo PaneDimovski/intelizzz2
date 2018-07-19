@@ -56,6 +56,7 @@ public class UnitActivity extends AppCompatActivity implements UnitContract.View
     UnitPresenter mPresenter;
     @Inject
     SharedPreferencesUtils mSharedPreferencesUtils;
+    Vehicle vehicle;
     //endregion
 
     //region VI
@@ -182,6 +183,11 @@ public class UnitActivity extends AppCompatActivity implements UnitContract.View
         finish();
     }
 
+    @Override
+    public void startTimeActivity(String id, boolean isLastKnownLocation) {
+        TimerActivity.start(this,id,isLastKnownLocation);
+    }
+
     @OnClick(R.id.btn_last_known_location)
     void onLastKnownLocationClicked() {
         mPresenter.onLastKnownLocation();
@@ -207,40 +213,22 @@ public class UnitActivity extends AppCompatActivity implements UnitContract.View
 
     }
     @OnClick(R.id.proba)
-    void proba(){
-        Intent intent = new Intent(UnitActivity.this, TimerActivity.class);
-        startActivity(intent);
+        void onLastKnownLocationClicked1() {
+            mPresenter.onLastKnownLocation1();
 
-    }
+        }
+
 
     @OnClick(R.id.btn_back)
     void onBackClick() {
         onBackPressed();
     }
 
-    @OnClick(R.id.btn_activate_tracker)
-    void message() {
-        mBtnActivateTracker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder dialog2 = new AlertDialog.Builder(UnitActivity.this);
-                dialog2.setCancelable(true);
-
-                dialog2.setPositiveButton("", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-
-                dialog2.setView(getLayoutInflater().inflate(R.layout.alert_dialog_message, null));
-                AlertDialog alert2 = dialog2.create();
-                alert2.show();
-                alert2.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 100, 100, 100)));
-            }
-        });
-
-    }
+//    @OnClick(R.id.btn_activate_tracker)
+//    void onLastKnownLocationClicked1() {
+//        mPresenter.onLastKnownLocation();
+//
+//    }
 
 //    public void onActivateTrackerClicked() {
 //        Calendar calendar = Calendar.getInstance();

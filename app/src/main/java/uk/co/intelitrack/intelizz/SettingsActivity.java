@@ -208,7 +208,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
 //        mGroupsAdapter.notifyDataSetChanged();
 
 
-
+        
     }
 
     @Override

@@ -207,6 +207,8 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
 //        mPresenter.onDelete6(jsession,groupId);
 //        mGroupsAdapter.notifyDataSetChanged();
 
+
+        
     }
 
     @Override

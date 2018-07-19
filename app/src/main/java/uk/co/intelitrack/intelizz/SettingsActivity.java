@@ -118,6 +118,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
         setContentView(R.layout.activity_settings_select);
 
 
+
         ButterKnife.bind(this);
         if (getIntent().getExtras() != null)
             mIsGroup = getIntent().getExtras().getBoolean(Constants.IS_GROUP);

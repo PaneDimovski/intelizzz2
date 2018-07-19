@@ -14,7 +14,7 @@ public class Company {
     private Group[] groups;
 
     @SerializedName("name")
-    private String name;
+    private String name; //jj
 
     @SerializedName("unassigned_vehicles")
     private Vehicle[] unassignedVehicles;

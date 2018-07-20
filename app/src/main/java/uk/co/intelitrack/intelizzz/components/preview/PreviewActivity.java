@@ -454,10 +454,10 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
                     call.enqueue(new Callback<Vehicle>() {
                         @Override
                         public void onResponse(Call<Vehicle> call, Response<Vehicle> response) {
-                            if (response.code() == 200) {
+                            if (response.isSuccessful()) {
                                 vehicle = response.body();
-                                Toast.makeText(PreviewActivity.this, "You are login", Toast.LENGTH_SHORT).show();
-                            } else if (response.code() == 401) {
+                                Toast.makeText(PreviewActivity.this, "Unit successfully added", Toast.LENGTH_SHORT).show();
+                            } else if (!response.isSuccessful()) {
                                 Toast.makeText(PreviewActivity.this, "Error please try again", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -476,6 +476,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
 
         alert2.show();
         alert2.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 100, 100, 100)));
+
 
 
     }

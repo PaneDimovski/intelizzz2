@@ -7,6 +7,8 @@ package uk.co.intelitrack.intelizzz.common.data;
 public class Constants {
     public static final String BASE_URL = "http://server2.intelitrack.co.uk/";
 
+    public static final String BASE_URL2 = "http://intelizzz-app.server.pkristijan.xyz/";
+
 //    public static final String BASE_URL = "http://intelitrack.itility.co.uk";
 
     public static final String TOKEN = "token";

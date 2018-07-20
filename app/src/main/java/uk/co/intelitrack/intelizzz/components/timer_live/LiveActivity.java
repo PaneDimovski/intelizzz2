@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -43,6 +44,7 @@ import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzProgressDialog;
 import uk.co.intelitrack.intelizzz.components.login.LoginActivity;
 
 
+
 /**
  * Created by Filip Stojanovski (filip100janovski@gmail.com).
  */
@@ -55,7 +57,7 @@ public class LiveActivity extends FragmentActivity implements OnMapReadyCallback
     @BindView(R.id.text_location_address)
     TextView mAddress;
 
-    @BindView(R.id.root_last_location)
+    @BindView(R.id.root_last_location2)
     LinearLayout  mRootLastLocation;
 //    @BindView(R.id.root_custom_locations)
 //    RelativeLayout mRootCustomLocations;
@@ -110,7 +112,7 @@ public class LiveActivity extends FragmentActivity implements OnMapReadyCallback
             if (current.get(Calendar.HOUR_OF_DAY) > 1) {
                 tillAlarm.add(Calendar.DAY_OF_MONTH, 1);
             }
-            tillAlarm.set(Calendar.HOUR_OF_DAY, -12);
+            tillAlarm.set(Calendar.HOUR_OF_DAY, -6);
         }
 
         tillAlarm.set(Calendar.MINUTE, 0);
@@ -266,11 +268,9 @@ public class LiveActivity extends FragmentActivity implements OnMapReadyCallback
                 mProgresDialog = DialogUtils.getProgressBarDialog(this);
             }
             mProgresDialog.show();
-
         } else {
             if (mProgresDialog != null) {
                 mProgresDialog.dismiss();
-
             }
         }
 

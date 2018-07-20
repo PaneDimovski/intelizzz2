@@ -29,6 +29,7 @@ import retrofit2.Response;
 import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.api.ApiInterface;
 import uk.co.intelitrack.intelizzz.common.api.RestApi;
+import uk.co.intelitrack.intelizzz.common.api.RestApi2;
 import uk.co.intelitrack.intelizzz.common.data.remote.Company;
 import uk.co.intelitrack.intelizzz.components.login.LoginActivity;
 
@@ -36,7 +37,7 @@ public class UserDetailsActivity extends AppCompatActivity {
 
 
     Company company;
-    RestApi api;
+    RestApi2 api;
     Context context;
     ApiInterface inter;
 
@@ -127,15 +128,15 @@ public class UserDetailsActivity extends AppCompatActivity {
 
 
 
-        api = new RestApi(context);
+        api = new RestApi2(context);
         Call<Company> companyCall = api.creatUSer(requestBody);
         companyCall.enqueue(new Callback<Company>() {
             @Override
             public void onResponse(Call<Company> call, Response<Company> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(UserDetailsActivity.this, "ok", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserDetailsActivity.this, "User successfully created", Toast.LENGTH_SHORT).show();
                 } else if (!response.isSuccessful()) {
-                    Toast.makeText(UserDetailsActivity.this, "error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserDetailsActivity.this, "Error something went wrong", Toast.LENGTH_SHORT).show();
                 }
             }
 

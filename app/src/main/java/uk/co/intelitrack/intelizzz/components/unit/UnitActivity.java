@@ -35,6 +35,7 @@ import uk.co.intelitrack.intelizzz.components.login.LoginActivity;
 import uk.co.intelitrack.intelizzz.components.main.MainActivity;
 import uk.co.intelitrack.intelizzz.components.maps.MapsActivity;
 import uk.co.intelitrack.intelizzz.components.timer.TimerActivity;
+import uk.co.intelitrack.intelizzz.components.timer_live.LiveActivity;
 
 /**
  * Created by Filip Stojanovski (filip100janovski@gmail.com).
@@ -185,6 +186,11 @@ public class UnitActivity extends AppCompatActivity implements UnitContract.View
         TimerActivity.start(this,id,isLastKnownLocation);
     }
 
+    @Override
+    public void startLiveActivity(String id, boolean isLastKnownLocation) {
+        LiveActivity.start(this,id,isLastKnownLocation);
+    }
+
     @OnClick(R.id.btn_last_known_location)
     void onLastKnownLocationClicked() {
         mPresenter.onLastKnownLocation();
@@ -224,6 +230,11 @@ public class UnitActivity extends AppCompatActivity implements UnitContract.View
     @OnClick(R.id.btn_activate_tracker)
     void onLastKnownLocationClicked1() {
         mPresenter.onLastKnownLocation1();
+
+    }
+    @OnClick(R.id.proba)
+    void onLastKnownLocationClicked2() {
+        mPresenter.onLastKnownLocation2();
 
     }
 

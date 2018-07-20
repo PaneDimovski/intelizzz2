@@ -7,12 +7,9 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import uk.co.intelitrack.intelizzz.R;
-import uk.co.intelitrack.intelizzz.common.data.remote.Group;
 
 /**
  * Created by Anti on 6/24/2018.
@@ -20,76 +17,49 @@ import uk.co.intelitrack.intelizzz.common.data.remote.Group;
 
 public class CustomAdapter extends BaseAdapter {
 
-    private Group [] ItemList;
-    Item items;
-ListenerOdbereno odbrano;
-Boolean proverka = false;
-    public HashMap<String, String> checked = new HashMap<String, String>();
+    private List<Item> ItemList = null;
 
-    private Context ctx;
+    private Context ctx = null;
 
-    public CustomAdapter(Context ctx, Group [] ItemList, ListenerOdbereno odbereno) {
+    public CustomAdapter(Context ctx, List<Item> ItemList) {
         this.ctx = ctx;
         this.ItemList = ItemList;
-        this.odbrano =  odbrano;
-
-//
     }
-
-    public void setCheckedItem(int item) {
-
-        if (checked.containsKey(String.valueOf(item))) {
-            checked.remove(String.valueOf(item));
-        } else {
-            checked.put(String.valueOf(item), String.valueOf(item));
-        }
-    }
-
-    public HashMap<String, String> getCheckedItems() {
-        return checked;
-    }
-
 
     @Override
     public int getCount() {
-        return ItemList.length;
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return ItemList[position];
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return 0;
-    }
-
-    public List<Integer> myNumbers() {
-
-        if (items.isChecked()) {
-
-            List<Integer> list = new ArrayList<>();
-
-            list.add(Integer.valueOf(items.getIdText2()));
-            return  list;
+        int ret = 0;
+        if(ItemList!=null)
+        {
+            ret = ItemList.size();
         }
-
-
-        return null;
-
+        return ret;
     }
 
+    @Override
+    public Object getItem(int itemIndex) {
+        Object ret = null;
+        if(ItemList!=null) {
+            ret = ItemList.get(itemIndex);
+        }
+        return ret;
+    }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup viewGroup) {
+    public long getItemId(int itemIndex) {
+        return itemIndex;
+    }
+
+    @Override
+    public View getView(int itemIndex, View convertView, ViewGroup viewGroup) {
 
         ItemViewHolder viewHolder = null;
 
-        if (convertView != null) {
+        if(convertView!=null)
+        {
             viewHolder = (ItemViewHolder) convertView.getTag();
-        } else {
-            Group items = ItemList[position];
+        }else
+        {
             convertView = View.inflate(ctx, R.layout.custom, null);
 
             CheckBox checkbox = (CheckBox) convertView.findViewById(R.id.checkMark5);
@@ -97,50 +67,19 @@ Boolean proverka = false;
             TextView tetx = (TextView) convertView.findViewById(R.id.tekst5);
             TextView textId = (TextView) convertView.findViewById(R.id.item_number5);
 
-          //  viewHolder.itemCheckbox = (CheckBox) convertView.findViewById(R.id.checkMark5);
 
             viewHolder = new ItemViewHolder(convertView);
 
-
             viewHolder.setItemCheckbox(checkbox);
+
             viewHolder.setItemTextView(listItemText);
-            viewHolder.setIdTextView(textId);
-            viewHolder.setIdTextView2(tetx);
 
             convertView.setTag(viewHolder);
+        }
 
-
-            viewHolder.itemCheckbox.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    odbrano.Cekirano(items, proverka);
-
-                    CheckBox cb = (CheckBox) v ;
-
-                    if (cb.isChecked())
-                      proverka = true;
-                    else
-                      proverka = false;
-
-                }
-            });
-
-
-
-
-
-
-
-    }
-
-
-
-        Group items = ItemList[position];
-        viewHolder.getItemCheckbox().setChecked(proverka);
-        viewHolder.getItemTextView().setText(items.getName());
-        viewHolder.getIdTextView().setText(items.getId());
-        viewHolder.getIdTextView2().setText(items.getId());
+        Item listViewItemDto = ItemList.get(itemIndex);
+        viewHolder.getItemCheckbox().setChecked(listViewItemDto.isChecked());
+        viewHolder.getItemTextView().setText(listViewItemDto.getItemText());
 
         return convertView;
     }

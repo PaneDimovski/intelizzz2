@@ -56,13 +56,14 @@
 
         android:id="@+id/lineuser"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="45dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:layout_weight="0.1"
+        android:layout_weight="2"
+
         android:background="@drawable/round_lightblue_background"
         android:gravity="center"
         android:orientation="horizontal">
@@ -70,8 +71,10 @@
 
         <LinearLayout
 
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:baselineAligned="true"
             android:orientation="vertical">
 
             <TextView
@@ -114,14 +117,15 @@
 
                 <LinearLayout
                     android:id="@+id/linear1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="5dp"
-
+                    android:layout_weight="1"
+                    android:background="@drawable/time_chouse_form"
                     android:orientation="vertical">
 
-                    <LinearLayout
+                    <RelativeLayout
 
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -137,22 +141,26 @@
                             android:layout_height="@dimen/alarm_set"
                             android:adjustViewBounds="true"
                             android:scaleType="fitXY"
-                            android:src="@drawable/one"
-                            android:visibility="gone"/>
+                            android:src="@drawable/one" />
 
                         <ImageView
                             android:id="@+id/btn_alarm_one_2"
                             android:layout_width="@dimen/alarm_set"
                             android:layout_height="@dimen/alarm_set"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
                             android:adjustViewBounds="true"
                             android:scaleType="fitXY"
                             android:src="@drawable/one_2"
-                             />
+                            android:visibility="invisible" />
 
                         <RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center">
+                            android:layout_below="@id/btn_alarm_one_2"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="center"
+                            android:layout_weight="1">
 
                             <ImageView
                                 android:id="@+id/one_on"
@@ -160,8 +168,7 @@
                                 android:layout_height="50dp"
                                 android:layout_gravity="center"
                                 android:layout_marginTop="20dp"
-                                android:src="@drawable/on"
-                                android:visibility="gone"/>
+                                android:src="@drawable/on" />
 
                             <ImageView
                                 android:id="@+id/one_off"
@@ -172,21 +179,21 @@
                                 android:adjustViewBounds="true"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/off"
-                                 />
+                                android:visibility="gone" />
                         </RelativeLayout>
-                    </LinearLayout>
+                    </RelativeLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/linear2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <LinearLayout
+                    <RelativeLayout
 
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -204,8 +211,7 @@
                             android:layout_height="@dimen/alarm_set"
                             android:adjustViewBounds="true"
                             android:scaleType="fitXY"
-                            android:src="@drawable/two"
-                            android:visibility="gone"/>
+                            android:src="@drawable/two" />
 
                         <ImageView
                             android:id="@+id/btn_alarm_two_2"
@@ -213,13 +219,15 @@
                             android:layout_height="@dimen/alarm_set"
                             android:adjustViewBounds="true"
                             android:scaleType="fitXY"
-                            android:src="@drawable/two_2"
-                             />
+                            android:src="@drawable/two_2" />
 
                         <RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center">
+                            android:layout_below="@id/btn_alarm_two_2"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="center"
+                            android:layout_weight="1">
 
                             <ImageView
                                 android:id="@+id/two_on"
@@ -229,8 +237,7 @@
                                 android:layout_marginTop="20dp"
                                 android:adjustViewBounds="true"
                                 android:scaleType="fitXY"
-                                android:src="@drawable/on"
-                                android:visibility="gone"/>
+                                android:src="@drawable/on" />
 
                             <ImageView
                                 android:id="@+id/two_off"
@@ -241,22 +248,24 @@
                                 android:adjustViewBounds="true"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/off"
-                                 />
+                                android:visibility="gone" />
 
 
                         </RelativeLayout>
-                    </LinearLayout>
+                    </RelativeLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/linear3"
-                    android:layout_width="wrap_content"
+                    android:layout_width="60dp"
+
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <LinearLayout
+                    <RelativeLayout
 
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -272,8 +281,7 @@
                             android:layout_height="@dimen/alarm_set"
                             android:adjustViewBounds="true"
                             android:scaleType="fitXY"
-                            android:src="@drawable/three"
-                            android:visibility="gone"/>
+                            android:src="@drawable/three" />
 
                         <ImageView
                             android:id="@+id/btn_alarm_three_2"
@@ -281,13 +289,15 @@
                             android:layout_height="@dimen/alarm_set"
                             android:adjustViewBounds="true"
                             android:scaleType="fitXY"
-                            android:src="@drawable/three_2"
-                             />
+                            android:src="@drawable/three_2" />
 
                         <RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center">
+                            android:layout_below="@+id/btn_alarm_three_2"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="center"
+                            android:layout_weight="1">
 
                             <ImageView
                                 android:id="@+id/three_on"
@@ -297,8 +307,7 @@
                                 android:layout_marginTop="20dp"
                                 android:adjustViewBounds="true"
                                 android:scaleType="fitXY"
-                                android:src="@drawable/on"
-                                android:visibility="gone"/>
+                                android:src="@drawable/on" />
 
                             <ImageView
                                 android:id="@+id/three_off"
@@ -309,23 +318,24 @@
                                 android:adjustViewBounds="true"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/off"
-                                />
+                                android:visibility="gone" />
 
 
                         </RelativeLayout>
-                    </LinearLayout>
+                    </RelativeLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/linear4"
-                    android:layout_width="wrap_content"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="10dp"
+                    android:layout_weight="1"
 
                     android:orientation="vertical">
 
-                    <LinearLayout
+                    <RelativeLayout
 
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -341,8 +351,7 @@
                             android:layout_height="@dimen/alarm_set"
                             android:adjustViewBounds="true"
                             android:scaleType="fitXY"
-                            android:src="@drawable/four"
-                            android:visibility="gone"/>
+                            android:src="@drawable/four" />
 
                         <ImageView
                             android:id="@+id/btn_alarm_four_2"
@@ -350,13 +359,15 @@
                             android:layout_height="@dimen/alarm_set"
                             android:adjustViewBounds="true"
                             android:scaleType="fitXY"
-                            android:src="@drawable/four_2"
-                             />
+                            android:src="@drawable/four_2" />
 
                         <RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center">
+                            android:layout_below="@+id/btn_alarm_four_2"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="center"
+                            android:layout_weight="1">
 
                             <ImageView
                                 android:id="@+id/four_on"
@@ -366,8 +377,7 @@
                                 android:layout_marginTop="20dp"
                                 android:adjustViewBounds="true"
                                 android:scaleType="fitXY"
-                                android:src="@drawable/on"
-                                android:visibility="gone"/>
+                                android:src="@drawable/on" />
 
                             <ImageView
                                 android:id="@+id/four_off"
@@ -378,19 +388,18 @@
                                 android:adjustViewBounds="true"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/off"
-                                 />
+                                android:visibility="gone" />
 
 
                         </RelativeLayout>
-                    </LinearLayout>
+                    </RelativeLayout>
                 </LinearLayout>
 
 
             </LinearLayout>
 
 
-            <EditText
-                android:id="@+id/alarm_text"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -416,7 +425,7 @@
 
         android:layout_width="match_parent"
 
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
 
         android:layout_marginBottom="5dp"
 
@@ -437,12 +446,12 @@
 
             android:id="@+id/btn_ok"
 
-            android:layout_width="60dp"
+            android:layout_width="50dp"
 
-            android:layout_height="60dp"
+            android:layout_height="50dp"
 
             android:layout_gravity="center"
-            android:layout_marginBottom="2dp"
+
 
             android:layout_weight="1"
 
@@ -452,7 +461,7 @@
 
             android:layout_width="0dp"
 
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
 
             android:layout_weight="0.2"
 

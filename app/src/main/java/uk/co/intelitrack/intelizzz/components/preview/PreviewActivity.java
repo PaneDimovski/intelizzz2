@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -36,7 +37,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import uk.co.intelitrack.Proba.CustomAdapter;
-import uk.co.intelitrack.Proba.ListenerOdbereno;
+import uk.co.intelitrack.Proba.Item;
 import uk.co.intelitrack.intelizz.SettingsActivity;
 import uk.co.intelitrack.intelizzz.IntelizzzApplication;
 import uk.co.intelitrack.intelizzz.R;
@@ -479,67 +480,63 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
 
     }
 
-//    @OnClick(R.id.unit_delete)
-//    void deleteUint() {
-//
-//        AlertDialog.Builder dialog3 = new AlertDialog.Builder(PreviewActivity.this);
-//
-//
-//        LayoutInflater inflater = getLayoutInflater();
-//
-//        View convertView = (View) inflater.inflate(R.layout.alert_dialog_delete_unit, null);
-//
-//        dialog3.setView(convertView);
-//
-//        ListView listView = (ListView) convertView.findViewById(R.id.listView1);
-//
-//        // Initiate listview data.
-//        final List<Item> initItemList = this.getInitViewItemDtoList();
-//
-//        // Create a customtwo list view adapter with checkbox control.
-//        CustomAdapter listAdapter = new CustomAdapter(getBaseContext(), initItemList, new ListenerOdbereno() {
-//            @Override
-//            public void Cekirano(Group grup, Boolean odbrano) {
-//
-//            }
-//        });
-//
-//        listAdapter.notifyDataSetChanged();
-//
-//        convertView.setTag(dialog3);
-//
-//
-//        // When list view item is clicked.
-//
-//        listView.setOnItemClickListener((adapterView, view, itemIndex, l) -> {
-//            // Get user selected item.
-//            Object itemObject = adapterView.getAdapter().getItem(itemIndex);
-//
-//            // Translate the selected item to DTO object.
-//            Item itemDto = (Item) itemObject;
-//
-//            // Get the checkbox.
-//            CheckBox itemCheckbox = (CheckBox) view.findViewById(R.id.checkMark5);
-//
-//            // Reverse the checkbox and clicked item check state.
-//            if (itemDto.isChecked()) {
-//                itemCheckbox.setChecked(true);
-//
-//
-//            } else {
-//                itemCheckbox.setChecked(false);
-//
-//            }
-//
-//
-//        });
-//
-//        // Click this button to select all listview items with checkbox checked.
-//        ImageView selectAllButton = (ImageView) convertView.findViewById(R.id.del_unit);
-//        selectAllButton.setOnClickListener(view -> {
-//
-//
-//            Item itemDto2 = new Item();
+    @OnClick(R.id.unit_delete)
+    void deleteUint() {
+
+        AlertDialog.Builder dialog3 = new AlertDialog.Builder(PreviewActivity.this);
+
+
+        LayoutInflater inflater = getLayoutInflater();
+
+        View convertView = (View) inflater.inflate(R.layout.alert_dialog_delete_unit, null);
+
+        dialog3.setView(convertView);
+
+        ListView listView = (ListView) convertView.findViewById(R.id.listView1);
+
+        // Initiate listview data.
+        final List<Item> initItemList = this.getInitViewItemDtoList();
+
+        // Create a customtwo list view adapter with checkbox control.
+        CustomAdapter listAdapter = new CustomAdapter(getBaseContext(), initItemList);
+
+
+        listAdapter.notifyDataSetChanged();
+
+        convertView.setTag(dialog3);
+
+
+        // When list view item is clicked.
+
+        listView.setOnItemClickListener((adapterView, view, itemIndex, l) -> {
+            // Get user selected item.
+            Object itemObject = adapterView.getAdapter().getItem(itemIndex);
+
+            // Translate the selected item to DTO object.
+            Item itemDto = (Item) itemObject;
+
+            // Get the checkbox.
+            CheckBox itemCheckbox = (CheckBox) view.findViewById(R.id.checkMark5);
+
+            // Reverse the checkbox and clicked item check state.
+            if (itemDto.isChecked()) {
+                itemCheckbox.setChecked(true);
+
+
+            } else {
+                itemCheckbox.setChecked(false);
+
+            }
+
+
+        });
+
+        // Click this button to select all listview items with checkbox checked.
+        ImageView selectAllButton = (ImageView) convertView.findViewById(R.id.del_unit);
+        selectAllButton.setOnClickListener(view -> {
+
+
+            Item itemDto2 = new Item();
 //
 //            if (itemDto2.isChecked()) {
 //
@@ -547,54 +544,54 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
 //                String proba = String.valueOf(listAdapter.getItemId(Integer.parseInt(itemDto2.getIdText())));
 //                Log.d(proba, "ODBERENO");
 //            }
-//
-//            listAdapter.notifyDataSetChanged();
-//        });
-//
-//        listView.setTag(dialog3);
-//
-//        listView.setAdapter(listAdapter);
-//
-//        AlertDialog alert3 = dialog3.create();
-//
-//
-//        alert3.show();
-//        alert3.setCanceledOnTouchOutside(true);
-//        alert3.setCancelable(true);
-//        alert3.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 100, 100, 100)));
-//    }
-//
-//
-//    private List<Item> getInitViewItemDtoList() {
-//
-//        ArrayList<String> vehicles = new ArrayList<String>();
-//        ArrayList<String> vehicles2 = new ArrayList<String>();
-//        for (Vehicle vehicle1 : mRepository.getVehicles()) {
-//
-//            vehicles.add(vehicle1.getNm());
-//        }
-//        for (Vehicle vehicle3 : mRepository.getVehicles()) {
-//
-//            vehicles2.add(vehicle3.getId());
-//        }
-//        List<Item> ret = new ArrayList<Item>();
-//
-//        int length = vehicles.size();
-//
-//        for (int i = 0; i < length; i++) {
-//            String itemText = vehicles.get(i);
-//            String itemText4 = vehicles2.get(i);
-//
-//            Item dto = new Item();
-//            // dto.setChecked(false);
-//            dto.setIdText(itemText4);
-//            dto.setItemText(itemText);
-//
-//            ret.add(dto);
-//        }
-//
-//        return ret;
-//    }
+
+            listAdapter.notifyDataSetChanged();
+        });
+
+        listView.setTag(dialog3);
+
+        listView.setAdapter(listAdapter);
+
+        AlertDialog alert3 = dialog3.create();
+
+
+        alert3.show();
+        alert3.setCanceledOnTouchOutside(true);
+        alert3.setCancelable(true);
+        alert3.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 100, 100, 100)));
+    }
+
+
+    private List<Item> getInitViewItemDtoList() {
+
+        ArrayList<String> vehicles = new ArrayList<String>();
+        ArrayList<String> vehicles2 = new ArrayList<String>();
+        for (Vehicle vehicle1 : mRepository.getVehicles()) {
+
+            vehicles.add(vehicle1.getNm());
+        }
+        for (Vehicle vehicle3 : mRepository.getVehicles()) {
+
+            vehicles2.add(vehicle3.getId());
+        }
+        List<Item> ret = new ArrayList<Item>();
+
+        int length = vehicles.size();
+
+        for (int i = 0; i < length; i++) {
+            String itemText = vehicles.get(i);
+            String itemText4 = vehicles2.get(i);
+
+            Item dto = new Item();
+            // dto.setChecked(false);
+            dto.setIdText(itemText4);
+            dto.setItemText(itemText);
+
+            ret.add(dto);
+        }
+
+        return ret;
+    }
 
     @OnClick(R.id.group_delete)
     void deleteGroup() {
@@ -607,76 +604,153 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
 
         ListView listView2 = (ListView) convertView2.findViewById(R.id.listViewGroup);
 
-        final Group[] groupList = this.getGroup();
+        final List<Item> groupList = this.getGroup();
 
-        ArrayList<Group> grupa = new ArrayList<>();
+        CustomAdapter listAdapter2 = new CustomAdapter(getBaseContext(), groupList);
 
-        CustomAdapter listAdapter2 = new CustomAdapter(getBaseContext(), groupList, new ListenerOdbereno() {
-            @Override
-            public void Cekirano(Group grup, Boolean odbrano) {
-
-                if (odbrano) {
-                    grupa.add(grup);
-
-
-
-                } else {
-                    grupa.remove(grup);
-                }
-
-
-            }
-        });
-
+        // listAdapter2.notifyDataSetChanged();
 
         convertView2.setTag(dialog4);
 
-        listView2.setAdapter(listAdapter2);
-        listView2.setTag(dialog4);
+//        SparseBooleanArray sp = listView2.getCheckedItemPositions();
+
+        listView2.setOnItemClickListener((AdapterView<?> adapterView, View view, int position, long l) -> {
+            // Get user selected item.
+            Object itemObject = adapterView.getAdapter();
+
+            Item itemDto = (Item) itemObject;
+
+            CheckBox itemCheckbox = (CheckBox) convertView2.findViewById(R.id.checkMark5);
+
+
+           // listAdapter2.setCheckedItem(position);
+
+
+
+
+
+        });
 
 
         ImageView delete = (ImageView) convertView2.findViewById(R.id.del_group);
         delete.setOnClickListener((View view) -> {
 
             CheckBox itemCheckbox = (CheckBox) convertView2.findViewById(R.id.checkMark5);
-            String xy = "";
-            for (int i = 0; i < grupa.size(); i++) {
 
-                String x = grupa.get(i).getId();
+//            Iterator<String> it = listAdapter2.getCheckedItems().values().iterator();
+//            for (int i=0;i<listAdapter2.getCheckedItems().size();i++){
+                //Do whatever
+//                String result = "";
+//                ArrayList<String> resultList = new ArrayList<String>();
+//                for (int y = 0; y < resultList.size(); y++) {
+//                        result += String.valueOf(resultList.get(i)) + "\n";
+//                    }
+//                if (result.matches("")) {
+////
+//                        Toast.makeText(getApplicationContext(),"Please select some thing from list to show",Toast.LENGTH_LONG).show();
+//                    }
+//
+//                else {
+//                        Toast.makeText(getApplicationContext(),result,Toast.LENGTH_LONG).show();
+//                    }
 
-                 xy = xy + x;
+
+//                listAdapter2.getItem(Integer.parseInt(it.next()));
+//            }
+
+            //   List<Item> resultList = listAdapter2.getCheckedItems();
+
+//                    for (int i = 0; i < resultList.size(); i++) {
+//                        result += String.valueOf(resultList.get(i)) + "\n";
+//                    }
+
+//                    listAdapter2.getCheckedItemPositions().toString();
+//
+//                    if (result.matches("")) {
+//
+//                        Toast.makeText(getApplicationContext(),"Please select some thing from list to show",Toast.LENGTH_LONG).show();
+//                    }
+//                    else {
+//                        Toast.makeText(getApplicationContext(),result,Toast.LENGTH_LONG).show();
+//                    }
 
 
-
-            }
-
+            //   shared.setSharedPreferencesString(Constants.PANE_ID, size2);
 
 
             listAdapter2.notifyDataSetChanged();
         });
 
+        listView2.setAdapter(listAdapter2);
+        listView2.setTag(dialog4);
 
         AlertDialog alert4 = dialog4.create();
 
         alert4.show();
 
-        alert4.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 100, 100, 100)));
+        alert4.getWindow().
+
+                setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(0, 100, 100, 100)));
     }
 
     public List<Company> getCompanies() {
         return mCompanies;
     }
 
-    private Group[] getGroup() {
+    private List<Item> getGroup() {
 
 
-        Group[] groups;
+        ArrayList<String> groups = new ArrayList<String>();
 
-        groups = mRepository.getCompanies().get(posit).getGroups();
+        ArrayList<String> groups2 = new ArrayList<>();
 
-        return groups;
+        for (Group group2 : mRepository.getCompanies().get(posit).getGroups()) {
+
+
+            groups2.add(group2.getId());
+        }
+
+        for (Group group1 : mRepository.getCompanies().get(posit).getGroups()) {
+
+            groups.add(group1.getName());
+
+
+        }
+
+
+        List<Item> ret = new ArrayList<Item>();
+
+        int length = groups.size();
+
+        for (int i = 0; i < length; i++) {
+
+
+            String itemText2 = groups.get(i);
+            String itemText3 = groups2.get(i);
+
+
+            Item dto = new Item();
+            dto.setChecked(false);
+            dto.setIdText(itemText3);
+            dto.setItemText(itemText2);
+
+
+            // String a = shared.getSharedPreferencesString(Constants.ID);
+            //   dto.setIdText(a);
+
+//              if ( dto.isChecked() )  {
+//                  shared.setSharedPreferencesString(Constants.ID, itemText3);
+//
+//                  dto.setIdText(a);
+//
+//              }
+            ret.add(dto);
+
+        }
+        return ret;
 
     }
+
 
 
     @OnClick(R.id.picSettings)

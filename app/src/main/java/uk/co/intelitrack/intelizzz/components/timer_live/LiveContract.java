@@ -10,6 +10,7 @@ import java.util.List;
 
 import uk.co.intelitrack.intelizzz.common.base.BasePresenter;
 import uk.co.intelitrack.intelizzz.common.base.BaseView;
+import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 
 /**
  * Created by Filip Stojanovski (filip100janovski@gmail.com).
@@ -18,6 +19,8 @@ import uk.co.intelitrack.intelizzz.common.base.BaseView;
 public interface LiveContract {
 
     interface View extends BaseView<LiveContract.Presenter> {
+        void showData(Vehicle vehicle);
+
         Context getContext();
 
         void showAddress(String address);

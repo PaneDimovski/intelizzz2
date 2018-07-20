@@ -31,7 +31,6 @@ import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
  * Created by Filip Stojanovski (filip100janovski@gmail.com).
  */
 
-
 class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.ParentVehicleViewHolder, GroupsAdapter.ChildItemViewHolder> {
 
     //region final Fields
@@ -452,6 +451,4 @@ class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.ParentVe
             day7.setBackgroundResource(vehicle.getDays()[6] ? R.drawable.green_rectangle : R.drawable.red_rectangle);
         }
     }
-
-
 }

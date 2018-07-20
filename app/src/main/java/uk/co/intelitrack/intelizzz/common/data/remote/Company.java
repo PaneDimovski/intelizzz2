@@ -13,7 +13,7 @@ public class Company {
     @SerializedName("Groups")
     private Group[] groups;
 
-    @SerializedName("name")
+    @SerializedName("Name")
     private String name; //jj
 
     @SerializedName("unassigned_vehicles")

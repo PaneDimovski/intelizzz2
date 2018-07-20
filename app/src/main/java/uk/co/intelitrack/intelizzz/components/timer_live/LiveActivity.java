@@ -35,8 +35,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import uk.co.intelitrack.intelizzz.IntelizzzApplication;
 import uk.co.intelitrack.intelizzz.R;
+import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
 import uk.co.intelitrack.intelizzz.common.data.TimerAlarm;
+import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 import uk.co.intelitrack.intelizzz.common.utils.DialogUtils;
 import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
 import uk.co.intelitrack.intelizzz.common.utils.ViewsUtils;
@@ -57,6 +59,11 @@ public class LiveActivity extends FragmentActivity implements OnMapReadyCallback
     @BindView(R.id.text_location_address)
     TextView mAddress;
 
+    @BindView(R.id.textUnit)
+    TextView unit;
+
+    Vehicle vehicle;
+
     @BindView(R.id.root_last_location2)
     LinearLayout  mRootLastLocation;
 //    @BindView(R.id.root_custom_locations)
@@ -66,7 +73,8 @@ public class LiveActivity extends FragmentActivity implements OnMapReadyCallback
     LivePresenter mPresenter;
     private GoogleMap mMap;
     private IntelizzzProgressDialog mProgresDialog;
-
+    IntelizzzRepository mRepositiry;
+    private String mVehicleId;
 
     public static void start(Activity activity, String id, boolean isLastKnownLocation) {
         Intent intent = new Intent(activity, LiveActivity.class);
@@ -75,6 +83,8 @@ public class LiveActivity extends FragmentActivity implements OnMapReadyCallback
         activity.startActivity(intent);
 
     }
+
+
 
 
     @Override
@@ -98,7 +108,34 @@ public class LiveActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         setTimer(id, true);
+
+
+
+
+
+
+
+
     }
+
+
+    @Override
+    public void showData(Vehicle vehicle) {
+        if (vehicle.getDl() != null && !TextUtils.isEmpty(vehicle.getDevice().getSim())) {
+
+        }
+        mVehicleId = vehicle.getId();
+        showVehicle(vehicle);
+    }
+
+
+    private void showVehicle(Vehicle vehicle) {
+        //  mSearchView.setSearchText(vehicle.getNm());
+
+        unit.setText(vehicle.getNm());
+    }
+
+
 
     private void setTimer(String id, boolean isFirstTime) {
         Calendar current = Calendar.getInstance();

@@ -69,6 +69,14 @@ public class LivePresenter implements LiveContract.Presenter, DatePickerDialog.O
         if (!TextUtils.isEmpty(id)) {
             mVehicle = mRepository.getVehicleById(id);
         }
+
+
+                mView.showData(mVehicle);
+
+
+
+
+
         mIsLastKnownLocation = intent.getBooleanExtra(Constants.IS_LAST_KNOWN_LOCATION, false);
 
         firstCalendar = Calendar.getInstance();
@@ -143,6 +151,8 @@ public class LivePresenter implements LiveContract.Presenter, DatePickerDialog.O
         }
     }
     //endregion
+
+
 
     //region Helpers Methods
     private void fetchLastKnownLocation() {

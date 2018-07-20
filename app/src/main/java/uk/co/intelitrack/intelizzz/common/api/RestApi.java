@@ -67,7 +67,7 @@ public Call<Alarm>resetTamper(String JSESSIONID, Alarm alarm){
     public Call<Company> creatUSer (HashMap<String, Object> data){
         return request().createUser(data);
     }
-    public Call<Device> setupAlarm(String deviceId, ArrayList<String> time){
+    public Call<Device> setupAlarm(String deviceId, HashMap<String, Object> time){
         return request().setWakeUpAlarm(deviceId,time);
     }
 

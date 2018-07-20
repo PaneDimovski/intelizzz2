@@ -156,4 +156,9 @@ public class TimerSettingsActivity extends AppCompatActivity {
 
 
     }
+
+    @OnClick(R.id.btn_user_back)
+    void onBackClick() {
+        onBackPressed();
+    }
 }

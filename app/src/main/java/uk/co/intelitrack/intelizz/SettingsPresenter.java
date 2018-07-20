@@ -20,11 +20,11 @@ import uk.co.intelitrack.intelizzz.common.data.Constants;
 import uk.co.intelitrack.intelizzz.common.data.remote.Company;
 import uk.co.intelitrack.intelizzz.common.data.remote.Group;
 import uk.co.intelitrack.intelizzz.common.data.remote.ParentVehicle;
+import uk.co.intelitrack.intelizzz.common.data.remote.Response;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 import uk.co.intelitrack.intelizzz.common.utils.RxUtils;
 import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
 import uk.co.intelitrack.intelizzz.components.preview.GroupsClickListener;
-import uk.co.intelitrack.intelizzz.components.preview.PreviewContract;
 
 
 public class SettingsPresenter implements SettingsContract.Presenter, GroupsClickListener {
@@ -37,6 +37,7 @@ public class SettingsPresenter implements SettingsContract.Presenter, GroupsClic
     private boolean mIsGroup;
     private String mGroupId ;
     private String forDelete;
+    private Vehicle mVehicle;
     //endregion
 
     public SettingsPresenter(IntelizzzRepository repository, SettingsContract.View view,SharedPreferencesUtils sharedPreferencesUtils) {
@@ -72,7 +73,33 @@ public class SettingsPresenter implements SettingsContract.Presenter, GroupsClic
         RxUtils.unsubscribe(mSubscriptions);
     }
     //endregion
-
+    @Override
+    public String getDeviceId() {
+        if (mVehicle.getDl() != null && !TextUtils.isEmpty(mVehicle.getDevice().getId())) {
+            mSubscriptions.add(
+                    mRepository.getDeviceStatus(mVehicle.getDevice().getId())
+                            .subscribeOn(Schedulers.newThread())
+                            .subscribe(
+                                    (Response x) -> {
+                                        if (x.getResult().equals("0")) {
+                                            Timber.d("getUnits successful");
+                                            if (x.getStatuses() != null && x.getStatuses().length != 0) {
+                                               String deviceID = mVehicle.getDevice().getId();
+                                               mSharedPreferencesUtils.setSharedPreferencesString(Constants.DEVICEID,deviceID);
+                                            }
+                                            mView.toogleProgressBar(false);
+                                        } else {
+                                            Timber.d("getUnits is not successful");
+                                            mView.toogleProgressBar(false);
+                                        }
+                                    },
+                                    e -> {
+                                        Timber.e(e);
+                                        mView.toogleProgressBar(false);
+                                    }));
+        }
+        return null;
+    }
     @Override
     public void refreshGroups() {
         List<ParentVehicle> newGroupList = new ArrayList<>();

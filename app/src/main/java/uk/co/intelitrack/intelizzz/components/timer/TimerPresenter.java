@@ -29,9 +29,7 @@ import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 import uk.co.intelitrack.intelizzz.common.utils.RxUtils;
 import uk.co.intelitrack.intelizzz.components.maps.MapsContract;
 
-/**
- * Created by Filip Stojanovski (filip100janovski@gmail.com).
- */
+
 
 public class TimerPresenter implements TimerContract.Presenter, DatePickerDialog.OnDateSetListener {
 

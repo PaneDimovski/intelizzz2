@@ -1,8 +1,5 @@
 package uk.co.intelitrack.intelizzz.common.data.remote;
 
-/**
- * Created by Filip Stojanovski (filip100janovski@gmail.com).
- */
 
 public class Dl {
     private String id;

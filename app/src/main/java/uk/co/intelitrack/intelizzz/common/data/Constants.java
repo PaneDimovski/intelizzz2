@@ -18,11 +18,16 @@ public class Constants {
     public static final String ID = "id";
     public static final String OLI_ID = "oli_id";
     public static final String JSESSIONID = "jsessionID";
+    public static final String DEVICEID= "DeviceId";
 
 
     // Alarm Type
     public static final String FIRST_TYPE_ALARM = "17";
     public static final String SECOND_TYPE_ALARM = "307";
+    public static final String FIRST_ALARM = "first_alarm";
+    public static final String SECOND_ALARM = "second_alarm";
+    public static final String THIRD_ALARM = "third_alarm";
+    public static final String FOURTH_ALARM = "fourth_alarm";
 
 
     // Filter Types

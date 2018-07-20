@@ -166,19 +166,25 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
 
     @OnClick(R.id.btn_ok_settings)
     public void klik() {
-        String prv = "08:00";
-        String vtor = "12:00";
-        String tret = "15:00";
-        String cetri = "22:00";
+        DeviceId();
+        SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
+        String prv = sharedPreferencesUtils.getSharedPreferencesString(Constants.FIRST_ALARM);
+        String vtor =sharedPreferencesUtils.getSharedPreferencesString(Constants.SECOND_ALARM);
+        String tret = sharedPreferencesUtils.getSharedPreferencesString(Constants.THIRD_ALARM);
+        String cetri = sharedPreferencesUtils.getSharedPreferencesString(Constants.FOURTH_ALARM);
         ArrayList<String> alarmi = new ArrayList<>();
         alarmi.add(prv);
         alarmi.add(vtor);
         alarmi.add(tret);
         alarmi.add(cetri);
-        String deviceId = "15";
+        String deviceId = sharedPreferencesUtils.getSharedPreferencesString(Constants.DEVICEID);
+
+        HashMap<String, Object> requestBody = new HashMap<>();
+        requestBody.put("wakeupTimes:", alarmi);
+
 
         api = new RestApi(getApplicationContext());
-        Call<Device> call = api.setupAlarm(deviceId,alarmi);
+        Call<Device> call = api.setupAlarm(deviceId,requestBody);
         call.enqueue(new Callback<Device>() {
             @Override
             public void onResponse(Call<Device> call, Response<Device> response) {
@@ -187,7 +193,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
                 } else if (!response.isSuccessful()){
                     Toast.makeText(SettingsActivity.this, "MAJKATI U PICKA", Toast.LENGTH_SHORT).show();
                 }
-                
+
             }
 
             @Override
@@ -324,7 +330,31 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
         mPresenter.onUnitClick2(vehicleId);
     }
 
+    public void DeviceId(){
+        SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
+        String jsession = sharedPreferencesUtils.getSharedPreferencesString(Constants.ID);
+        String vehicleId = "15";
 
+        api = new RestApi(getApplicationContext());
+        Call<Device> call = api.getDeviceByVehicle(jsession,vehicleId);
+        call.enqueue(new Callback<Device>() {
+            @Override
+            public void onResponse(Call<Device> call, Response<Device> response) {
+                if (response.isSuccessful()){
+                    Device device = new Device();
+                    device=response.body();
+                    String a = device.getDid();
+                    SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
+                    sharedPreferencesUtils.setSharedPreferencesString(Constants.DEVICEID,a);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Device> call, Throwable t) {
+
+            }
+        });
+    }
 
     private void hideProgressBar() {
         if (mProgressDialog != null) {

@@ -263,7 +263,7 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
     @Override
     public void onBindChildViewHolder(ChildItemViewHolder holder, int position, ExpandableGroup group, int childIndex) {
         final Vehicle vehicle = ((ParentVehicle) group).getItems().get(childIndex);
-        holder.bind(vehicle, mOnItemClickListener);
+        holder.bind(vehicle, (GroupsClickListenerSettings) mOnItemClickListener);
     }
 
     @Override
@@ -391,7 +391,7 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
                 @Override
                 public void onClick(View v) {
                     if (parentVehicle.isCompany()) {
-                        groupsClickListener.onCompanyItemClick(parentVehicle.getId());
+                        groupsClickListener.onCompanyItemClick(parentVehicle. getId());
                     }
 
 
@@ -433,14 +433,16 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
 
         }
 
-        public void bind(Vehicle vehicle, GroupsClickListener onItemClickListener) {
+        public void bind(Vehicle vehicle, GroupsClickListenerSettings onItemClickListener) {
             name.setText(vehicle.getName());
 
 
             mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     onItemClickListener.onGroupChildItemClick(vehicle.getId());
+
                 }
             });
 

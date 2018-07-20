@@ -1,5 +1,6 @@
 package uk.co.intelitrack.intelizzz.common.api;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import io.reactivex.Single;
@@ -13,13 +14,11 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import uk.co.intelitrack.intelizzz.common.data.remote.Company;
+import uk.co.intelitrack.intelizzz.common.data.remote.Device;
 import uk.co.intelitrack.intelizzz.common.data.remote.Response;
 import uk.co.intelitrack.intelizzz.common.data.remote.Token;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 
-/**
- * Created by Filip Stojanovski (filip100janovski@gmail.com).
- */
 
 public interface ApiInterface {
     @GET("StandardApiAction_login.action")
@@ -97,5 +96,10 @@ public interface ApiInterface {
     @POST("api/admin/accountcreate")
     Call<Company> createUser (@Body HashMap<String, Object> data);
 
+    @POST(" http://intelizzz-app.server.pkristijan.xyz/api/alarms/addalarms")
+    Call<Device> setWakeUpAlarm(@Header("deviceId") String deviceId, @Body HashMap<String,Object> wakeupTimes);
+
+    @GET("StandardApiAction_getDeviceByVehicle.action")
+    Call<Device> getDeviceByVehicle1(@Query("jsession") String jsession, @Query("vehiIdno") String vehicleId);
 
 }

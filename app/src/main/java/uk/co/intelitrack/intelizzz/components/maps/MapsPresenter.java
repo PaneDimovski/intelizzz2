@@ -151,7 +151,7 @@ public class MapsPresenter implements MapsContract.Presenter, DatePickerDialog.O
                     mRepository.getDeviceStatus(mVehicle.getDevice().getId())
                             .subscribeOn(Schedulers.newThread())
                             .subscribe(
-                                    x -> {
+                                    (Response x) -> {
                                         if (x.getResult().equals("0")) {
                                             Timber.d("getUnits successful");
                                             if (x.getStatuses() != null && x.getStatuses().length != 0) {

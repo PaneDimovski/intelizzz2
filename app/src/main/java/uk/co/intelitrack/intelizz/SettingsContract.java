@@ -39,6 +39,9 @@ public interface SettingsContract {
     }
 
     interface Presenter extends BasePresenter {
+        //endregion
+        String getDeviceId();
+
         void refreshGroups();
 
         void onUnitClick(String id);

@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -42,7 +41,6 @@ import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
 import uk.co.intelitrack.intelizzz.common.utils.ViewsUtils;
 import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzProgressDialog;
 import uk.co.intelitrack.intelizzz.components.login.LoginActivity;
-import uk.co.intelitrack.intelizzz.components.timer.DaggerTimerComponent;
 
 
 /**
@@ -268,9 +266,11 @@ public class LiveActivity extends FragmentActivity implements OnMapReadyCallback
                 mProgresDialog = DialogUtils.getProgressBarDialog(this);
             }
             mProgresDialog.show();
+
         } else {
             if (mProgresDialog != null) {
                 mProgresDialog.dismiss();
+
             }
         }
 

@@ -13,23 +13,35 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/item_number"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="1dp"
-            android:layout_marginRight="1dp"
-            android:layout_weight="1"
+            android:id="@+id/item_number5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:gravity="center"
-            android:text="1"
-            android:visibility="gone"
-            android:textColor="@color/text_white" />
+            android:text="2"
+            android:textColor="@color/blue"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tekst5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:text="00"
+            android:textColor="@color/blue"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <CheckBox
             android:id="@+id/checkMark5"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginLeft="30dp"
             android:layout_gravity="center"
+
+
+            android:layout_marginLeft="10dp"
             android:background="@drawable/groups_custom_check"
             android:button="@null"
             android:gravity="center" />
@@ -38,17 +50,18 @@
         <TextView
             android:id="@+id/item_unit_id5"
             android:layout_width="0dp"
-            android:paddingLeft="15dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="1dp"
             android:layout_marginRight="1dp"
             android:layout_weight="5"
-            android:gravity="center"
+            android:gravity="start|center_vertical"
+            android:paddingLeft="15dp"
             android:text="IntelliZzz"
-            android:textSize="20dp"
-            android:textStyle="bold"
             android:textAllCaps="true"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
 
 
     </LinearLayout>

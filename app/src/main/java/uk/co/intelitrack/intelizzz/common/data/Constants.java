@@ -10,6 +10,7 @@ public class Constants {
 //    public static final String BASE_URL = "http://intelitrack.itility.co.uk";
 
     public static final String TOKEN = "token";
+    public static final String PANE_ID = "pane";
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
     public static final String KEEP_SINGED = "id";

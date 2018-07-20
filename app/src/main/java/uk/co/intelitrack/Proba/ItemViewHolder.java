@@ -9,14 +9,31 @@ import android.widget.TextView;
  * Created by Anti on 6/24/2018.
  */
 
-public class ListViewItemViewHolder extends RecyclerView.ViewHolder {
+public class ItemViewHolder extends RecyclerView.ViewHolder {
 
-    private CheckBox itemCheckbox;
-
+    public CheckBox itemCheckbox;
+    private TextView IdTextView;
     private TextView itemTextView;
+    private TextView IdTextView2;
 
-    public ListViewItemViewHolder(View itemView) {
+    public TextView getIdTextView2() {
+        return IdTextView2;
+    }
+
+    public void setIdTextView2(TextView idTextView2) {
+        IdTextView2 = idTextView2;
+    }
+
+    public ItemViewHolder(View itemView) {
         super(itemView);
+    }
+
+    public TextView getIdTextView() {
+        return IdTextView;
+    }
+
+    public void setIdTextView(TextView idTextView) {
+        IdTextView = idTextView;
     }
 
     public CheckBox getItemCheckbox() {

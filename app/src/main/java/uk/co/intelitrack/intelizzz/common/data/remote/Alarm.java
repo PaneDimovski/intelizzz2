@@ -47,6 +47,59 @@ public class Alarm {
     private String stm;
     private String etm;
     private String vid;
+    private String did;
+
+    public String getDid() {
+        return did;
+    }
+
+    public void setDid(String did) {
+        this.did = did;
+    }
+
+    public String getGuid() {
+        return guid;
+    }
+
+    public String getStm() {
+        return stm;
+    }
+
+    public void setStm(String stm) {
+        this.stm = stm;
+    }
+
+    public String getEtm() {
+        return etm;
+    }
+
+    public void setEtm(String etm) {
+        this.etm = etm;
+    }
+
+    public String getVid() {
+        return vid;
+    }
+
+    public void setVid(String vid) {
+        this.vid = vid;
+    }
+
+    public String getSmlng() {
+        return smlng;
+    }
+
+    public void setSmlng(String smlng) {
+        this.smlng = smlng;
+    }
+
+    public String getSmlat() {
+        return smlat;
+    }
+
+    public void setSmlat(String smlat) {
+        this.smlat = smlat;
+    }
 
     @SerializedName("condiIdno")
     private String condiIdno;
@@ -59,24 +112,4 @@ public class Alarm {
 
     private String smlng;
     private String smlat;
-
-    private String emlng;
-    private String emlat;
-    private String did;
-
-    public String getGuid() {
-        return guid;
-    }
-
-    public String getStm() {
-        return stm;
-    }
-
-    public String getDid() {
-        return did;
-    }
-
-    public String getVid() {
-        return vid;
-    }
 }

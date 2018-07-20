@@ -80,7 +80,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
-                android:autoSizeMaxTextSize="@dimen/font_larger"
                 android:text="Set the frequency and time of how"
                 android:textColor="@color/black"
                 android:textSize="@dimen/font_large" />

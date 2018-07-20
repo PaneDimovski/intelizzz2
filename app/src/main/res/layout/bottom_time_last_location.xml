@@ -55,7 +55,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/logo_height"
-            android:background="@drawable/background"
+
             android:orientation="horizontal"
             android:layout_gravity="center_horizontal"
             android:padding="10dp">

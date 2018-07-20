@@ -3,7 +3,6 @@ package uk.co.intelitrack.intelizzz.common.api;
 import android.content.Context;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -13,7 +12,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
 import uk.co.intelitrack.intelizzz.common.data.remote.Company;
-import uk.co.intelitrack.intelizzz.common.data.remote.Device;
 import uk.co.intelitrack.intelizzz.common.data.remote.Token;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 
@@ -65,11 +63,6 @@ public class RestApi {
     public Call<Company> creatUSer (HashMap<String, Object> data){
         return request().createUser(data);
     }
-    public Call<Device> setupAlarm(String deviceId, HashMap<String,Object> time){
-        return request().setWakeUpAlarm(deviceId,time);
-    }
-    public Call<Device> getDeviceByVehicle(String jsession,String vehicleId){
-        return  request().getDeviceByVehicle1(jsession,vehicleId);
-    }
+
 
 }

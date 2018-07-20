@@ -1,4 +1,4 @@
-package uk.co.intelitrack.intelizzz.components.timer;
+package uk.co.intelitrack.intelizzz.components.timer_live;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -9,6 +9,7 @@ import android.os.CountDownTimer;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -41,12 +42,14 @@ import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
 import uk.co.intelitrack.intelizzz.common.utils.ViewsUtils;
 import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzProgressDialog;
 import uk.co.intelitrack.intelizzz.components.login.LoginActivity;
+import uk.co.intelitrack.intelizzz.components.timer.DaggerTimerComponent;
+
 
 /**
  * Created by Filip Stojanovski (filip100janovski@gmail.com).
  */
 
-public class TimerActivity extends FragmentActivity implements OnMapReadyCallback, TimerContract.View {
+public class LiveActivity extends FragmentActivity implements OnMapReadyCallback, LiveContract.View {
 
     @BindView(R.id.txtTimerValue)
     TextView mTimerValue;
@@ -55,18 +58,18 @@ public class TimerActivity extends FragmentActivity implements OnMapReadyCallbac
     TextView mAddress;
 
     @BindView(R.id.root_last_location)
-    RelativeLayout mRootLastLocation;
-    @BindView(R.id.root_custom_locations)
-    RelativeLayout mRootCustomLocations;
+    LinearLayout  mRootLastLocation;
+//    @BindView(R.id.root_custom_locations)
+//    RelativeLayout mRootCustomLocations;
 
     @Inject
-    TimerPresenter mPresenter;
+    LivePresenter mPresenter;
     private GoogleMap mMap;
     private IntelizzzProgressDialog mProgresDialog;
 
 
     public static void start(Activity activity, String id, boolean isLastKnownLocation) {
-        Intent intent = new Intent(activity, TimerActivity.class);
+        Intent intent = new Intent(activity, LiveActivity.class);
         intent.putExtra(Constants.ID, id);
         intent.putExtra(Constants.IS_LAST_KNOWN_LOCATION, isLastKnownLocation);
         activity.startActivity(intent);
@@ -77,15 +80,15 @@ public class TimerActivity extends FragmentActivity implements OnMapReadyCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DaggerTimerComponent.builder()
+        DaggerLiveComponent.builder()
                 .applicationComponent(((IntelizzzApplication) getApplication()).getComponent())
 
 
-                .timerPresenterModule(new TimerPresenterModule(this))
-                .timerModule(new TimerModule(this))
+                .livePresenterModule(new LivePresenterModule(this))
+                .liveModule(new LiveModule(this))
                 .build()
                 .inject(this);
-        setContentView(R.layout.activity_timer_map);
+        setContentView(R.layout.live_timer);
         ButterKnife.bind(this);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -109,7 +112,7 @@ public class TimerActivity extends FragmentActivity implements OnMapReadyCallbac
             if (current.get(Calendar.HOUR_OF_DAY) > 1) {
                 tillAlarm.add(Calendar.DAY_OF_MONTH, 1);
             }
-            tillAlarm.set(Calendar.HOUR_OF_DAY, -10);
+            tillAlarm.set(Calendar.HOUR_OF_DAY, -12);
         }
 
         tillAlarm.set(Calendar.MINUTE, 0);
@@ -123,7 +126,7 @@ public class TimerActivity extends FragmentActivity implements OnMapReadyCallbac
 
         long milliseconds = tillAlarm.getTimeInMillis() - current.getTimeInMillis();
 
-        CountDownTimer countDownTimer = new TimerActivity.MyTimer(milliseconds, 1000, isFirstTime, id);
+        CountDownTimer countDownTimer = new LiveActivity.MyTimer(milliseconds, 1000, isFirstTime, id);
 
         countDownTimer.start();
     }
@@ -216,14 +219,14 @@ public class TimerActivity extends FragmentActivity implements OnMapReadyCallbac
     @Override
     public void showLastKnownLocationComponents() {
         ViewsUtils.setViewGroupVisibility(mRootLastLocation, View.VISIBLE);
-        ViewsUtils.setViewGroupVisibility(mRootCustomLocations, View.GONE);
+//        ViewsUtils.setViewGroupVisibility(mRootCustomLocations, View.GONE);
 
     }
 
     @Override
     public void showLocationsComponents() {
         ViewsUtils.setViewGroupVisibility(mRootLastLocation, View.GONE);
-        ViewsUtils.setViewGroupVisibility(mRootCustomLocations, View.VISIBLE);
+//        ViewsUtils.setViewGroupVisibility(mRootCustomLocations, View.VISIBLE);
 
     }
 
@@ -254,7 +257,7 @@ public class TimerActivity extends FragmentActivity implements OnMapReadyCallbac
     }
 
     @Override
-    public void setPresenter(TimerContract.Presenter presenter) {
+    public void setPresenter(LiveContract.Presenter presenter) {
 
     }
 

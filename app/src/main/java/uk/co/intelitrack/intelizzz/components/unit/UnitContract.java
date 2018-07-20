@@ -18,11 +18,15 @@ public interface UnitContract {
 
         void startLoginActivity();
         void startTimeActivity(String id, boolean isLastKnownLocation);
+        void startLiveActivity(String id, boolean isLastKnownLocation);
+
     }
 
     interface Presenter extends BasePresenter {
         void onLastKnownLocation();
         void onLastKnownLocation1();
+
+        void onLastKnownLocation2();
 
         void onPreviousLocations();
     }

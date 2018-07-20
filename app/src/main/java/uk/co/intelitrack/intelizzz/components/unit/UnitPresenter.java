@@ -52,6 +52,13 @@ public class UnitPresenter implements UnitContract.Presenter {
     }
 
     @Override
+    public void onLastKnownLocation2() {
+        mView.startLiveActivity(mVehicle.getId(), true);
+
+    }
+
+
+    @Override
     public void onPreviousLocations() {
         mView.startMapActivity(mVehicle.getId(), false);
     }

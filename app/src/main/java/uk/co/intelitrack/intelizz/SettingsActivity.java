@@ -183,24 +183,24 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
         requestBody.put("wakeupTimes:", alarmi);
 
 
-        api = new RestApi(getApplicationContext());
-        Call<Device> call = api.setupAlarm(deviceId,requestBody);
-        call.enqueue(new Callback<Device>() {
-            @Override
-            public void onResponse(Call<Device> call, Response<Device> response) {
-                if (response.isSuccessful()){
-                    Toast.makeText(SettingsActivity.this, "USPESNO", Toast.LENGTH_SHORT).show();
-                } else if (!response.isSuccessful()){
-                    Toast.makeText(SettingsActivity.this, "MAJKATI U PICKA", Toast.LENGTH_SHORT).show();
-                }
+//        api = new RestApi(getApplicationContext());
+//        Call<Device> call = api.setupAlarm(deviceId,requestBody);
+//        call.enqueue(new Callback<Device>() {
+//            @Override
+//            public void onResponse(Call<Device> call, Response<Device> response) {
+//                if (response.isSuccessful()){
+//                    Toast.makeText(SettingsActivity.this, "USPESNO", Toast.LENGTH_SHORT).show();
+//                } else if (!response.isSuccessful()){
+//                    Toast.makeText(SettingsActivity.this, "MAJKATI U PICKA", Toast.LENGTH_SHORT).show();
+//                }
+//
+//            }
 
-            }
-
-            @Override
-            public void onFailure(Call<Device> call, Throwable t) {
-
-            }
-        });
+//            @Override
+//            public void onFailure(Call<Device> call, Throwable t) {
+//
+//            }
+//        });
 
 
 
@@ -335,25 +335,25 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
         String jsession = sharedPreferencesUtils.getSharedPreferencesString(Constants.ID);
         String vehicleId = "15";
 
-        api = new RestApi(getApplicationContext());
-        Call<Device> call = api.getDeviceByVehicle(jsession,vehicleId);
-        call.enqueue(new Callback<Device>() {
-            @Override
-            public void onResponse(Call<Device> call, Response<Device> response) {
-                if (response.isSuccessful()){
-                    Device device = new Device();
-                    device=response.body();
-                    String a = device.getDid();
-                    SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
-                    sharedPreferencesUtils.setSharedPreferencesString(Constants.DEVICEID,a);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Device> call, Throwable t) {
-
-            }
-        });
+//        api = new RestApi(getApplicationContext());
+//        Call<Device> call = api.getDeviceByVehicle(jsession,vehicleId);
+//        call.enqueue(new Callback<Device>() {
+//            @Override
+//            public void onResponse(Call<Device> call, Response<Device> response) {
+//                if (response.isSuccessful()){
+//                    Device device = new Device();
+//                    device=response.body();
+//                    String a = device.getDid();
+//                    SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
+//                    sharedPreferencesUtils.setSharedPreferencesString(Constants.DEVICEID,a);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Device> call, Throwable t) {
+//
+//            }
+//        });
     }
 
     private void hideProgressBar() {

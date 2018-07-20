@@ -109,7 +109,7 @@ public class UserDetailsActivity extends AppCompatActivity {
 
         Company company = new Company();
 
-        company.setName(user);
+        company.setName2(user);
         company.setAddress(address);
         company.setPassword(convertPassMd5(pass));
         company.setLegal(legal);

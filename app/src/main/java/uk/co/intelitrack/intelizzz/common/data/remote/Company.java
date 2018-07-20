@@ -16,6 +16,13 @@ public class Company {
     @SerializedName("Name")
     private String name; //jj
 
+    @SerializedName("name")
+    private String name2;
+
+    public void setName2(String name2) {
+        this.name2 = name2;
+    }
+
     @SerializedName("unassigned_vehicles")
     private Vehicle[] unassignedVehicles;
 

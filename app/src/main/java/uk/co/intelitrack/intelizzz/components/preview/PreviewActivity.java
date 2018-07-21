@@ -521,7 +521,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
                     y += " "  + hold.getId();
                 }
             }
-            Toast.makeText(PreviewActivity.this,"Odbereni ID : " + y + "\n",Toast.LENGTH_LONG).show();
+            Toast.makeText(PreviewActivity.this,"Odbereni ID: " + y + "\n",Toast.LENGTH_LONG).show();
 
          //   listAdapter.notifyDataSetChanged();
         });

@@ -23,16 +23,16 @@
             android:textSize="20dp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tekst5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:gravity="center"
-            android:text="00"
-            android:textColor="@color/blue"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+        <!--<TextView-->
+            <!--android:id="@+id/tekst5"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:gravity="center"-->
+            <!--android:text="00"-->
+            <!--android:textColor="@color/blue"-->
+            <!--android:textSize="20dp"-->
+            <!--android:textStyle="bold" />-->
 
         <CheckBox
             android:id="@+id/checkMark5"
@@ -40,7 +40,9 @@
             android:layout_height="20dp"
             android:layout_gravity="center"
 
-
+            android:checked="true"
+            android:focusable="false"
+            android:clickable="false"
             android:layout_marginLeft="10dp"
             android:background="@drawable/groups_custom_check"
             android:button="@null"
@@ -66,11 +68,11 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/group_arrow"
-        android:layout_width="@dimen/spacing_large"
-        android:layout_height="@dimen/spacing_large"
-        android:layout_margin="@dimen/spacing_small"
-        android:src="@drawable/ic_arrow_down_right"
-        android:visibility="gone" />
+    <!--<ImageView-->
+        <!--android:id="@+id/group_arrow"-->
+        <!--android:layout_width="@dimen/spacing_large"-->
+        <!--android:layout_height="@dimen/spacing_large"-->
+        <!--android:layout_margin="@dimen/spacing_small"-->
+        <!--android:src="@drawable/ic_arrow_down_right"-->
+        <!--android:visibility="gone" />-->
 </LinearLayout>

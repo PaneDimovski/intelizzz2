@@ -1,14 +1,13 @@
 package uk.co.intelitrack.intelizzz.components.timerSettings;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -79,6 +78,25 @@ public class TimerSettingsActivity extends AppCompatActivity {
 //        }
 
     }
+    @OnClick(R.id.btn_alarm_one)
+    public void click5(View view){
+        alarm_one.setVisibility(View.INVISIBLE);
+        alarm_one_2.setVisibility(View.VISIBLE);
+        one_on.setVisibility(View.INVISIBLE);
+        one_off.setVisibility(View.VISIBLE);
+        String firstAlarm = textView.getText().toString();
+        SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
+        sharedPreferencesUtils.setSharedPreferencesString(Constants.FIRST_ALARM,firstAlarm);
+//
+        final int sdk = android.os.Build.VERSION.SDK_INT;
+        if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            linear11.setBackgroundDrawable(ContextCompat.getDrawable(context, R.color.transparent) );
+        } else {
+            linear11.setBackground(ContextCompat.getDrawable(context, R.color.transparent));
+        }
+
+    }
+
     @OnClick(R.id.btn_alarm_one_2)
     public void click(View view){
         alarm_one_2.setVisibility(View.INVISIBLE);
@@ -97,6 +115,24 @@ public class TimerSettingsActivity extends AppCompatActivity {
         }
 
     }
+    @OnClick(R.id.btn_alarm_two)
+    public void click6(View view){
+        alarm_two.setVisibility(View.INVISIBLE);
+        alarm_two_2.setVisibility(View.VISIBLE);
+        two_on.setVisibility(View.INVISIBLE);
+        two_off.setVisibility(View.VISIBLE);
+        String secondAlarm = textView.getText().toString();
+        SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
+        sharedPreferencesUtils.setSharedPreferencesString(Constants.SECOND_ALARM,secondAlarm);
+        final int sdk = android.os.Build.VERSION.SDK_INT;
+        if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            linear22.setBackgroundDrawable(ContextCompat.getDrawable(context, R.color.transparent) );
+        } else {
+            linear22.setBackground(ContextCompat.getDrawable(context, R.color.transparent));
+        }
+
+    }
+
     @OnClick(R.id.btn_alarm_two_2)
     public void click2(View view){
         alarm_two_2.setVisibility(View.INVISIBLE);
@@ -114,6 +150,24 @@ public class TimerSettingsActivity extends AppCompatActivity {
         }
 
     }
+    @OnClick(R.id.btn_alarm_three)
+    public void click7(View view){
+        alarm_three.setVisibility(View.INVISIBLE);
+        alarm_three_2.setVisibility(View.VISIBLE);
+        three_on.setVisibility(View.INVISIBLE);
+        three_off.setVisibility(View.VISIBLE);
+        String thirdAlarm = textView.getText().toString();
+        SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
+        sharedPreferencesUtils.setSharedPreferencesString(Constants.THIRD_ALARM,thirdAlarm);
+        final int sdk = android.os.Build.VERSION.SDK_INT;
+        if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            linear33.setBackgroundDrawable(ContextCompat.getDrawable(context, R.color.transparent) );
+        } else {
+            linear33.setBackground(ContextCompat.getDrawable(context, R.color.transparent));
+        }
+
+    }
+
     @OnClick(R.id.btn_alarm_three_2)
     public void click3(View view){
         alarm_three_2.setVisibility(View.INVISIBLE);
@@ -131,6 +185,26 @@ public class TimerSettingsActivity extends AppCompatActivity {
         }
 
     }
+    @OnClick(R.id.btn_alarm_four)
+    public void click8(View view){
+        alarm_four.setVisibility(View.INVISIBLE);
+        alarm_four_2.setVisibility(View.VISIBLE);
+        four_on.setVisibility(View.INVISIBLE);
+        four_off.setVisibility(View.VISIBLE);
+        String fourthAlarm = textView.getText().toString();
+        SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
+        sharedPreferencesUtils.setSharedPreferencesString(Constants.FOURTH_ALARM,fourthAlarm);
+
+        final int sdk = android.os.Build.VERSION.SDK_INT;
+        if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            linear44.setBackgroundDrawable(ContextCompat.getDrawable(context, R.color.transparent) );
+        } else {
+            linear44.setBackground(ContextCompat.getDrawable(context, R.color.transparent));
+        }
+
+    }
+
+
     @OnClick(R.id.btn_alarm_four_2)
     public void click4(View view){
         alarm_four_2.setVisibility(View.INVISIBLE);

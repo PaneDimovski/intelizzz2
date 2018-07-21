@@ -218,6 +218,11 @@ class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.ParentVe
         setData(temp, false);
     }
 
+
+
+
+
+
     private List<Group> getAllGroups() {
         final List<Group> tempGroupList = new ArrayList<>();
         if (!mRepository.getCompanies().isEmpty()) {

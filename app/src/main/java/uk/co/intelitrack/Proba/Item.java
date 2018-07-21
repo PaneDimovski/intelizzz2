@@ -6,43 +6,41 @@ package uk.co.intelitrack.Proba;
 
 public class Item {
 
-    private boolean checked = false ;
+    String name;
+    String id;
 
-    private String itemText = "";
-    private String IdText = "";
-    private String IdText2 = "";
-
-    public String getIdText2() {
-        return IdText2;
+    public String getId() {
+        return id;
     }
 
-    public void setIdText2(String idText2) {
-        IdText2 = idText2;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getIdText() {
-        return IdText;
+    boolean checkbox;
+
+    public Item() {
+         /*Empty Constructor*/
+    }
+    public  Item(String country, boolean status){
+        this.name = country;
+        this.checkbox = status;
+    }
+    //Getter and Setter
+    public String getName() {
+        return name;
     }
 
-    public void setIdText(String idText) {
-        IdText = idText;
+    public void setName(String name) {
+        this.name = name;
     }
 
-
-
-    public boolean isChecked() {
-        return checked;
+    public boolean isCheckbox() {
+        return checkbox;
     }
 
-    public void setChecked(boolean checked) {
-        this.checked = checked;
+    public void setCheckbox(boolean checkbox) {
+        this.checkbox = checkbox;
     }
 
-    public String getItemText() {
-        return itemText;
-    }
-
-    public void setItemText(String itemText) {
-        this.itemText = itemText;
-    }
 }

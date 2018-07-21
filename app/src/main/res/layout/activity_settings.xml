@@ -122,7 +122,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/time_chouse_form"
+
                     android:orientation="vertical">
 
                     <RelativeLayout
@@ -141,7 +141,8 @@
                             android:layout_height="@dimen/alarm_set"
                             android:adjustViewBounds="true"
                             android:scaleType="fitXY"
-                            android:src="@drawable/one" />
+                            android:src="@drawable/one"
+                            android:visibility="gone"/>
 
                         <ImageView
                             android:id="@+id/btn_alarm_one_2"
@@ -150,9 +151,9 @@
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:adjustViewBounds="true"
-                            android:scaleType="fitXY"
+
                             android:src="@drawable/one_2"
-                            android:visibility="invisible" />
+                            />
 
                         <RelativeLayout
                             android:layout_width="wrap_content"
@@ -168,7 +169,8 @@
                                 android:layout_height="50dp"
                                 android:layout_gravity="center"
                                 android:layout_marginTop="20dp"
-                                android:src="@drawable/on" />
+                                android:src="@drawable/on"
+                                android:visibility="invisible"/>
 
                             <ImageView
                                 android:id="@+id/one_off"
@@ -179,7 +181,8 @@
                                 android:adjustViewBounds="true"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/off"
-                                android:visibility="gone" />
+
+                                 />
                         </RelativeLayout>
                     </RelativeLayout>
                 </LinearLayout>
@@ -237,7 +240,8 @@
                                 android:layout_marginTop="20dp"
                                 android:adjustViewBounds="true"
                                 android:scaleType="fitXY"
-                                android:src="@drawable/on" />
+                                android:src="@drawable/on"
+                                android:visibility="invisible"/>
 
                             <ImageView
                                 android:id="@+id/two_off"
@@ -248,7 +252,7 @@
                                 android:adjustViewBounds="true"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/off"
-                                android:visibility="gone" />
+                                />
 
 
                         </RelativeLayout>
@@ -307,7 +311,8 @@
                                 android:layout_marginTop="20dp"
                                 android:adjustViewBounds="true"
                                 android:scaleType="fitXY"
-                                android:src="@drawable/on" />
+                                android:src="@drawable/on"
+                                android:visibility="invisible"/>
 
                             <ImageView
                                 android:id="@+id/three_off"
@@ -318,7 +323,7 @@
                                 android:adjustViewBounds="true"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/off"
-                                android:visibility="gone" />
+                                 />
 
 
                         </RelativeLayout>
@@ -377,7 +382,8 @@
                                 android:layout_marginTop="20dp"
                                 android:adjustViewBounds="true"
                                 android:scaleType="fitXY"
-                                android:src="@drawable/on" />
+                                android:src="@drawable/on"
+                                android:visibility="invisible"/>
 
                             <ImageView
                                 android:id="@+id/four_off"
@@ -388,7 +394,9 @@
                                 android:adjustViewBounds="true"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/off"
-                                android:visibility="gone" />
+
+
+                                />
 
 
                         </RelativeLayout>

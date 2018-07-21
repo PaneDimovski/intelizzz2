@@ -18,7 +18,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import io.reactivex.annotations.Nullable;
 import retrofit2.Call;
@@ -30,12 +29,10 @@ import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
 import uk.co.intelitrack.intelizzz.common.api.RestApi;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
 import uk.co.intelitrack.intelizzz.common.data.remote.Device;
-import uk.co.intelitrack.intelizzz.common.data.remote.Group;
 import uk.co.intelitrack.intelizzz.common.data.remote.ParentVehicle;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 import uk.co.intelitrack.intelizzz.common.utils.DialogUtils;
 import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
-import uk.co.intelitrack.intelizzz.common.utils.SharedPreff;
 import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzProgressDialog;
 import uk.co.intelitrack.intelizzz.components.groups.GroupsActivity;
 import uk.co.intelitrack.intelizzz.components.login.LoginActivity;
@@ -248,6 +245,11 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
             mProgressDialog = DialogUtils.getProgressBarDialog(this);
             mProgressDialog.show();
         }
+    }
+
+    @Override
+    public void showData(Vehicle vehicle) {
+
     }
 
     @Override

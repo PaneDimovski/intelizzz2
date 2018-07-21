@@ -24,10 +24,9 @@ import uk.co.intelitrack.intelizzz.common.data.remote.Response;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 import uk.co.intelitrack.intelizzz.common.utils.RxUtils;
 import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
-import uk.co.intelitrack.intelizzz.components.preview.GroupsClickListener;
 
 
-public class SettingsPresenter implements SettingsContract.Presenter, GroupsClickListener {
+public class SettingsPresenter implements SettingsContract.Presenter, GroupsClickListenerSettings {
 
     //region Fields
     private CompositeDisposable mSubscriptions = new CompositeDisposable();
@@ -46,9 +45,17 @@ public class SettingsPresenter implements SettingsContract.Presenter, GroupsClic
         this.mSharedPreferencesUtils = sharedPreferencesUtils;
     }
 
+
     //region BasePresenter Methods
     @Override
     public void subscribe(Intent intent) {
+        String id = intent.getStringExtra(Constants.ID);
+        if (!TextUtils.isEmpty(id)) {
+            mVehicle = mRepository.getVehicleById(id);
+            mView.showData(mVehicle);
+        }
+
+
         mIsGroup = intent.getBooleanExtra(Constants.IS_GROUP, false);
         if (mIsGroup) {
             if (mRepository.getCompanies().isEmpty()) {
@@ -63,10 +70,13 @@ public class SettingsPresenter implements SettingsContract.Presenter, GroupsClic
             } else {
                 mView.setVehicles(mRepository.getVehicles());
                 mView.setVehiclesListVisible();
+
 //                mView.setUnitsList();
             }
         }
     }
+
+
 
     @Override
     public void unsubscribe() {
@@ -75,6 +85,8 @@ public class SettingsPresenter implements SettingsContract.Presenter, GroupsClic
     //endregion
     @Override
     public String getDeviceId() {
+        String devi = mSharedPreferencesUtils.getSharedPreferencesString(Constants.OLI_ID);
+        devi = mVehicle.getId();
         if (mVehicle.getDl() != null && !TextUtils.isEmpty(mVehicle.getDevice().getId())) {
             mSubscriptions.add(
                     mRepository.getDeviceStatus(mVehicle.getDevice().getId())
@@ -119,7 +131,9 @@ public class SettingsPresenter implements SettingsContract.Presenter, GroupsClic
     //region PreviewPresenter Methods
     @Override
     public void onUnitClick(String id) {
-        mView.startUnitActivity(id);
+       // mView.startUnitActivity(id);
+
+           // getDeviceId();
     }
 
 
@@ -137,6 +151,7 @@ public class SettingsPresenter implements SettingsContract.Presenter, GroupsClic
     public void onMoveClick() {
         mView.startGroupsActivity();
     }
+
 
     @Override
     public void onDeleteClick() {
@@ -231,7 +246,7 @@ public class SettingsPresenter implements SettingsContract.Presenter, GroupsClic
 
     @Override
     public void onGroupChildItemClick(String vehicleId) {
-        onUnitClick(vehicleId);
+    getDeviceId();
     }
 
     @Override

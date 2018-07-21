@@ -13,6 +13,8 @@ public interface SettingsContract {
 
     interface View extends BaseView<SettingsContract.Presenter> {
 
+        void showData(Vehicle vehicle);
+
         void setVehicles(List<Vehicle> vehicles);
 
         void setGroupNumber(int number);

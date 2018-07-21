@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,14 +34,13 @@ import uk.co.intelitrack.intelizzz.common.data.remote.ParentVehicle;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
 import uk.co.intelitrack.intelizzz.common.utils.SharedPreff;
-import uk.co.intelitrack.intelizzz.components.preview.GroupsClickListener;
 
 
 public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<SettingsGroupsAdapter.ParentVehicleViewHolder, SettingsGroupsAdapter.ChildItemViewHolder> {
 
     //region final Fields
     private Map<String, Boolean> checkBoxStates = new HashMap<>();
-    private final GroupsClickListener mOnItemClickListener;
+    private final GroupsClickListenerSettings mOnItemClickListener;
     private final IntelizzzRepository mRepository;
     private boolean mIsClicked;
     private boolean mCheck;
@@ -61,7 +59,7 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
 
     //region Constructors
     public SettingsGroupsAdapter(List<ParentVehicle> groups, IntelizzzRepository intelizzzRepository,
-                                 GroupsClickListener listener, boolean isClicked,boolean isCheck,boolean isTekst,Context context1) {
+                                 GroupsClickListenerSettings listener, boolean isClicked,boolean isCheck,boolean isTekst,Context context1) {
         super(groups);
         this.mOnItemClickListener = listener;
         this.mRepository = intelizzzRepository;
@@ -367,7 +365,7 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
         }
 
 
-        public void bind(ParentVehicle parentVehicle, GroupsClickListener groupsClickListener, boolean showArrow, boolean showCheck, boolean chowTekst) {
+        public void bind(ParentVehicle parentVehicle, GroupsClickListenerSettings groupsClickListener, boolean showArrow, boolean showCheck, boolean chowTekst) {
             name.setText(parentVehicle.getName());
 
 //            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -424,6 +422,9 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
         CheckBox checkBox;
         @BindView(R.id.item_unit_id1)
         TextView name;
+        @BindView(R.id.item_device_id)
+        TextView device_name;
+        String mVehicle;
         private View mView;
 
         public ChildItemViewHolder(View itemView) {
@@ -433,16 +434,33 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
 
         }
 
+        private void showVehicle(Vehicle vehicle) {
+            //  mSearchView.setSearchText(vehicle.getNm());
+
+            device_name.setText(mVehicle);
+
+        }
         public void bind(Vehicle vehicle, GroupsClickListenerSettings onItemClickListener) {
             name.setText(vehicle.getName());
 
+            if (vehicle.getDl() != null && !TextUtils.isEmpty(vehicle.getDevice().getSim())) {
 
-            mView.setOnClickListener(new View.OnClickListener() {
+
+                mVehicle = vehicle.getDevice().getId();
+                showVehicle(vehicle);
+            }
+
+
+
+            checkBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                     onItemClickListener.onGroupChildItemClick(vehicle.getId());
+                    SharedPreferencesUtils shared = new SharedPreferencesUtils(mView.getContext());
+                    shared.setSharedPreferencesString(Constants.OLI_ID,vehicle.getId());
 
+                    Toast.makeText(mView.getContext(),"Odbereni ID : " + vehicle.getId() + "\n",Toast.LENGTH_LONG).show();
                 }
             });
 

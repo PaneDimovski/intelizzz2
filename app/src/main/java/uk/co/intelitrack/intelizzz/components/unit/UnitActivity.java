@@ -21,7 +21,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import uk.co.intelitrack.intelizz.SettingsActivity;
 import uk.co.intelitrack.intelizzz.IntelizzzApplication;
 import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.broadcastreceivers.SmsDeliveredBroadcastReceiver;
@@ -35,6 +34,7 @@ import uk.co.intelitrack.intelizzz.components.login.LoginActivity;
 import uk.co.intelitrack.intelizzz.components.main.MainActivity;
 import uk.co.intelitrack.intelizzz.components.maps.MapsActivity;
 import uk.co.intelitrack.intelizzz.components.timer.TimerActivity;
+import uk.co.intelitrack.intelizzz.components.timerSettings.TimerSettingsActivity;
 import uk.co.intelitrack.intelizzz.components.timer_live.LiveActivity;
 
 /**
@@ -211,7 +211,8 @@ public class UnitActivity extends AppCompatActivity implements UnitContract.View
     void onSettingsClick() {
 
 
-        SettingsActivity.start(this, true);
+        Intent intent = new Intent(UnitActivity.this, TimerSettingsActivity.class);
+        startActivity(intent);
 
 
     }

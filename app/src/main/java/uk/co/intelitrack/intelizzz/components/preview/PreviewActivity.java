@@ -37,7 +37,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import uk.co.intelitrack.Proba.CustomAdapter;
 import uk.co.intelitrack.Proba.Item;
-import uk.co.intelitrack.intelizz.SettingsActivity;
 import uk.co.intelitrack.intelizzz.IntelizzzApplication;
 import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
@@ -55,6 +54,7 @@ import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzProgressDialog;
 import uk.co.intelitrack.intelizzz.components.groups.GroupsActivity;
 import uk.co.intelitrack.intelizzz.components.login.LoginActivity;
 import uk.co.intelitrack.intelizzz.components.main.MainActivity;
+import uk.co.intelitrack.intelizzz.components.timerSettings.TimerSettingsActivity;
 import uk.co.intelitrack.intelizzz.components.unit.UnitActivity;
 
 /**
@@ -523,7 +523,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
             }
             Toast.makeText(PreviewActivity.this,"Odbereni ID: " + y + "\n",Toast.LENGTH_LONG).show();
 
-         //   listAdapter.notifyDataSetChanged();
+         listAdapter.notifyDataSetChanged();
         });
 
 
@@ -607,7 +607,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
             Toast.makeText(PreviewActivity.this,"Odbereni ID : " + x + "\n",Toast.LENGTH_LONG).show();
 
 
-          //  listAdapter2.notifyDataSetChanged();
+           listAdapter2.notifyDataSetChanged();
         });
 
         AlertDialog alert4 = dialog4.create();
@@ -664,7 +664,7 @@ public class PreviewActivity extends AppCompatActivity implements PreviewContrac
     @OnClick(R.id.picSettings)
     void setingsClick() {
 
-        Intent intent = new Intent(PreviewActivity.this, SettingsActivity.class);
+        Intent intent = new Intent(PreviewActivity.this, TimerSettingsActivity.class);
         startActivity(intent);
 
     }

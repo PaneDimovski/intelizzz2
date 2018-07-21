@@ -26,6 +26,10 @@
 
         <CheckBox
             android:id="@+id/checkMark1"
+
+            android:checked="true"
+            android:focusable="false"
+            android:clickable="false"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_gravity="center"

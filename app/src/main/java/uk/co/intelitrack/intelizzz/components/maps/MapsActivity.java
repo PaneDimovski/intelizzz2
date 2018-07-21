@@ -5,9 +5,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.v4.app.FragmentActivity;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,27 +22,21 @@ import com.google.android.gms.maps.model.RoundCap;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import uk.co.intelitrack.intelizz.SettingsActivity;
 import uk.co.intelitrack.intelizzz.IntelizzzApplication;
 import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
-import uk.co.intelitrack.intelizzz.common.data.TimerAlarm;
 import uk.co.intelitrack.intelizzz.common.utils.DialogUtils;
-import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
 import uk.co.intelitrack.intelizzz.common.utils.ViewsUtils;
 import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzProgressDialog;
 import uk.co.intelitrack.intelizzz.components.login.LoginActivity;
 import uk.co.intelitrack.intelizzz.components.main.MainActivity;
-import uk.co.intelitrack.intelizzz.components.timer.TimerActivity;
-import uk.co.intelitrack.intelizzz.userdetails.UserDetailsActivity;
+import uk.co.intelitrack.intelizzz.components.timerSettings.TimerSettingsActivity;
 
 /**
  * Created by Filip Stojanovski (filip100janovski@gmail.com).
@@ -322,7 +314,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     void onSettingsClick() {
 
 
-        SettingsActivity.start(this, true);
+        Intent intent = new Intent(MapsActivity.this, TimerSettingsActivity.class);
+        startActivity(intent);
 
 
     }

@@ -20,6 +20,7 @@ import butterknife.OnClick;
 import uk.co.intelitrack.intelizz.SettingsActivity;
 import uk.co.intelitrack.intelizzz.IntelizzzApplication;
 import uk.co.intelitrack.intelizzz.R;
+import uk.co.intelitrack.intelizzz.common.data.Constants;
 import uk.co.intelitrack.intelizzz.common.utils.DialogUtils;
 import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
 import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzFloatingSearchView;
@@ -36,7 +37,11 @@ import uk.co.intelitrack.intelizzz.components.unit.UnitActivity;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View {
 
+
     public static final String LOAD = "load";
+
+
+
 
     //region DI
     @Inject
@@ -57,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     TextView mUnitsNumber;
     @BindView(R.id.picSettings1)
     ImageView setings1;
+
+
 
 
     @BindView(R.id.floating_search_view)
@@ -97,6 +104,13 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+
+        SharedPreferencesUtils pref = new SharedPreferencesUtils(getApplicationContext());
+
+        String user = pref.getSharedPreferencesString(Constants.USERNAME);
+        txtUserName.setText(user);
+
+
 //        setSupportActionBar(toolbar);
 //        getSupportActionBar().setDisplayShowTitleEnabled(false);
 //        mPresenter.subscribe(null);

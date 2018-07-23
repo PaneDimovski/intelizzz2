@@ -33,6 +33,7 @@ import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
 import uk.co.intelitrack.intelizzz.common.utils.DialogUtils;
 import uk.co.intelitrack.intelizzz.common.utils.ViewsUtils;
+import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzFloatingSearchView;
 import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzProgressDialog;
 import uk.co.intelitrack.intelizzz.components.login.LoginActivity;
 import uk.co.intelitrack.intelizzz.components.main.MainActivity;
@@ -47,6 +48,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //region DI
     @Inject
     MapsPresenter mPresenter;
+
+    @BindView(R.id.floating_search_view)
+    IntelizzzFloatingSearchView mIntelizzzFloatingSearchView;
 
 
     //endregion

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/blue"
+
 
     android:orientation="vertical">
 
@@ -26,16 +26,17 @@
 
         <CheckBox
             android:id="@+id/checkMark1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-            android:checked="true"
-            android:focusable="false"
-            android:clickable="false"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="15dp"
+
+
+            android:layout_marginRight="5dp"
             android:background="@drawable/groups_custom_check"
-            android:button="@null"
+            android:clickable="false"
+            android:focusable="true"
             android:gravity="center" />
 
 
@@ -61,7 +62,7 @@
             android:layout_weight="5"
             android:gravity="left|center"
             android:paddingLeft="10dp"
-            android:text="IntelliZzz"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="18sp" />
 
@@ -74,38 +75,38 @@
         android:layout_margin="@dimen/spacing_small"
         android:src="@drawable/ic_arrow_down_right"
         android:visibility="gone" />
-<RelativeLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    >
-    <CheckBox
-        android:id="@+id/check"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginLeft="20dp"
-        android:background="@drawable/groups_custom_check"
-        android:button="@null"
-        android:checked="true"
-android:layout_marginTop="7dp"
-        android:gravity="bottom"
-        android:visibility="gone"
-         />
 
-
-    <TextView
-        android:id="@+id/tekstch"
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:paddingLeft="10dp"
-        android:textColor="@color/blue"
-        android:textSize="25sp"
-        android:text="ALL"
-        android:visibility="gone"
-        android:layout_toRightOf="@id/check"
-                android:textAllCaps="true"
-        android:textStyle="bold" />
-</RelativeLayout>
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:id="@+id/check"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/groups_custom_check"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="bottom"
+            android:visibility="gone" />
+
+
+        <TextView
+            android:id="@+id/tekstch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/check"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:text="ALL"
+            android:textAllCaps="true"
+            android:textColor="@color/blue"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+    </RelativeLayout>
 </LinearLayout>

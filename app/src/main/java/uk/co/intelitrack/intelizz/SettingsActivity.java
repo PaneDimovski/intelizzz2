@@ -1,6 +1,7 @@
 package uk.co.intelitrack.intelizz;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -20,15 +20,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.annotations.Nullable;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import uk.co.intelitrack.intelizzz.IntelizzzApplication;
 import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
 import uk.co.intelitrack.intelizzz.common.api.RestApi;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
-import uk.co.intelitrack.intelizzz.common.data.remote.Device;
 import uk.co.intelitrack.intelizzz.common.data.remote.ParentVehicle;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 import uk.co.intelitrack.intelizzz.common.utils.DialogUtils;
@@ -92,7 +88,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
     RestApi api;
     String kompanija = "2";
     String pane = "24";
-
+    public ArrayList<String>list = new ArrayList<>();
 
     public static void start(Activity activity, boolean isGroup) {
         Intent intent = new Intent(activity, SettingsActivity.class);
@@ -119,6 +115,8 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
         if (getIntent().getExtras() != null)
             mIsGroup = getIntent().getExtras().getBoolean(Constants.IS_GROUP);
         mPresenter.subscribe(getIntent());
+
+        Context context = getApplicationContext();
 
         //   mBtnDelete.setVisibility(mIsGroup ? View.VISIBLE : View.GONE);
 
@@ -160,44 +158,87 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
         PreviewActivity.start(this, true);
     }
 
+    void get(){
+
+
+        mGroupsAdapter=new SettingsGroupsAdapter(vehicles, mRespository, new GroupsClickListenerSettings() {
+            @Override
+            public void onCompanyItemClick(String id) {
+
+            }
+
+            @Override
+            public void onGroupItemClick(String groupId) {
+
+            }
+
+            @Override
+            public void onGroupChildItemClick(Vehicle vehicle) {
+
+            }
+
+            @Override
+            public void onItemClick(View view, int position) {
+
+            }
+
+            @Override
+            public void onDelete(View view, int position) {
+
+            }
+        },false,false,false,this) {
+
+
+
+
+
+        };
+
+    }
+
+
 
     @OnClick(R.id.btn_ok_settings)
     public void klik() {
 //        DeviceId();
-        SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
-        String prv = sharedPreferencesUtils.getSharedPreferencesString(Constants.FIRST_ALARM);
-        String vtor =sharedPreferencesUtils.getSharedPreferencesString(Constants.SECOND_ALARM);
-        String tret = sharedPreferencesUtils.getSharedPreferencesString(Constants.THIRD_ALARM);
-        String cetri = sharedPreferencesUtils.getSharedPreferencesString(Constants.FOURTH_ALARM);
-        ArrayList<String> alarmi = new ArrayList<>();
-        alarmi.add(prv);
-        alarmi.add(vtor);
-        alarmi.add(tret);
-        alarmi.add(cetri);
-        String deviceId = "15";
-
-        HashMap<String, Object> requestBody = new HashMap<>();
-        requestBody.put("wakeupTimes:", alarmi);
 
 
-        api = new RestApi(getApplicationContext());
-        Call<Device> call = api.setupAlarm(deviceId,requestBody);
-        call.enqueue(new Callback<Device>() {
-            @Override
-            public void onResponse(Call<Device> call, Response<Device> response) {
-                if (response.isSuccessful()){
-                    Toast.makeText(SettingsActivity.this, "USPESNO", Toast.LENGTH_SHORT).show();
-                } else if (!response.isSuccessful()){
-                    Toast.makeText(SettingsActivity.this, "MAJKATI U PICKA", Toast.LENGTH_SHORT).show();
-                }
 
-            }
 
-            @Override
-            public void onFailure(Call<Device> call, Throwable t) {
-
-            }
-        });
+//        SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
+//        String prv = sharedPreferencesUtils.getSharedPreferencesString(Constants.FIRST_ALARM);
+//        String vtor =sharedPreferencesUtils.getSharedPreferencesString(Constants.SECOND_ALARM);
+//        String tret = sharedPreferencesUtils.getSharedPreferencesString(Constants.THIRD_ALARM);
+//        String cetri = sharedPreferencesUtils.getSharedPreferencesString(Constants.FOURTH_ALARM);
+//        ArrayList<String> alarmi = new ArrayList<>();
+//        alarmi.add(prv);
+//        alarmi.add(vtor);
+//        alarmi.add(tret);
+//        alarmi.add(cetri);
+//        String deviceId = "15";
+//
+//        HashMap<String, Object> requestBody = new HashMap<>();
+//        requestBody.put("wakeupTimes:", alarmi);
+//
+//
+//        api = new RestApi(getApplicationContext());
+//        Call<Device> call = api.setupAlarm(deviceId,requestBody);
+//        call.enqueue(new Callback<Device>() {
+//            @Override
+//            public void onResponse(Call<Device> call, Response<Device> response) {
+//                if (response.isSuccessful()){
+//                    Toast.makeText(SettingsActivity.this, "USPESNO", Toast.LENGTH_SHORT).show();
+//                } else if (!response.isSuccessful()){
+//                    Toast.makeText(SettingsActivity.this, "MAJKATI U PICKA", Toast.LENGTH_SHORT).show();
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Device> call, Throwable t) {
+//
+//            }
+//        });
 
 
 
@@ -211,7 +252,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
 //        mGroupsAdapter.notifyDataSetChanged();
 
 
-        
+
     }
 
     @OnClick(R.id.btn_user_back)

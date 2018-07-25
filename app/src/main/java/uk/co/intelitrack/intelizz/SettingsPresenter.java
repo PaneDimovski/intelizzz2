@@ -26,7 +26,7 @@ import uk.co.intelitrack.intelizzz.common.utils.RxUtils;
 import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
 
 
-public class SettingsPresenter implements SettingsContract.Presenter, GroupsClickListenerSettings {
+public class SettingsPresenter extends SettingsActivity  implements SettingsContract.Presenter, GroupsClickListenerSettings {
 
     //region Fields
     private CompositeDisposable mSubscriptions = new CompositeDisposable();
@@ -49,11 +49,6 @@ public class SettingsPresenter implements SettingsContract.Presenter, GroupsClic
     //region BasePresenter Methods
     @Override
     public void subscribe(Intent intent) {
-        String id = intent.getStringExtra(Constants.ID);
-        if (!TextUtils.isEmpty(id)) {
-            mVehicle = mRepository.getVehicleById(id);
-            mView.showData(mVehicle);
-        }
 
 
         mIsGroup = intent.getBooleanExtra(Constants.IS_GROUP, false);
@@ -85,8 +80,8 @@ public class SettingsPresenter implements SettingsContract.Presenter, GroupsClic
     //endregion
     @Override
     public String getDeviceId() {
-        String devi = mSharedPreferencesUtils.getSharedPreferencesString(Constants.OLI_ID);
-        devi = mVehicle.getId();
+        //String devi = mSharedPreferencesUtils.getSharedPreferencesString(Constants.OLI_ID);
+       // devi = mVehicle.getId();
         if (mVehicle.getDl() != null && !TextUtils.isEmpty(mVehicle.getDevice().getId())) {
             mSubscriptions.add(
                     mRepository.getDeviceStatus(mVehicle.getDevice().getId())
@@ -245,8 +240,14 @@ public class SettingsPresenter implements SettingsContract.Presenter, GroupsClic
     }
 
     @Override
-    public void onGroupChildItemClick(String vehicleId) {
-    getDeviceId();
+    public void onGroupChildItemClick(Vehicle vehicle) {
+        if (vehicle.isChecked()){
+            vehicle.setChecked(false);
+            list.remove(vehicle.getId());
+        }else {
+            vehicle.setChecked(true);
+            list.add(vehicle.getId());
+        }
     }
 
     @Override

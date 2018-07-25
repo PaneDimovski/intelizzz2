@@ -36,20 +36,20 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/round_gray_background"
-                android:orientation="vertical"
+                android:layout_marginBottom="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginBottom="20dp"
+                android:background="@drawable/round_gray_background"
+                android:orientation="vertical"
                 android:padding="10dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="@string/label_new_name"
-                    android:layout_marginTop="25dp"
                     android:textColor="@color/black"
                     android:textSize="23sp" />
 
@@ -60,8 +60,8 @@
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/round_white_background"
                     android:minHeight="@dimen/add_group_edit_text_min_height"
-                    android:textSize="25sp"
-                    android:textColor="@color/text_black" />
+                    android:textColor="@color/text_black"
+                    android:textSize="25sp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -76,23 +76,33 @@
                     android:id="@+id/edit_create_under"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="10dp"
                     android:background="@drawable/round_white_background"
                     android:minHeight="@dimen/add_group_edit_text_min_height"
-                    android:textSize="25sp"
-                    android:textColor="@color/text_black" />
-
+                    android:textColor="@color/text_black"
+                    android:textSize="25sp" />
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:layout_gravity="center|bottom"
+    android:gravity="bottom">
                 <Button
                     android:id="@+id/btn_ok"
                     android:layout_width="@dimen/ok_btn_size"
                     android:layout_height="@dimen/ok_btn_size"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"
-
                     android:background="@drawable/ok_background"
+                    android:gravity="center"
+                    android:layout_gravity="bottom|center|center_horizontal"
+                    android:foregroundGravity="bottom"
+                    android:layout_marginBottom="15dp"
+
+
+
+
                     android:text="@string/label_ok"
-                    android:layout_marginTop="45dp"
                     android:textSize="@dimen/font_large" />
+</RelativeLayout>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

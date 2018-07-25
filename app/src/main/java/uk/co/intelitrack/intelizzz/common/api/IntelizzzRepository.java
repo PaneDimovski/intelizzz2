@@ -1,7 +1,6 @@
 package uk.co.intelitrack.intelizzz.common.api;
 
 import android.support.annotation.NonNull;
-import android.widget.Toast;
 
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
@@ -11,20 +10,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import io.reactivex.Single;
 import io.reactivex.SingleSource;
 import io.reactivex.functions.Function;
-import okhttp3.OkHttpClient;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
 import uk.co.intelitrack.intelizzz.common.data.SuggestionsItem;
 import uk.co.intelitrack.intelizzz.common.data.remote.Alarm;
@@ -191,7 +183,7 @@ public class IntelizzzRepository {
         return mIntelizzzDataSource.getDeviceStatus(
                 mSharedPreferencesUtils.getSharedPreferencesString(Constants.TOKEN), id)
                 .compose(RxUtils.applySingleSchedulers())
-                .flatMap(result -> {
+                .flatMap((Response result) -> {
                     return Single.just(result);
                 });
     }

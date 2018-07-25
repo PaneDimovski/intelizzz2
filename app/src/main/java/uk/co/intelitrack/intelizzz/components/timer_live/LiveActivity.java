@@ -44,7 +44,9 @@ import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
 import uk.co.intelitrack.intelizzz.common.utils.ViewsUtils;
 import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzProgressDialog;
 import uk.co.intelitrack.intelizzz.components.login.LoginActivity;
-
+import uk.co.intelitrack.intelizzz.components.main.MainActivity;
+import uk.co.intelitrack.intelizzz.components.timerSettings.TimerSettingsActivity;
+import uk.co.intelitrack.intelizzz.components.unit.UnitActivity;
 
 
 /**
@@ -201,9 +203,25 @@ public class LiveActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    @OnClick(R.id.btn_home)
+    void onHomeClick() {
+        MainActivity.start(this,false);
+        finish();
+    }
+
     @OnClick(R.id.btn_back)
     public void onBackClicked() {
         onBackPressed();
+    }
+
+    @OnClick (R.id.picSettings)
+    void onSettingsClick() {
+
+
+        Intent intent = new Intent(LiveActivity.this, TimerSettingsActivity.class);
+        startActivity(intent);
+
+
     }
 
     @Override

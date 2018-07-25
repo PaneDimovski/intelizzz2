@@ -30,16 +30,17 @@ import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.api.ApiInterface;
 import uk.co.intelitrack.intelizzz.common.api.RestApi;
 import uk.co.intelitrack.intelizzz.common.api.RestApi2;
+import uk.co.intelitrack.intelizzz.common.data.Constants;
 import uk.co.intelitrack.intelizzz.common.data.remote.Company;
+import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
 import uk.co.intelitrack.intelizzz.components.login.LoginActivity;
 
 public class UserDetailsActivity extends AppCompatActivity {
 
-
-    Company company;
     RestApi2 api;
     Context context;
-    ApiInterface inter;
+
+
 
     @BindView(R.id.edit_full_name)
     EditText full_name;
@@ -47,24 +48,44 @@ public class UserDetailsActivity extends AppCompatActivity {
     EditText adress;
     @BindView(R.id.edit_create_password)
     EditText create_password;
+    @BindView(R.id.edit_confirm_password)
+    EditText confirm_password;
+    @BindView(R.id.wrong_pass_icon)
+    ImageView wrong_pass_icon;
     @BindView(R.id.edit_email)
     EditText email;
 
+    public static String convertPassMd5(String pass) {
+        String password = null;
+        MessageDigest mdEnc;
+        try {
+            mdEnc = MessageDigest.getInstance("MD5");
+            mdEnc.update(pass.getBytes(), 0, pass.length());
+            pass = new BigInteger(1, mdEnc.digest()).toString(16);
+            while (pass.length() < 32) {
+                pass = "0" + pass;
+            }
+            password = pass;
+        } catch (NoSuchAlgorithmException e1) {
+            e1.printStackTrace();
+        }
+        return password;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_details);
         ButterKnife.bind(this);
-    }
 
+
+    }
 
     @OnClick(R.id.btn_user_back)
     public void click(View view) {
         Intent intent = new Intent(UserDetailsActivity.this, LoginActivity.class);
         startActivity(intent);
     }
-
 
     @OnClick(R.id.btn_ok)
     public void onClick2() {
@@ -101,6 +122,7 @@ public class UserDetailsActivity extends AppCompatActivity {
         String user = full_name.getText().toString();
         String address = "testKris2,123,St.test";
         String pass = create_password.getText().toString();
+        String confirmpass = confirm_password.getText().toString();
         String legal = user; //"testKris2Account";
         String abbreviation = user; //"testKris2";
         String introduction = user + "@testDesktop.com"; //"Test+Desktop+Account testDesktop@testDesktop.com";
@@ -112,6 +134,7 @@ public class UserDetailsActivity extends AppCompatActivity {
         company.setName2(user);
         company.setAddress(address);
         company.setPassword(convertPassMd5(pass));
+        company.setPassword(convertPassMd5(confirmpass));
         company.setLegal(legal);
         company.setAbbreviation(abbreviation);
         company.setEmail(introduction);
@@ -122,50 +145,53 @@ public class UserDetailsActivity extends AppCompatActivity {
         //String com = gson.toJson(company);
 
 
-
         HashMap<String, Object> requestBody = new HashMap<>();
         requestBody.put("formData", company);
 
 
-
-        api = new RestApi2(context);
-        Call<Company> companyCall = api.creatUSer(requestBody);
-        companyCall.enqueue(new Callback<Company>() {
-            @Override
-            public void onResponse(Call<Company> call, Response<Company> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(UserDetailsActivity.this, "User successfully created", Toast.LENGTH_SHORT).show();
-                } else if (!response.isSuccessful()) {
-                    Toast.makeText(UserDetailsActivity.this, "Error something went wrong", Toast.LENGTH_SHORT).show();
+        if (!user.equals("") && pass.equals(confirmpass)) {
+            confirm_password.setTextColor(getResources().getColor(R.color.black));
+            wrong_pass_icon.setVisibility(View.INVISIBLE);
+            api = new RestApi2(context);
+            Call<Company> companyCall = api.creatUSer(requestBody);
+            companyCall.enqueue(new Callback<Company>() {
+                @Override
+                public void onResponse(Call<Company> call, Response<Company> response) {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(UserDetailsActivity.this, "User successfully created", Toast.LENGTH_SHORT).show();
+                    } else if (!response.isSuccessful()) {
+                        Toast.makeText(UserDetailsActivity.this, "Error something went wrong", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<Company> call, Throwable t) {
+                @Override
+                public void onFailure(Call<Company> call, Throwable t) {
 
-            }
-        });
-
-
-    }
+                }
+            });
 
 
-    public static String convertPassMd5(String pass) {
-        String password = null;
-        MessageDigest mdEnc;
-        try {
-            mdEnc = MessageDigest.getInstance("MD5");
-            mdEnc.update(pass.getBytes(), 0, pass.length());
-            pass = new BigInteger(1, mdEnc.digest()).toString(16);
-            while (pass.length() < 32) {
-                pass = "0" + pass;
-            }
-            password = pass;
-        } catch (NoSuchAlgorithmException e1) {
-            e1.printStackTrace();
         }
-        return password;
+        if (user.equals("")){
+            Toast.makeText(this, "Full name required", Toast.LENGTH_SHORT).show();
+        }
+
+
+        if (!pass.equals(confirmpass)){
+
+
+            confirm_password.setTextColor(getResources().getColor(R.color.red));
+            wrong_pass_icon.setVisibility(View.VISIBLE);
+
+
+            Toast.makeText(this, "Password don't match", Toast.LENGTH_SHORT).show();
+        }
+
+
+
+
     }
 
+   
 
 }

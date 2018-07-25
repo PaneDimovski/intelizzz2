@@ -41,6 +41,9 @@ import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
 import uk.co.intelitrack.intelizzz.common.utils.ViewsUtils;
 import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzProgressDialog;
 import uk.co.intelitrack.intelizzz.components.login.LoginActivity;
+import uk.co.intelitrack.intelizzz.components.main.MainActivity;
+import uk.co.intelitrack.intelizzz.components.timerSettings.TimerSettingsActivity;
+import uk.co.intelitrack.intelizzz.components.unit.UnitActivity;
 
 /**
  * Created by Filip Stojanovski (filip100janovski@gmail.com).
@@ -160,12 +163,26 @@ public class TimerActivity extends FragmentActivity implements OnMapReadyCallbac
             }
         }
     }
+    @OnClick(R.id.btn_home)
+    void onHomeClick() {
+        MainActivity.start(this,false);
+        finish();
+    }
 
     @OnClick(R.id.btn_back)
     public void onBackClicked() {
         onBackPressed();
     }
 
+    @OnClick (R.id.picSettings)
+    void onSettingsClick() {
+
+
+        Intent intent = new Intent(TimerActivity.this, TimerSettingsActivity.class);
+        startActivity(intent);
+
+
+    }
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;

@@ -32,6 +32,8 @@ public class Company {
     @SerializedName("encryptPwd")
     private String password;
 
+
+
     @SerializedName("abbreviation")
     private String abbreviation;
     @SerializedName("legal")

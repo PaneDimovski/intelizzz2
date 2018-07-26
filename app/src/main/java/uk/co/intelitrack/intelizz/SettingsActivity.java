@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -20,11 +21,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.annotations.Nullable;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import uk.co.intelitrack.intelizzz.IntelizzzApplication;
 import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
 import uk.co.intelitrack.intelizzz.common.api.RestApi;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
+import uk.co.intelitrack.intelizzz.common.data.remote.Device;
 import uk.co.intelitrack.intelizzz.common.data.remote.ParentVehicle;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 import uk.co.intelitrack.intelizzz.common.utils.DialogUtils;
@@ -205,40 +210,40 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
 
 
 
-//        SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
-//        String prv = sharedPreferencesUtils.getSharedPreferencesString(Constants.FIRST_ALARM);
-//        String vtor =sharedPreferencesUtils.getSharedPreferencesString(Constants.SECOND_ALARM);
-//        String tret = sharedPreferencesUtils.getSharedPreferencesString(Constants.THIRD_ALARM);
-//        String cetri = sharedPreferencesUtils.getSharedPreferencesString(Constants.FOURTH_ALARM);
-//        ArrayList<String> alarmi = new ArrayList<>();
-//        alarmi.add(prv);
-//        alarmi.add(vtor);
-//        alarmi.add(tret);
-//        alarmi.add(cetri);
-//        String deviceId = "15";
-//
-//        HashMap<String, Object> requestBody = new HashMap<>();
-//        requestBody.put("wakeupTimes:", alarmi);
-//
-//
-//        api = new RestApi(getApplicationContext());
-//        Call<Device> call = api.setupAlarm(deviceId,requestBody);
-//        call.enqueue(new Callback<Device>() {
-//            @Override
-//            public void onResponse(Call<Device> call, Response<Device> response) {
-//                if (response.isSuccessful()){
-//                    Toast.makeText(SettingsActivity.this, "USPESNO", Toast.LENGTH_SHORT).show();
-//                } else if (!response.isSuccessful()){
-//                    Toast.makeText(SettingsActivity.this, "MAJKATI U PICKA", Toast.LENGTH_SHORT).show();
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Device> call, Throwable t) {
-//
-//            }
-//        });
+        SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
+        String prv = sharedPreferencesUtils.getSharedPreferencesString(Constants.FIRST_ALARM);
+        String vtor =sharedPreferencesUtils.getSharedPreferencesString(Constants.SECOND_ALARM);
+        String tret = sharedPreferencesUtils.getSharedPreferencesString(Constants.THIRD_ALARM);
+        String cetri = sharedPreferencesUtils.getSharedPreferencesString(Constants.FOURTH_ALARM);
+        ArrayList<String> alarmi = new ArrayList<>();
+        alarmi.add(prv);
+        alarmi.add(vtor);
+        alarmi.add(tret);
+        alarmi.add(cetri);
+        String deviceId = "15";
+
+        HashMap<String, Object> requestBody = new HashMap<>();
+        requestBody.put("wakeupTimes:", alarmi);
+
+
+        api = new RestApi(getApplicationContext());
+        Call<Device> call = api.setupAlarm(deviceId,requestBody);
+        call.enqueue(new Callback<Device>() {
+            @Override
+            public void onResponse(Call<Device> call, Response<Device> response) {
+                if (response.isSuccessful()){
+                    Toast.makeText(SettingsActivity.this, "USPESNO", Toast.LENGTH_SHORT).show();
+                } else if (!response.isSuccessful()){
+                    Toast.makeText(SettingsActivity.this, "MAJKATI U PICKA", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Device> call, Throwable t) {
+
+            }
+        });
 
 
 

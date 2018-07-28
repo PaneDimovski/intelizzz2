@@ -7,12 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.thoughtbot.expandablerecyclerview.ExpandableRecyclerViewAdapter;
+import com.thoughtbot.expandablecheckrecyclerview.CheckableChildRecyclerViewAdapter;
+import com.thoughtbot.expandablecheckrecyclerview.models.CheckedExpandableGroup;
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
-import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder;
 import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
 import uk.co.intelitrack.intelizzz.common.utils.SharedPreff;
 
 
-public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<SettingsGroupsAdapter.ParentVehicleViewHolder, SettingsGroupsAdapter.ChildItemViewHolder> {
+public class SettingsGroupsAdapter extends CheckableChildRecyclerViewAdapter<SettingsGroupsAdapter.ParentVehicleViewHolder, ChildItemViewHolder> {
 
     //region final Fields
     private Map<String, Boolean> checkBoxStates = new HashMap<>();
@@ -48,21 +49,21 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
     private int mFilterType;
     private Context context;
     public SharedPreferencesUtils mSharedPreferencesUtils;
-
+    IntelizzzRepository repository;
     //endregion
-
+//    List<ParentVehicle> newGroupList = new ArrayList<>();
     //region Fields
     private List<ParentVehicle> mGroups = new ArrayList<>();
     SparseBooleanArray itemStateArray = new SparseBooleanArray();
     //endregion
 
     //region Constructors
-    public SettingsGroupsAdapter(List<ParentVehicle> groups, IntelizzzRepository intelizzzRepository,
+    public SettingsGroupsAdapter(List<MultiCheckGengre> groups, IntelizzzRepository intelizzzRepository,
                                  GroupsClickListenerSettings listener, boolean isClicked, boolean isCheck, boolean isTekst, Context context1) {
         super(groups);
         this.mOnItemClickListener = listener;
         this.mRepository = intelizzzRepository;
-        this.mGroups = groups;
+       // this.mGroups = groups;
         this.mIsClicked = isClicked;
         this.mCheck = isCheck;
         this.mTekst = isTekst;
@@ -70,15 +71,28 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
 
     }
 
+//
+
     //endregion
-    public void setData(List<ParentVehicle> groups, boolean isClicked, boolean isCheck, boolean isTekst) {
+    public void setData(List<ParentVehicle> groups,  boolean isClicked, boolean isCheck, boolean isTekst) {
         mGroups.clear();
-        mGroups.addAll(groups);
+
+
+//            setGroups(newGroupList);
+
+            mGroups.addAll(groups);
+
+
+
+
+
         mIsClicked = isClicked;
         this.mCheck = isCheck;
         this.mTekst = isTekst;
         notifyDataSetChanged();
     }
+
+
 
     public void setGroup(ParentVehicle group) {
         mGroups.clear();
@@ -252,17 +266,31 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
         return new ParentVehicleViewHolder(view);
     }
 
+//    @Override
+//    public ChildItemViewHolder onCreateChildViewHolder(ViewGroup child, int viewType) {
+//        View view = LayoutInflater.from(child.getContext()).inflate(R.layout.customtwo, child, false);
+//        return new ChildItemViewHolder(view);
+//    }
+
+//    @Override
+//    public void onBindChildViewHolder(ChildItemViewHolder holder, int position, ExpandableGroup group, int childIndex) {
+//        final Vehicle vehicle = ((ParentVehicle) group).getItems().get(childIndex);
+//
+//        holder.bind(vehicle, (GroupsClickListenerSettings) mOnItemClickListener);
+//    }
+
     @Override
-    public ChildItemViewHolder onCreateChildViewHolder(ViewGroup child, int viewType) {
+    public ChildItemViewHolder onCreateCheckChildViewHolder(ViewGroup child, int viewType) {
         View view = LayoutInflater.from(child.getContext()).inflate(R.layout.customtwo, child, false);
         return new ChildItemViewHolder(view);
     }
 
-    @Override
-    public void onBindChildViewHolder(ChildItemViewHolder holder, int position, ExpandableGroup group, int childIndex) {
-        final Vehicle vehicle = ((ParentVehicle) group).getItems().get(childIndex);
 
-        holder.bind(vehicle, (GroupsClickListenerSettings) mOnItemClickListener);
+    @Override
+    public void onBindCheckChildViewHolder(ChildItemViewHolder holder, int position, CheckedExpandableGroup group, int childIndex) {
+        final Vehicle vehicle = (Vehicle) ((MultiCheckGengre) group).getItems().get(childIndex);
+      // holder.text.setText(vehicle.getName());
+        holder.setArtistName(vehicle.getName());
     }
 
     @Override
@@ -271,10 +299,12 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
     }
 
     @Override
-    public void onBindGroupViewHolder(ParentVehicleViewHolder holder, int position, ExpandableGroup group) {
-        final ParentVehicle parentVehicle = mGroups.get(position);
-//                ((ParentVehicle) group);
-        holder.bind(((ParentVehicle) group), mOnItemClickListener, mIsClicked, mCheck, mTekst);
+    public void onBindGroupViewHolder(ParentVehicleViewHolder holder, int flatPosition, ExpandableGroup group) {
+//        final ParentVehicle parentVehicle = mGroups.get(flatPosition);
+////                ((ParentVehicle) group);
+//        holder.bind(parentVehicle, mOnItemClickListener, mIsClicked, mCheck, mTekst);
+        holder.bind(((ParentVehicle) group), mOnItemClickListener, mIsClicked,mCheck,mTekst);
+
 
 //        for (int i = 0; i < ; i++) {
 //
@@ -292,7 +322,7 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
 
     static class ParentVehicleViewHolder extends GroupViewHolder {
         @BindView(R.id.checkMark1)
-        CheckBox checkBox;
+        CheckedTextView checkBox;
         @BindView(R.id.item_unit_id1)
         TextView name;
         @BindView(R.id.group_arrow)
@@ -309,30 +339,30 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
             super(itemView);
             this.mView = itemView;
             ButterKnife.bind(this, itemView);
-            itemView.setOnClickListener(this);
+           // itemView.setOnClickListener(this);
         }
 
 
         public void bind(ParentVehicle parentVehicle, GroupsClickListenerSettings groupsClickListener, boolean showArrow, boolean showCheck, boolean chowTekst) {
             name.setText(parentVehicle.getName());
 
-
-            mView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (parentVehicle.isCompany()) {
-                        groupsClickListener.onCompanyItemClick(parentVehicle.getId());
-                    } else if (!parentVehicle.isCompany()) {
-                        groupsClickListener.onGroupItemClick(parentVehicle.getId());
-                    }
-
-//                          else if (v.getId()==mView.getId()){
-//                        groupsClickListener.onDelete(v,getAdapterPosition());
-//                    } else if (groupsClickListener!=null){
-//                        groupsClickListener.onItemClick(v,getAdapterPosition());
+//
+//            mView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (parentVehicle.isCompany()) {
+//                        groupsClickListener.onCompanyItemClick(parentVehicle.getId());
+//                    } else if (!parentVehicle.isCompany()) {
+//                        groupsClickListener.onGroupItemClick(parentVehicle.getId());
 //                    }
-                }
-            });
+//
+////                          else if (v.getId()==mView.getId()){
+////                        groupsClickListener.onDelete(v,getAdapterPosition());
+////                    } else if (groupsClickListener!=null){
+////                        groupsClickListener.onItemClick(v,getAdapterPosition());
+////                    }
+//                }
+//            });
 
 
             mGroupArrow.setVisibility(showArrow ? View.VISIBLE : View.GONE);
@@ -344,76 +374,79 @@ public class SettingsGroupsAdapter extends ExpandableRecyclerViewAdapter<Setting
     }
 
 
-    static class ChildItemViewHolder extends ChildViewHolder {
-
-//        @BindView(R.id.checkMark1)
-        CheckBox checkBox2;
-        @BindView(R.id.item_unit_id1)
-        TextView name;
-        @BindView(R.id.item_device_id)
-        TextView device_name;
-        String mVehicle;
-        private View mView;
-        final ArrayList<String> list = new ArrayList<>();
-
-
-        public ChildItemViewHolder(View itemView) {
-            super(itemView);
-            this.mView = itemView;
-
-            ButterKnife.bind(this, itemView);
-        }
-
-        public void bind(Vehicle vehicle, GroupsClickListenerSettings onItemClickListener) {
-            itemView.setTag(mView);
-            name.setText(vehicle.getName());
-
-            checkBox2 = (CheckBox) itemView.findViewById(R.id.checkMark1);
-
-            checkBox2.setChecked(false);
-
-
-
-            checkBox2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onItemClickListener.onGroupChildItemClick(vehicle);
-
-
-                    if (vehicle.isChecked()){
-                        vehicle.setChecked(true);
-                       checkBox2.setChecked(true);
-                    }else {
-                        checkBox2.setChecked(false);
-                        vehicle.setChecked(false);
-
-                    }
-                }
-
-            });
-
-
-//                        if (vehicle.isChecked()){
-//                            list.add(vehicle.getId());
-//                        }
-
-
-//                     onItemClickListener.onGroupChildItemClick(vehicle.getId());
+//    static class ChildItemViewHolder extends ChildViewHolder {
 //
-//                        String[] data = new String[]{vehicle.getId()};
+////        @BindView(R.id.checkMark1)
+//        CheckBox checkBox2;
+//        @BindView(R.id.item_unit_id1)
+//        TextView name;
+//        @BindView(R.id.item_device_id)
+//        TextView device_name;
+//        String mVehicle;
+//        private View mView;
+//        final ArrayList<String> list = new ArrayList<>();
 //
-//                        final ArrayList<String> list = new ArrayList<>();
 //
-//                      for (int i = 0; i < data.length; i++) {
-//                          if (data.length() == 0 || data[i].length() == 0){
-//                          list.add(data[i]);
+//        public ChildItemViewHolder(View itemView) {
+//            super(itemView);
+//            this.mView = itemView;
+//
+//            ButterKnife.bind(this, itemView);
+//        }
+//
+//        public void bind(Vehicle vehicle, GroupsClickListenerSettings onItemClickListener) {
+//            itemView.setTag(mView);
+//            name.setText(vehicle.getName());
+//
+//            checkBox2 = (CheckBox) itemView.findViewById(R.id.checkMark1);
+//
+//            checkBox2.setChecked(false);
+//
+//
+//
+//            checkBox2.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//
+//
+//                    if (vehicle.isChecked()){
+//                        vehicle.setChecked(true);
+//                       checkBox2.setChecked(true);
+//                    }else {
+//                        checkBox2.setChecked(false);
+//                        vehicle.setChecked(false);
+//
+//                    }
+//                    onItemClickListener.onGroupChildItemClick(vehicle);
 //                }
-//                      }
-
-
-//                            Toast.makeText(mView.getContext(), "Odbereni ID : " + list + "\n", Toast.LENGTH_LONG).show();
-                        //    SharedPreferencesUtils shared = new SharedPreferencesUtils(mView.getContext());
-                        //    shared.setSharedPreferencesString(Constants.OLI_ID, vehicle.getId());
-
-
-    }}}
+//
+//            });
+//
+//
+////                        if (vehicle.isChecked()){
+////                            list.add(vehicle.getId());
+////                        }
+//
+//
+////                     onItemClickListener.onGroupChildItemClick(vehicle.getId());
+////
+////                        String[] data = new String[]{vehicle.getId()};
+////
+////                        final ArrayList<String> list = new ArrayList<>();
+////
+////                      for (int i = 0; i < data.length; i++) {
+////                          if (data.length() == 0 || data[i].length() == 0){
+////                          list.add(data[i]);
+////                }
+////                      }
+//
+//
+////                            Toast.makeText(mView.getContext(), "Odbereni ID : " + list + "\n", Toast.LENGTH_LONG).show();
+//                        //    SharedPreferencesUtils shared = new SharedPreferencesUtils(mView.getContext());
+//                        //    shared.setSharedPreferencesString(Constants.OLI_ID, vehicle.getId());
+//
+//
+    }
+//}
+//}

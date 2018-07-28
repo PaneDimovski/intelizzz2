@@ -120,7 +120,10 @@ public class SettingsPresenter extends SettingsActivity  implements SettingsCont
                 }
             }
         }
-        mView.setGroups(newGroupList);
+
+
+
+       mView.setGroups(newGroupList);
     }
 
     //region PreviewPresenter Methods
@@ -241,13 +244,13 @@ public class SettingsPresenter extends SettingsActivity  implements SettingsCont
 
     @Override
     public void onGroupChildItemClick(Vehicle vehicle) {
-        if (vehicle.isChecked()){
-            vehicle.setChecked(false);
-            list.remove(vehicle.getId());
-        }else {
-            vehicle.setChecked(true);
-            list.add(vehicle.getId());
-        }
+//        if (vehicle.isChecked()){
+//            vehicle.setChecked(false);
+//            list.remove(vehicle.getId());
+//        }else {
+//            vehicle.setChecked(true);
+//            list.add(vehicle.getId());
+//        }
     }
 
     @Override

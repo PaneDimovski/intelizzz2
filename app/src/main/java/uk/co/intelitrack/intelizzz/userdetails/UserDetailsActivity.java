@@ -9,39 +9,33 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
-import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import uk.co.intelitrack.intelizzz.R;
-import uk.co.intelitrack.intelizzz.common.api.ApiInterface;
 import uk.co.intelitrack.intelizzz.common.api.RestApi;
 import uk.co.intelitrack.intelizzz.common.api.RestApi2;
-import uk.co.intelitrack.intelizzz.common.data.Constants;
 import uk.co.intelitrack.intelizzz.common.data.remote.Company;
-import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
+import uk.co.intelitrack.intelizzz.common.data.remote.Device;
 import uk.co.intelitrack.intelizzz.components.login.LoginActivity;
 
 public class UserDetailsActivity extends AppCompatActivity {
 
+    public List<Device> device;
+    String companyid;
     RestApi2 api;
+    RestApi api1;
     Context context;
-
-
-
     @BindView(R.id.edit_full_name)
     EditText full_name;
     @BindView(R.id.edit_address)
@@ -54,6 +48,10 @@ public class UserDetailsActivity extends AppCompatActivity {
     ImageView wrong_pass_icon;
     @BindView(R.id.edit_email)
     EditText email;
+    @BindView(R.id.edit_intelizzz_device_id)
+    EditText device_id;
+
+
 
     public static String convertPassMd5(String pass) {
         String password = null;
@@ -89,6 +87,8 @@ public class UserDetailsActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_ok)
     public void onClick2() {
+        Validation();
+
 
 //        RequestBody requestBody = new MultipartBody.Builder()
 //                .setType(MultipartBody.FORM)
@@ -119,6 +119,53 @@ public class UserDetailsActivity extends AppCompatActivity {
 //
 //        );
 
+
+
+
+
+
+//
+    }
+
+    public void Validation() {
+        device = null;
+        api = new RestApi2(UserDetailsActivity.this);
+        {
+            String a = device_id.getText().toString();
+            Call<List<Device>> call = api.getValidation(a);
+            call.enqueue(new Callback<List<Device>>() {
+                @Override
+                public void onResponse(Call<List<Device>> call, Response<List<Device>> response) {
+                    if (response.isSuccessful()) {
+                        //Toast.makeText(UserDetailsActivity.this, "Unit successfully added", Toast.LENGTH_SHORT).show();
+                        device = response.body();
+                        if (device!=null && device.size()>0){
+                            createUser(device.get(0).getId());
+                            String a ="";
+
+
+                        }else {
+                            Toast.makeText(UserDetailsActivity.this, "Not valid device ID", Toast.LENGTH_SHORT).show();
+                        }
+//                        if (device.size() > 0) {
+//                            Toast.makeText(UserDetailsActivity.this, "Unit successfully added", Toast.LENGTH_SHORT).show();
+//                        }else{
+//                            Toast.makeText(UserDetailsActivity.this, "Error please try again", Toast.LENGTH_SHORT).show();
+//                        }
+                    } else if (!response.isSuccessful()) {
+                        Toast.makeText(UserDetailsActivity.this, "Error please try again", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<Device>> call, Throwable t) {
+                    Toast.makeText(UserDetailsActivity.this, "Something went wrong!", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+    }
+
+    public void createUser(String id){
         String user = full_name.getText().toString();
         String address = "testKris2,123,St.test";
         String pass = create_password.getText().toString();
@@ -128,6 +175,8 @@ public class UserDetailsActivity extends AppCompatActivity {
         String introduction = user + "@testDesktop.com"; //"Test+Desktop+Account testDesktop@testDesktop.com";
         String remark = "test+remark+from+testDesktop+Account";
 
+//        SharedPreferencesUtils preferencesUtils = new SharedPreferencesUtils(this);
+//        String bb = preferencesUtils.getSharedPreferencesString(Constants.DEVICEID);
 
         Company company = new Company();
 
@@ -139,11 +188,10 @@ public class UserDetailsActivity extends AppCompatActivity {
         company.setAbbreviation(abbreviation);
         company.setEmail(introduction);
         company.setRemark(remark);
-
+//        company.setId2(bb);
 
         //Gson gson = new Gson();
         //String com = gson.toJson(company);
-
 
         HashMap<String, Object> requestBody = new HashMap<>();
         requestBody.put("formData", company);
@@ -158,6 +206,8 @@ public class UserDetailsActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<Company> call, Response<Company> response) {
                     if (response.isSuccessful()) {
+                        companyId(user,pass,id);
+                        String a = "";
                         Toast.makeText(UserDetailsActivity.this, "User successfully created", Toast.LENGTH_SHORT).show();
                     } else if (!response.isSuccessful()) {
                         Toast.makeText(UserDetailsActivity.this, "Error something went wrong", Toast.LENGTH_SHORT).show();
@@ -188,10 +238,87 @@ public class UserDetailsActivity extends AppCompatActivity {
         }
 
 
+    }
 
+    String compID ;
+    String devID ;
+
+    public void companyId(String username,String password, String deviceid){
+        companyid = "";
+        api1 = new RestApi(UserDetailsActivity.this);
+        Call<Device> getcompanyId = api1.getCompanyId(username,password);
+        getcompanyId.enqueue(new Callback<Device>() {
+            @Override
+            public void onResponse(Call<Device> call, Response<Device> response) {
+                Device user = new Device();
+                user = response.body();
+                if (user != null && user.getCompanyId()!=""){
+                     compID = user.getCompanyId().toString();
+                     devID = deviceid;
+                    String aa ="";
+                    moveVehicle();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Device> call, Throwable t) {
+                Toast.makeText(UserDetailsActivity.this, "Error when geting company ID", Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
     }
 
-   
+    public void moveVehicle() {
+
+
+        String[] addressesArr  = {devID};
+
+        List<String[]> addresses = new ArrayList<String[]>();
+        HashMap<String, Object> requestBody = new HashMap<>();
+        for(int i=0; i < addressesArr.length; i++) {
+
+
+            addresses.add(addressesArr);
+        }
+
+
+        Device device2 = new Device();
+        String b = compID;
+        Object[] object = {addressesArr};
+        for (Object obj : object) {
+            if (obj instanceof String[]) {
+                String[] addressesArrRR = (String[]) obj;
+
+
+                device2.setDeviceIds(addressesArrRR);
+                device2.setCompanyId(b);
+
+
+            }
+        }
+
+
+        requestBody.put("formData",device2 );
+        api = new RestApi2(UserDetailsActivity.this);
+        Call<Device> deviceCall = api.moveVehicle(requestBody);
+        deviceCall.enqueue(new Callback<Device>() {
+            @Override
+            public void onResponse(Call<Device> call, Response<Device> response) {
+
+
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<Device> call, Throwable t) {
+
+            }
+        });
+    }
+
 
 }

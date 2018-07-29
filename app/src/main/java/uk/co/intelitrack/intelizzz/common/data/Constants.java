@@ -22,6 +22,8 @@ public class Constants {
     public static final String OLI_ID = "oli_id";
     public static final String JSESSIONID = "jsessionID";
     public static final String DEVICEID= "DeviceId";
+    public static final String MARKO = "id";
+
 
 
     // Alarm Type

@@ -112,7 +112,7 @@ public class TimerActivity extends FragmentActivity implements OnMapReadyCallbac
             if (current.get(Calendar.HOUR_OF_DAY) > 1) {
                 tillAlarm.add(Calendar.DAY_OF_MONTH, 1);
             }
-            tillAlarm.set(Calendar.HOUR_OF_DAY, -5);
+            tillAlarm.set(Calendar.HOUR_OF_DAY, 10);
         }
 
         tillAlarm.set(Calendar.MINUTE, 0);

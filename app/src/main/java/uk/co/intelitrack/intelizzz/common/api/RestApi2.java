@@ -4,9 +4,11 @@ import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -50,5 +52,14 @@ public class RestApi2 {
     public Call<Company> creatUSer (HashMap<String, Object> data){
         return request().createUser(data);
     }
+
+    public Call<List<Device>> getValidation(String deviceId){
+        return request().getValidation(deviceId);
+    }
+
+    public Call<Device> moveVehicle(HashMap<String, Object> data){
+        return request().moveVehicle(data);
+    }
+
 
 }

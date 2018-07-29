@@ -248,7 +248,7 @@ class GroupsAdapter extends ExpandableRecyclerViewAdapter<GroupsAdapter.ParentVe
 
     @Override
     public void onBindChildViewHolder(ChildItemViewHolder holder, int flatPosition, ExpandableGroup group, int childIndex) {
-        final Vehicle vehicle = ((ParentVehicle) group).getItems().get(childIndex);
+        final Vehicle vehicle = (Vehicle) ((ParentVehicle) group).getItems().get(childIndex);
         holder.bind(vehicle, mOnItemClickListener);
     }
 

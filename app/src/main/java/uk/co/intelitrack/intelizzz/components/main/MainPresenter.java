@@ -19,6 +19,7 @@ import timber.log.Timber;
 import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
 import uk.co.intelitrack.intelizzz.common.data.SuggestionsItem;
+import uk.co.intelitrack.intelizzz.common.data.remote.Response;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 import uk.co.intelitrack.intelizzz.common.utils.RxUtils;
 
@@ -83,7 +84,7 @@ public class MainPresenter implements MainContract.Presenter,
         if (mRepository.getVehicles().isEmpty()) {
             mSubscriptions.add(mRepository.getVehiclesResponse()
                     .subscribe(
-                            x -> {
+                            (Response x) -> {
                                 if (x.getResult().equals("0")) {
                                     Timber.d("getUnits successful");
                                     mView.showUnitsNumber(x.getVehicles().length);

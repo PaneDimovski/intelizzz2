@@ -23,7 +23,6 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-
         android:theme="@style/Intelizzz.Theme">
 
         <!--
@@ -76,23 +75,20 @@
             android:name=".components.timer.TimerActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".userdetails.UserDetailsActivity" />
-
         <activity
             android:name=".components.timerSettings.TimerSettingsActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".components.timer_live.LiveActivity"
             android:screenOrientation="portrait" />
-
-
         <activity
             android:name="uk.co.intelitrack.intelizz.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".components.mojaProba.PaginationActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".components.alarm.AlarmActivity"></activity>
+        <activity android:name=".components.alarm.AlarmActivity" />
+        <activity android:name="uk.co.intelitrack.intelizz.NaMajkamuPickata.Picka"></activity>
     </application>
 
 </manifest>

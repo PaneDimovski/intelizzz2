@@ -105,6 +105,7 @@ dependencies {
 
     // Widgets
     compile 'com.github.arimorty:floatingsearchview:2.0.2'
+    compile 'com.thoughtbot:expandablecheckrecyclerview:1.4'
     compile 'com.thoughtbot:expandablerecyclerview:1.3'
 
 }

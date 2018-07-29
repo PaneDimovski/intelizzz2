@@ -38,6 +38,7 @@ import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzProgressDialog;
 import uk.co.intelitrack.intelizzz.components.login.LoginActivity;
 import uk.co.intelitrack.intelizzz.components.main.MainActivity;
 import uk.co.intelitrack.intelizzz.components.timerSettings.TimerSettingsActivity;
+import uk.co.intelitrack.intelizzz.components.unit.UnitActivity;
 
 /**
  * Created by Filip Stojanovski (filip100janovski@gmail.com).
@@ -137,6 +138,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+
+
+    @Override
+    public void setListeners() {
+        mIntelizzzFloatingSearchView.setOnSearchListener(mPresenter);
+        mIntelizzzFloatingSearchView.setOnQueryChangeListener(mPresenter);
+    }
+
+
+    @Override
+    public IntelizzzFloatingSearchView getSearchView() {
+        return mIntelizzzFloatingSearchView;
+    }
+
+
+
+
+    @Override
+    public void startMapsActivity(String vehicleId) {
+        MapsActivity.start(this, vehicleId,true);
+    }
+
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;

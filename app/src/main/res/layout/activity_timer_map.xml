@@ -11,33 +11,33 @@
         android:orientation="vertical">
 
         <include layout="@layout/toolbar_maps" />
-        <include layout="@layout/toolbar_item_maps"  />
+
         <!--<include-->
-            <!--layout="@layout/toolbar_top_first"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="25dp"-->
-            <!--/>-->
+        <!--layout="@layout/toolbar_top_first"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="25dp"-->
+        <!--/>-->
 
 
         <!--<include layout="@layout/toolbar_item"/>-->
 
         <!--<ImageView-->
-            <!--android:id="@+id/btn_home"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:padding="@dimen/search_home_icon_padding"-->
-            <!--android:src="@drawable/ic_action_home"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_alignParentStart="true" />-->
+        <!--android:id="@+id/btn_home"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:padding="@dimen/search_home_icon_padding"-->
+        <!--android:src="@drawable/ic_action_home"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_alignParentStart="true" />-->
 
         <!--<ImageView-->
-            <!--android:id="@+id/imageView"-->
-            <!--android:layout_width="@dimen/spacing_huge"-->
-            <!--android:layout_height="@dimen/spacing_bigger"-->
-            <!--android:layout_alignParentTop="true"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:padding="@dimen/search_home_icon_padding"-->
-            <!--android:src="@drawable/logo" />-->
+        <!--android:id="@+id/imageView"-->
+        <!--android:layout_width="@dimen/spacing_huge"-->
+        <!--android:layout_height="@dimen/spacing_bigger"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:padding="@dimen/search_home_icon_padding"-->
+        <!--android:src="@drawable/logo" />-->
     </LinearLayout>
 
 
@@ -53,17 +53,17 @@
             android:layout_weight="1"
             >
 
-        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/map"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0"
-            tools:context="uk.co.intelitrack.intelizzz.components.maps.MapsActivity" />
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                tools:context="uk.co.intelitrack.intelizzz.components.maps.MapsActivity" />
 
             <include layout="@layout/activity_timer"  android:visibility="visible"/>
-    </RelativeLayout>
+        </RelativeLayout>
         <include layout="@layout/bottom_time_last_location"  />
 
         <include layout="@layout/bottom_map_custom_location" />

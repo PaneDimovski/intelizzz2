@@ -94,21 +94,32 @@
             <!--android:src="@drawable/ic_action_left" />-->
         </LinearLayout>
 
-        <Button
+        <!--<Button-->
+           <!---->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_vertical|end"-->
+            <!--android:layout_marginBottom="@dimen/btn_login_margin"-->
+            <!--android:layout_marginEnd="@dimen/activity_login_padding_right"-->
+            <!--android:layout_marginRight="@dimen/activity_login_padding_right"-->
+            <!--android:layout_marginTop="@dimen/btn_login_margin"-->
+            <!--android:background="@drawable/viberimage"-->
+            <!--android:gravity="start|center_vertical"-->
+            <!--android:text="@string/btn_log_in"-->
+            <!--android:textColor="@color/text_white"-->
+            <!--android:textSize="@dimen/btn_login_text_size"-->
+            <!--android:visibility="invisible"/>-->
+
+        <ImageButton
             android:id="@+id/button_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|end"
+            android:layout_width="@dimen/unit_back_icon_size"
+            android:layout_height="@dimen/unit_back_icon_size"
             android:layout_marginBottom="@dimen/btn_login_margin"
             android:layout_marginEnd="@dimen/activity_login_padding_right"
             android:layout_marginRight="@dimen/activity_login_padding_right"
             android:layout_marginTop="@dimen/btn_login_margin"
-            android:background="@null"
-            android:gravity="start|center_vertical"
-            android:text="@string/btn_log_in"
-            android:textColor="@color/text_white"
-            android:textSize="@dimen/btn_login_text_size"
-            android:visibility="invisible"/>
+            android:background="@drawable/login"
+            android:layout_gravity="center_vertical|end"/>
 
         <CheckBox
             android:id="@+id/check_keep_signed"

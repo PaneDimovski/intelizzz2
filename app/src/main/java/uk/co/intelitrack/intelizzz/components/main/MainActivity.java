@@ -218,7 +218,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 //        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://pixabay.com/en/videos/star-long-exposure-starry-sky-sky-6962/"));
 //        intent.setDataAndType(Uri.parse("https://pixabay.com/en/videos/star-long-exposure-starry-sky-sky-6962/"), "video/*");
 //        startActivity(intent);
-        String url = "https://pixabay.com/en/videos/star-long-exposure-starry-sky-sky-6962/"; // your URL here
+        String url = "https://www.youtube.com/watch?v=CS5NXqgDVns&t=1s"; // your URL here
         MediaPlayer mediaPlayer = new MediaPlayer();
         mediaPlayer.setDataSource(url);
         mediaPlayer.prepare(); // might take long! (for buffering, etc)

@@ -269,6 +269,13 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         mPresenter.login(mUsername.getText().toString().trim(), mPassword.getText().toString().trim(),
                 mKeepSigned.isChecked());
     }
+
+    @OnClick(R.id.button_login)
+    void onLoginClick() {
+        mPresenter.login(mUsername.getText().toString().trim(), mPassword.getText().toString().trim(),
+                mKeepSigned.isChecked());
+    }
+
     @OnClick(R.id.create_account)
     public void click (View view) {
         Intent intent = new Intent(LoginActivity.this, UserDetailsActivity.class);

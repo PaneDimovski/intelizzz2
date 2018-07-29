@@ -3,6 +3,7 @@ package uk.co.intelitrack.intelizzz.components.maps;
 import android.app.DatePickerDialog;
 import android.content.Context;
 
+import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.Calendar;
@@ -10,6 +11,7 @@ import java.util.List;
 
 import uk.co.intelitrack.intelizzz.common.base.BasePresenter;
 import uk.co.intelitrack.intelizzz.common.base.BaseView;
+import uk.co.intelitrack.intelizzz.common.widgets.IntelizzzFloatingSearchView;
 
 /**
  * Created by Filip Stojanovski (filip100janovski@gmail.com).
@@ -45,6 +47,12 @@ public interface MapsContract {
         //void showThirdCalendarDate(String date, String month);
 
         void showCustomCalendarDate(String date, String month, String year);
+
+
+        void setListeners();
+
+        IntelizzzFloatingSearchView getSearchView();
+        void startMapsActivity(String vehicleId);
     }
 
     interface Presenter extends BasePresenter {
@@ -56,6 +64,12 @@ public interface MapsContract {
         void onCalendarCustomClick();
 
         void onNextClick();
+
+        void onSearchTextChanged(String oldQuery, String newQuery);
+
+        void onSuggestionClicked(SearchSuggestion searchSuggestion);
+
+        void onSearchAction(String currentQuery);
 
 //        void onNextArrowClick();
     }

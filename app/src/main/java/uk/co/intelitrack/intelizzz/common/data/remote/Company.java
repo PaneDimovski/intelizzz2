@@ -14,7 +14,7 @@ public class Company {
     private Group[] groups;
 
     @SerializedName("Name")
-    private String name; //jj
+    private String name;
 
     @SerializedName("name")
     private String name2;
@@ -29,10 +29,15 @@ public class Company {
     @SerializedName("ID")
     private String id;
 
+    @SerializedName("id")
+    private String id2;
+
     @SerializedName("encryptPwd")
     private String password;
 
-
+    public void setId(String id) {
+        this.id = id;
+    }
 
     @SerializedName("abbreviation")
     private String abbreviation;
@@ -104,5 +109,9 @@ public class Company {
         }
 
         return vehicles;
+    }
+
+    public void setId2(String id2) {
+        this.id2 = id2;
     }
 }

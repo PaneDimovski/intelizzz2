@@ -71,4 +71,8 @@ public Call<Alarm>resetTamper(String JSESSIONID, Alarm alarm){
         return request().setWakeUpAlarm(deviceId,time);
     }
 
+    public Call<Device> getCompanyId(String username, String password){
+        return request().getCompanyId(username,password);
+    }
+
 }

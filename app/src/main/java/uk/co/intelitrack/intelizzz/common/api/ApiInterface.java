@@ -2,6 +2,7 @@ package uk.co.intelitrack.intelizzz.common.api;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import io.reactivex.Single;
 import retrofit2.Call;
@@ -112,5 +113,16 @@ public interface ApiInterface {
 
     @GET("StandardApiAction_getDeviceByVehicle.action")
     Call<Device> getDeviceByVehicle1(@Query("jsession") String jsession, @Query("vehiIdno") String vehicleId);
+
+    @GET("api/admin/validatedevice?")
+    Call<List<Device>> getValidation(@Query("deviceId") String deviceID);
+
+    @GET("808gps/LoginAction_loginMobile.action")
+    Call<Device> getCompanyId(@Query("userAccount") String account, @Query("password") String password);
+
+    @POST("api/admin/movedevice")
+    Call<Device> moveVehicle (@Body HashMap<String, Object> data);
+
+
 
 }

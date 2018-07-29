@@ -214,7 +214,8 @@
                     android:layout_marginTop="20dp"
                     android:background="@drawable/round_white_background"
                     android:paddingLeft="10dp"
-                    android:textSize="@dimen/font_normal" />
+                    android:textSize="@dimen/font_normal"
+                    android:singleLine="true"/>
 
                 <EditText
                     android:id="@+id/edit_company_name"
@@ -223,7 +224,8 @@
                     android:layout_marginTop="15dp"
                     android:background="@drawable/round_white_background"
                     android:paddingLeft="10dp"
-                    android:textSize="@dimen/font_normal" />
+                    android:textSize="@dimen/font_normal"
+                    android:singleLine="true"/>
 
                 <EditText
                     android:id="@+id/edit_address"
@@ -232,7 +234,8 @@
                     android:layout_marginTop="35dp"
                     android:background="@drawable/round_white_background"
                     android:paddingLeft="10dp"
-                    android:textSize="@dimen/font_smaller" />
+                    android:textSize="@dimen/font_smaller"
+                    android:singleLine="true"/>
 
                 <EditText
                     android:id="@+id/edit_state_country"
@@ -241,7 +244,8 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/round_white_background"
                     android:paddingLeft="10dp"
-                    android:textSize="@dimen/font_smaller" />
+                    android:textSize="@dimen/font_smaller"
+                    android:singleLine="true"/>
 
                 <EditText
                     android:id="@+id/edit_country"
@@ -250,7 +254,8 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/round_white_background"
                     android:paddingLeft="10dp"
-                    android:textSize="@dimen/font_smaller" />
+                    android:textSize="@dimen/font_smaller"
+                    android:singleLine="true"/>
 
                 <EditText
                     android:id="@+id/edit_zip_code"
@@ -260,7 +265,8 @@
                     android:layout_toRightOf="@id/address"
                     android:background="@drawable/round_white_background"
                     android:paddingLeft="10dp"
-                    android:textSize="@dimen/font_smaller" />
+                    android:textSize="@dimen/font_smaller"
+                    android:singleLine="true"/>
 
                 <EditText
                     android:id="@+id/edit_create_password"
@@ -269,7 +275,8 @@
                     android:layout_marginTop="20dp"
                     android:background="@drawable/round_white_background"
                     android:paddingLeft="10dp"
-                    android:textSize="@dimen/font_normal" />
+                    android:textSize="@dimen/font_normal"
+                    android:singleLine="true"/>
 
                 <LinearLayout
                     android:id="@+id/rel2"
@@ -289,7 +296,8 @@
                             android:layout_marginTop="20dp"
                             android:background="@drawable/round_white_background"
                             android:paddingLeft="10dp"
-                            android:textSize="@dimen/font_normal" />
+                            android:textSize="@dimen/font_normal"
+                            android:singleLine="true"/>
 
                         <ImageButton
                             android:id="@+id/wrong_pass_icon"
@@ -314,7 +322,8 @@
                     android:layout_marginTop="15dp"
                     android:background="@drawable/round_white_background"
                     android:paddingLeft="10dp"
-                    android:textSize="@dimen/font_normal" />
+                    android:textSize="@dimen/font_normal"
+                    android:singleLine="true"/>
 
                 <EditText
                     android:id="@+id/edit_telephone"
@@ -323,7 +332,8 @@
                     android:layout_marginTop="15dp"
                     android:background="@drawable/round_white_background"
                     android:paddingLeft="10dp"
-                    android:textSize="@dimen/font_normal" />
+                    android:textSize="@dimen/font_normal"
+                    android:singleLine="true"/>
 
                 <EditText
                     android:id="@+id/edit_intelizzz_device_id"
@@ -332,7 +342,8 @@
                     android:layout_marginTop="15dp"
                     android:background="@drawable/round_white_background"
                     android:paddingLeft="10dp"
-                    android:textSize="@dimen/font_normal" />
+                    android:textSize="@dimen/font_normal"
+                    android:singleLine="true"/>
 
 
             </LinearLayout>

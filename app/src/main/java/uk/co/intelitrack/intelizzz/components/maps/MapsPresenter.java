@@ -7,6 +7,8 @@ import android.location.Geocoder;
 import android.text.TextUtils;
 import android.widget.DatePicker;
 
+import com.arlib.floatingsearchview.FloatingSearchView;
+import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
@@ -23,6 +25,7 @@ import timber.log.Timber;
 import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
+import uk.co.intelitrack.intelizzz.common.data.SuggestionsItem;
 import uk.co.intelitrack.intelizzz.common.data.remote.Response;
 import uk.co.intelitrack.intelizzz.common.data.remote.Track;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
@@ -32,7 +35,7 @@ import uk.co.intelitrack.intelizzz.common.utils.RxUtils;
  * Created by Filip Stojanovski (filip100janovski@gmail.com).
  */
 
-public class MapsPresenter implements MapsContract.Presenter, DatePickerDialog.OnDateSetListener {
+public class MapsPresenter implements MapsContract.Presenter, DatePickerDialog.OnDateSetListener, FloatingSearchView.OnSearchListener, FloatingSearchView.OnQueryChangeListener {
 
     private final static int FIRST_CALENDAR = 1;
     private final static int SECOND_CALENDAR = 2;
@@ -56,6 +59,8 @@ public class MapsPresenter implements MapsContract.Presenter, DatePickerDialog.O
     private int mDialog;
     //endregion
 
+    private List<SuggestionsItem> mAllSuggestionsItems;
+
     public MapsPresenter(IntelizzzRepository repository, MapsContract.View view) {
         this.mRepository = repository;
         this.mView = view;
@@ -65,6 +70,10 @@ public class MapsPresenter implements MapsContract.Presenter, DatePickerDialog.O
     @Override
     public void subscribe(Intent intent) {
         String id = intent.getStringExtra(Constants.ID);
+        mView.setListeners();
+
+
+
         if (!TextUtils.isEmpty(id)) {
             mVehicle = mRepository.getVehicleById(id);
         }
@@ -86,7 +95,14 @@ public class MapsPresenter implements MapsContract.Presenter, DatePickerDialog.O
             customCalendar = Calendar.getInstance();
             fetchLocations();
 
+
+
         }
+
+
+
+
+
     }
 
     @Override
@@ -254,4 +270,55 @@ public class MapsPresenter implements MapsContract.Presenter, DatePickerDialog.O
         return result;
     }
     //endregion
+    private List<SuggestionsItem> filter(String text) {
+        List<SuggestionsItem> temp = new ArrayList();
+        for (SuggestionsItem suggestionsItem : mAllSuggestionsItems) {
+            //or use .equal(text) with you want equal match
+            //use .toLowerCase() for better matches
+            if (suggestionsItem.getName().toLowerCase().contains(text.toLowerCase())) {
+                temp.add(suggestionsItem);
+            }
+        }
+        return temp;
+    }
+
+    private String getIdByName(String name) {
+        for (SuggestionsItem suggestionsItem : mAllSuggestionsItems) {
+            //or use .equal(text) with you want equal match
+            //use .toLowerCase() for better matches
+            if (suggestionsItem.getName().equalsIgnoreCase(name)) {
+                return suggestionsItem.getId();
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void onSearchTextChanged(String oldQuery, String newQuery) {
+        if (mAllSuggestionsItems == null || mAllSuggestionsItems.isEmpty()) {
+            mAllSuggestionsItems = mRepository.getAllSuggestionsVehicles();
+        }
+        if (!oldQuery.equals("") && newQuery.equals("")) {
+            mView.getSearchView().clearSuggestions();
+        } else {
+            mView.getSearchView().showProgress();
+            mView.getSearchView().swapSuggestions(filter(newQuery));
+            mView.getSearchView().hideProgress();
+        }
+    }
+
+    @Override
+    public void onSuggestionClicked(SearchSuggestion searchSuggestion) {
+        String id = getIdByName(searchSuggestion.getBody().toString().trim());
+        if (!TextUtils.isEmpty(id)) {
+            mView.startMapsActivity(id);
+        }
+    }
+
+    @Override
+    public void onSearchAction(String currentQuery) {
+        mView.getSearchView().showProgress();
+        mView.getSearchView().swapSuggestions(filter(currentQuery));
+        mView.getSearchView().hideProgress();
+    }
 }

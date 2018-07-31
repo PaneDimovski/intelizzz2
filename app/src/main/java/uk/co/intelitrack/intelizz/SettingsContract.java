@@ -5,7 +5,6 @@ import java.util.List;
 
 import uk.co.intelitrack.intelizzz.common.base.BasePresenter;
 import uk.co.intelitrack.intelizzz.common.base.BaseView;
-import uk.co.intelitrack.intelizzz.common.data.remote.ParentVehicle;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 
 
@@ -19,9 +18,9 @@ public interface SettingsContract {
 
         void setGroupNumber(int number);
 
-        void setGroups(List<ParentVehicle> groups);
+        void setGroups(List<MultiCheckGengre> groups);
 
-        void setGroup(ParentVehicle group);
+        void setGroup(MultiCheckGengre group);
 
         void setVehiclesListVisible();
 

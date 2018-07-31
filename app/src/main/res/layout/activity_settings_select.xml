@@ -249,7 +249,7 @@
                         android:paddingRight="2dp">
 
                         <CheckBox
-                            android:id="@+id/checkMark"
+                            android:id="@+id/checkMark8"
 
                             android:layout_width="50dp"
                             android:layout_height="50dp"

@@ -8,7 +8,6 @@ import java.util.List;
 
 import dagger.Module;
 import dagger.Provides;
-import uk.co.intelitrack.intelizzz.common.api.IntelizzzDataSource;
 import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
 import uk.co.intelitrack.intelizzz.common.data.remote.Company;
 import uk.co.intelitrack.intelizzz.common.data.remote.Group;
@@ -57,15 +56,16 @@ public class SettingsModule {
 
     @Provides
     SettingsGroupsAdapter provideGroupsAdapter(SettingsPresenter listener, IntelizzzRepository repository) {
-        List<ParentVehicle> groups = new ArrayList<>();
+        List<MultiCheckGengre> groups = new ArrayList<>();
         if (!repository.getCompanies().isEmpty()) {
             for (Company company : repository.getCompanies()) {
-                groups.add(new ParentVehicle(company.getName(), company.getAllVehicles(), company.getId(), true));
+                groups.add(new MultiCheckGengre(company.getName(), company.getAllVehicles(), company.getId(), true));
                 for (Group group : company.getGroups()) {
-                    groups.add(new ParentVehicle(group.getName(), Arrays.asList(group.getVehicles()), group.getId(), false));
+                    groups.add(new MultiCheckGengre(group.getName(), Arrays.asList(group.getVehicles()), group.getId(), false));
                 }
             }
         }
         return new SettingsGroupsAdapter(groups, repository, listener, false,false,false,mContext);
+
     }
 }

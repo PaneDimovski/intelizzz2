@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -68,12 +69,15 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
     @Nullable
     @BindView(R.id.btn_delete)
     ImageView mBtnDelete;
+    @BindView(R.id.checkMark8)
+    CheckBox selectAll2;
 
 
     @Nullable
     @BindView(R.id.toolbar_type_btn)
     ImageView mToolBarType;
     private IntelizzzProgressDialog mProgressDialog;
+
     @Inject
     SettingsGroupsAdapter mGroupsAdapter;
     List<ParentVehicle> vehicles = new ArrayList<>();
@@ -87,9 +91,11 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
     RestApi api;
     String kompanija = "2";
     String pane = "24";
-    public ArrayList<String>list = new ArrayList<>();
+    public ArrayList<String> list = new ArrayList<>();
     List<MultiCheckGengre> lista;
-MultiCheckGengre multi;
+    MultiCheckGengre multi;
+
+    ChildItemViewHolder child;
 
     public static void start(Activity activity, boolean isGroup) {
         Intent intent = new Intent(activity, SettingsActivity.class);
@@ -99,7 +105,7 @@ MultiCheckGengre multi;
 
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable   Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 //        settingsComponent = DaggerCrudGroupComponent
@@ -110,7 +116,6 @@ MultiCheckGengre multi;
                 .build()
                 .inject(this);
         setContentView(R.layout.activity_settings_select);
-
 
 
         ButterKnife.bind(this);
@@ -151,14 +156,22 @@ MultiCheckGengre multi;
 //        });
 
         //   Ova e za da se menja pozadinata na odbereniot layout , koga ke se odbere kopceto eden, t.e. prviot timer
+        CheckBox selectAll = (CheckBox) findViewById(R.id.checkMark8);
+        selectAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//               child.getCheckable().setChecked(true);
 
+            }
+        });
     }
+
 
     void onGroupsClick() {
         PreviewActivity.start(this, true);
     }
 
-    void get(){
+    void get() {
 
 
 //        mGroupsAdapter=new SettingsGroupsAdapter(vehicles, mRespository, new GroupsClickListenerSettings() {
@@ -197,12 +210,9 @@ MultiCheckGengre multi;
     }
 
 
-
     @OnClick(R.id.btn_ok_settings)
     public void klik() {
 //        DeviceId();
-
-
 
 
 //        SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
@@ -241,16 +251,11 @@ MultiCheckGengre multi;
 //        });
 
 
-
-
-
-
 //        OVA E ZA DELETE GROUP SHTO RABOTI !!!!
 //        String groupId = mSharedPreferencesUtils.getSharedPreferencesString(Constants.OLI_ID);
 //        String jsession = mSharedPreferencesUtils.getSharedPreferencesString(Constants.JSESSIONID);
 //        mPresenter.onDelete6(jsession,groupId);
 //        mGroupsAdapter.notifyDataSetChanged();
-
 
 
     }
@@ -266,10 +271,10 @@ MultiCheckGengre multi;
         if (mIsGroup) {
 //            mPresenter.refreshGroups();
             String title = "";
+            mPresenter.refreshGroups();
+            // MultiCheckGengre multi = new MultiCheckGengre(mRespository,this,title,vehicles);
 
-            MultiCheckGengre multi = new MultiCheckGengre(mRespository,this,title,vehicles);
-
-            multi.checkAndFetchGroups2();
+            //  multi.checkAndFetchGroups2();
         }
     }
 
@@ -316,7 +321,7 @@ MultiCheckGengre multi;
     }
 
     @Override
-    public void  setGroups(List<ParentVehicle> groups) {
+    public void setGroups(List<MultiCheckGengre> groups) {
         if (mGroupsAdapter.isGroupExpanded(0)) {
             mGroupsAdapter.toggleGroup(0);
         }
@@ -324,8 +329,8 @@ MultiCheckGengre multi;
     }
 
     @Override
-    public void setGroup(ParentVehicle group) {
-        List<ParentVehicle> groups = new ArrayList<>();
+    public void setGroup(MultiCheckGengre group) {
+        List<MultiCheckGengre> groups = new ArrayList<>();
         groups.add(group);
         mGroupsAdapter.setData(groups, false, false, false);
         mGroupsAdapter.toggleGroup(0);
@@ -364,7 +369,7 @@ MultiCheckGengre multi;
 
     @Override
     public void startMainActivity() {
-        MainActivity.start(this,false);
+        MainActivity.start(this, false);
         finish();
     }
 
@@ -415,11 +420,11 @@ MultiCheckGengre multi;
             mProgressDialog = null;
         }
     }
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mGroupsAdapter.onSaveInstanceState(outState);
-    }
+   @Override
+protected void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+    mGroupsAdapter.onSaveInstanceState(outState);
+}
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {

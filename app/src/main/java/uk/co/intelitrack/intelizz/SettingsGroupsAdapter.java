@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.thoughtbot.expandablecheckrecyclerview.CheckableChildRecyclerViewAdapter;
 import com.thoughtbot.expandablecheckrecyclerview.models.CheckedExpandableGroup;
@@ -18,7 +19,6 @@ import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,16 +27,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.intelitrack.intelizzz.R;
 import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
-import uk.co.intelitrack.intelizzz.common.data.Constants;
 import uk.co.intelitrack.intelizzz.common.data.remote.Company;
 import uk.co.intelitrack.intelizzz.common.data.remote.Group;
-import uk.co.intelitrack.intelizzz.common.data.remote.ParentVehicle;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
 import uk.co.intelitrack.intelizzz.common.utils.SharedPreff;
 
 
-public class SettingsGroupsAdapter extends CheckableChildRecyclerViewAdapter<SettingsGroupsAdapter.ParentVehicleViewHolder, ChildItemViewHolder> {
+public class SettingsGroupsAdapter extends CheckableChildRecyclerViewAdapter<SettingsGroupsAdapter.ParentVehicleViewHolder, ChildItemViewHolder>  {
 
     //region final Fields
     private Map<String, Boolean> checkBoxStates = new HashMap<>();
@@ -53,17 +51,20 @@ public class SettingsGroupsAdapter extends CheckableChildRecyclerViewAdapter<Set
     //endregion
 //    List<ParentVehicle> newGroupList = new ArrayList<>();
     //region Fields
-    private List<ParentVehicle> mGroups = new ArrayList<>();
+    CheckBox chek;
+    private List<Vehicle> vehicless = new ArrayList<>();
+    private List<MultiCheckGengre> mGroups = new ArrayList<>();
     SparseBooleanArray itemStateArray = new SparseBooleanArray();
     //endregion
-
+    boolean cheked;
+    String s ="";
     //region Constructors
     public SettingsGroupsAdapter(List<MultiCheckGengre> groups, IntelizzzRepository intelizzzRepository,
                                  GroupsClickListenerSettings listener, boolean isClicked, boolean isCheck, boolean isTekst, Context context1) {
         super(groups);
         this.mOnItemClickListener = listener;
         this.mRepository = intelizzzRepository;
-       // this.mGroups = groups;
+       this.mGroups = groups;
         this.mIsClicked = isClicked;
         this.mCheck = isCheck;
         this.mTekst = isTekst;
@@ -74,7 +75,7 @@ public class SettingsGroupsAdapter extends CheckableChildRecyclerViewAdapter<Set
 //
 
     //endregion
-    public void setData(List<ParentVehicle> groups,  boolean isClicked, boolean isCheck, boolean isTekst) {
+    public void setData(List<MultiCheckGengre> groups,  boolean isClicked, boolean isCheck, boolean isTekst) {
         mGroups.clear();
 
 
@@ -94,144 +95,144 @@ public class SettingsGroupsAdapter extends CheckableChildRecyclerViewAdapter<Set
 
 
 
-    public void setGroup(ParentVehicle group) {
+    public void setGroup(MultiCheckGengre group) {
         mGroups.clear();
         mGroups.add(group);
         notifyDataSetChanged();
     }
 
-    public void sortByName() {
-        if (mFilterField == Constants.FIELD_NAME) {
-            if (mFilterType == Constants.DECREASING) {
-                mFilterType = Constants.INCREASING;
-                Collections.sort(mGroups, new ParentVehicle.NameComparator());
-                if (mIsClicked) {
-                    Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.NameComparator());
-                }
-            } else {
-                mFilterType = Constants.DECREASING;
-                Collections.sort(mGroups, Collections.reverseOrder(new ParentVehicle.NameComparator()));
-                if (mIsClicked) {
-                    Collections.sort(mGroups.get(0).getVehicles(), Collections.reverseOrder(new Vehicle.NameComparator()));
-                }
-            }
-        } else {
-            mFilterType = Constants.INCREASING;
-            mFilterField = Constants.FIELD_NAME;
-            Collections.sort(mGroups, new ParentVehicle.NameComparator());
-            if (mIsClicked) {
-                Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.NameComparator());
-            }
-        }
-        notifyDataSetChanged();
-    }
+//    public void sortByName() {
+//        if (mFilterField == Constants.FIELD_NAME) {
+//            if (mFilterType == Constants.DECREASING) {
+//                mFilterType = Constants.INCREASING;
+//                Collections.sort(mGroups, new MultiCheckGengre.NameComparator());
+//                if (mIsClicked) {
+//                    Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.NameComparator());
+//                }
+//            } else {
+//                mFilterType = Constants.DECREASING;
+//                Collections.sort(mGroups, Collections.reverseOrder(new MultiCheckGengre.NameComparator()));
+//                if (mIsClicked) {
+//                    Collections.sort(mGroups.get(0).getVehicles(), Collections.reverseOrder(new Vehicle.NameComparator()));
+//                }
+//            }
+//        } else {
+//            mFilterType = Constants.INCREASING;
+//            mFilterField = Constants.FIELD_NAME;
+//            Collections.sort(mGroups, new MultiCheckGengre.NameComparator());
+//            if (mIsClicked) {
+//                Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.NameComparator());
+//            }
+//        }
+//        notifyDataSetChanged();
+//    }
 
-    public void sortByNumber() {
-        if (mFilterField == Constants.FIELD_ID) {
-            if (mFilterType == Constants.DECREASING) {
-                mFilterType = Constants.INCREASING;
-                Collections.sort(mGroups, new ParentVehicle.IdComparator());
-                if (mIsClicked) {
-                    Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.IdComparator());
-                }
-            } else {
-                mFilterType = Constants.DECREASING;
-                Collections.sort(mGroups, Collections.reverseOrder(new ParentVehicle.IdComparator()));
-                if (mIsClicked) {
-                    Collections.sort(mGroups.get(0).getVehicles(), Collections.reverseOrder(new Vehicle.IdComparator()));
-                }
-            }
-        } else {
-            mFilterType = Constants.INCREASING;
-            mFilterField = Constants.FIELD_ID;
-            Collections.sort(mGroups, new ParentVehicle.IdComparator());
-            if (mIsClicked) {
-                Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.IdComparator());
-            }
-        }
-        notifyDataSetChanged();
-    }
+//    public void sortByNumber() {
+//        if (mFilterField == Constants.FIELD_ID) {
+//            if (mFilterType == Constants.DECREASING) {
+//                mFilterType = Constants.INCREASING;
+//                Collections.sort(mGroups, new MultiCheckGengre.IdComparator());
+//                if (mIsClicked) {
+//                    Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.IdComparator());
+//                }
+//            } else {
+//                mFilterType = Constants.DECREASING;
+//                Collections.sort(mGroups, Collections.reverseOrder(new MultiCheckGengre.IdComparator()));
+//                if (mIsClicked) {
+//                    Collections.sort(mGroups.get(0).getVehicles(), Collections.reverseOrder(new Vehicle.IdComparator()));
+//                }
+//            }
+//        } else {
+//            mFilterType = Constants.INCREASING;
+//            mFilterField = Constants.FIELD_ID;
+//            Collections.sort(mGroups, new MultiCheckGengre.IdComparator());
+//            if (mIsClicked) {
+//                Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.IdComparator());
+//            }
+//        }
+//        notifyDataSetChanged();
+//    }
 
 
-    public void sortByDays() {
-        if (mFilterField == Constants.FIELD_DAYS) {
-            if (mFilterType == Constants.DECREASING) {
-                mFilterType = Constants.INCREASING;
-                Collections.sort(mGroups, new ParentVehicle.DaysComparator());
-                if (mIsClicked) {
-                    Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.DaysComparator());
-                }
-            } else {
-                mFilterType = Constants.DECREASING;
-                Collections.sort(mGroups, Collections.reverseOrder(new ParentVehicle.DaysComparator()));
-                if (mIsClicked) {
-                    Collections.sort(mGroups.get(0).getVehicles(), Collections.reverseOrder(new Vehicle.DaysComparator()));
-                }
-            }
-        } else {
-            mFilterType = Constants.INCREASING;
-            mFilterField = Constants.FIELD_DAYS;
-            Collections.sort(mGroups, new ParentVehicle.DaysComparator());
-            if (mIsClicked) {
-                Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.DaysComparator());
-            }
-        }
-        notifyDataSetChanged();
-    }
+//    public void sortByDays() {
+//        if (mFilterField == Constants.FIELD_DAYS) {
+//            if (mFilterType == Constants.DECREASING) {
+//                mFilterType = Constants.INCREASING;
+//                Collections.sort(mGroups, new MultiCheckGengre.DaysComparator());
+//                if (mIsClicked) {
+//                    Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.DaysComparator());
+//                }
+//            } else {
+//                mFilterType = Constants.DECREASING;
+//                Collections.sort(mGroups, Collections.reverseOrder(new MultiCheckGengre.DaysComparator()));
+//                if (mIsClicked) {
+//                    Collections.sort(mGroups.get(0).getVehicles(), Collections.reverseOrder(new Vehicle.DaysComparator()));
+//                }
+//            }
+//        } else {
+//            mFilterType = Constants.INCREASING;
+//            mFilterField = Constants.FIELD_DAYS;
+//            Collections.sort(mGroups, new MultiCheckGengre.DaysComparator());
+//            if (mIsClicked) {
+//                Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.DaysComparator());
+//            }
+//        }
+//        notifyDataSetChanged();
+//    }
 
-    public void sortByGeo() {
-        if (mFilterField == Constants.FIELD_GEO) {
-            if (mFilterType == Constants.DECREASING) {
-                mFilterType = Constants.INCREASING;
-                Collections.sort(mGroups, new ParentVehicle.GeoComparator());
-                if (mIsClicked) {
-                    Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.GeoComparator());
-                }
-            } else {
-                mFilterType = Constants.DECREASING;
-                Collections.sort(mGroups, Collections.reverseOrder(new ParentVehicle.GeoComparator()));
-                if (mIsClicked) {
-                    Collections.sort(mGroups.get(0).getVehicles(), Collections.reverseOrder(new Vehicle.GeoComparator()));
-                }
-            }
-        } else {
-            mFilterType = Constants.INCREASING;
-            mFilterField = Constants.FIELD_GEO;
-            Collections.sort(mGroups, new ParentVehicle.GeoComparator());
-            if (mIsClicked) {
-                Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.GeoComparator());
-            }
-        }
-        notifyDataSetChanged();
-    }
-
-    public void sortByWarning() {
-        if (mFilterField == Constants.FIELD_WARNING) {
-            if (mFilterType == Constants.DECREASING) {
-                mFilterType = Constants.INCREASING;
-                Collections.sort(mGroups, new ParentVehicle.WarningComparator());
-                if (mIsClicked) {
-                    Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.WarningComparator());
-                }
-            } else {
-                mFilterType = Constants.DECREASING;
-                Collections.sort(mGroups, Collections.reverseOrder(new ParentVehicle.WarningComparator()));
-
-                if (mIsClicked) {
-                    Collections.sort(mGroups.get(0).getVehicles(), Collections.reverseOrder(new Vehicle.WarningComparator()));
-                }
-            }
-        } else {
-            mFilterType = Constants.INCREASING;
-            mFilterField = Constants.FIELD_WARNING;
-            Collections.sort(mGroups, new ParentVehicle.WarningComparator());
-
-            if (mIsClicked) {
-                Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.WarningComparator());
-            }
-        }
-        notifyDataSetChanged();
-    }
+//    public void sortByGeo() {
+//        if (mFilterField == Constants.FIELD_GEO) {
+//            if (mFilterType == Constants.DECREASING) {
+//                mFilterType = Constants.INCREASING;
+//                Collections.sort(mGroups, new MultiCheckGengre.GeoComparator());
+//                if (mIsClicked) {
+//                    Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.GeoComparator());
+//                }
+//            } else {
+//                mFilterType = Constants.DECREASING;
+//                Collections.sort(mGroups, Collections.reverseOrder(new MultiCheckGengre.GeoComparator()));
+//                if (mIsClicked) {
+//                    Collections.sort(mGroups.get(0).getVehicles(), Collections.reverseOrder(new Vehicle.GeoComparator()));
+//                }
+//            }
+//        } else {
+//            mFilterType = Constants.INCREASING;
+//            mFilterField = Constants.FIELD_GEO;
+//            Collections.sort(mGroups, new MultiCheckGengre.GeoComparator());
+//            if (mIsClicked) {
+//                Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.GeoComparator());
+//            }
+//        }
+//        notifyDataSetChanged();
+//    }
+//
+//    public void sortByWarning() {
+//        if (mFilterField == Constants.FIELD_WARNING) {
+//            if (mFilterType == Constants.DECREASING) {
+//                mFilterType = Constants.INCREASING;
+//                Collections.sort(mGroups, new MultiCheckGengre.WarningComparator());
+//                if (mIsClicked) {
+//                    Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.WarningComparator());
+//                }
+//            } else {
+//                mFilterType = Constants.DECREASING;
+//                Collections.sort(mGroups, Collections.reverseOrder(new MultiCheckGengre.WarningComparator()));
+//
+//                if (mIsClicked) {
+//                    Collections.sort(mGroups.get(0).getVehicles(), Collections.reverseOrder(new Vehicle.WarningComparator()));
+//                }
+//            }
+//        } else {
+//            mFilterType = Constants.INCREASING;
+//            mFilterField = Constants.FIELD_WARNING;
+//            Collections.sort(mGroups, new MultiCheckGengre.WarningComparator());
+//
+//            if (mIsClicked) {
+//                Collections.sort(mGroups.get(0).getVehicles(), new Vehicle.WarningComparator());
+//            }
+//        }
+//        notifyDataSetChanged();
+//    }
 
 
     void filter(String text) {
@@ -262,7 +263,7 @@ public class SettingsGroupsAdapter extends CheckableChildRecyclerViewAdapter<Set
     @Override
     public ParentVehicleViewHolder onCreateGroupViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.customtwo, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.customthree, parent, false);
         return new ParentVehicleViewHolder(view);
     }
 
@@ -288,22 +289,64 @@ public class SettingsGroupsAdapter extends CheckableChildRecyclerViewAdapter<Set
 
     @Override
     public void onBindCheckChildViewHolder(ChildItemViewHolder holder, int position, CheckedExpandableGroup group, int childIndex) {
-        final Vehicle vehicle = (Vehicle) ((MultiCheckGengre) group).getItems().get(childIndex);
-      // holder.text.setText(vehicle.getName());
+        final Vehicle vehicle = ( (Vehicle) group.getItems().get(childIndex));
+
         holder.setArtistName(vehicle.getName());
+
+        if(holder.getCheckable().isChecked()) {
+
+            // holder.getCheckable().isChecked();
+
+            List<String> vehicles2 = new ArrayList<String>();
+
+            vehicles2.add(((Vehicle) group.getItems().get(childIndex)).getId());
+
+
+            for (int i = 0; i < vehicles2.size(); i++) {
+                String namesArr = vehicles2.get(i);
+                 List<String> listnova =  new ArrayList<String>();
+
+               listnova.add(namesArr);
+                        vehicle.setId(String.valueOf(listnova));
+                        Toast.makeText(holder.itemView.getContext(), "Odbereni ID: " + listnova + "\n", Toast.LENGTH_SHORT).show();
+
+
+            }
+        }
+        else {
+            holder.getCheckable().isChecked();
+
+
+
+        }
+
+
+//        String y = "";
+//        for(Item hold: listAdapter.getAllData()){
+//            if(hold.isCheckbox()){
+//                y += " "  + hold.getId();
+//            }
+//        }
+
+
+//        Toast.makeText(holder.itemView.getContext(), "ODBRANI"+vehicle.getId(), Toast.LENGTH_SHORT).show();
+
     }
 
-    @Override
-    public long getItemId(int position) {
-        return Long.parseLong(mGroups.get(position).getId());
-    }
+//    @Override
+//    public long getItemId(int position) {
+//       // return Long.parseLong(mGroups.get(position).getId());
+//        return Long.parseLong(mGroups.get(position).getDeviceId());
+//    }
 
     @Override
     public void onBindGroupViewHolder(ParentVehicleViewHolder holder, int flatPosition, ExpandableGroup group) {
 //        final ParentVehicle parentVehicle = mGroups.get(flatPosition);
 ////                ((ParentVehicle) group);
 //        holder.bind(parentVehicle, mOnItemClickListener, mIsClicked, mCheck, mTekst);
-        holder.bind(((ParentVehicle) group), mOnItemClickListener, mIsClicked,mCheck,mTekst);
+
+//        holder.bind(((MultiCheckGengre) group), mOnItemClickListener, mIsClicked,mCheck,mTekst);
+        holder.setGenreTitle(group,true);
 
 
 //        for (int i = 0; i < ; i++) {
@@ -321,7 +364,7 @@ public class SettingsGroupsAdapter extends CheckableChildRecyclerViewAdapter<Set
     //endregion
 
     static class ParentVehicleViewHolder extends GroupViewHolder {
-        @BindView(R.id.checkMark1)
+        @BindView(R.id.checkMark12)
         CheckedTextView checkBox;
         @BindView(R.id.item_unit_id1)
         TextView name;
@@ -335,6 +378,7 @@ public class SettingsGroupsAdapter extends CheckableChildRecyclerViewAdapter<Set
         SharedPreferencesUtils mSharedPreferencesUtils;
         SharedPreff preff;
 
+
         public ParentVehicleViewHolder(View itemView) {
             super(itemView);
             this.mView = itemView;
@@ -342,9 +386,22 @@ public class SettingsGroupsAdapter extends CheckableChildRecyclerViewAdapter<Set
            // itemView.setOnClickListener(this);
         }
 
+        public void setGenreTitle(ExpandableGroup genre,boolean showArrow) {
 
-        public void bind(ParentVehicle parentVehicle, GroupsClickListenerSettings groupsClickListener, boolean showArrow, boolean showCheck, boolean chowTekst) {
-            name.setText(parentVehicle.getName());
+            if (genre instanceof MultiCheckGengre) {
+                name.setText(( genre).getTitle());
+
+                mGroupArrow.setVisibility(showArrow ? View.VISIBLE : View.GONE);
+            }
+
+        }
+        public void bind(MultiCheckGengre parentVehicle, GroupsClickListenerSettings groupsClickListener, boolean showArrow, boolean showCheck, boolean chowTekst) {
+//            name.setText(parentVehicle.getName());
+
+
+
+
+
 
 //
 //            mView.setOnClickListener(new View.OnClickListener() {
@@ -365,7 +422,9 @@ public class SettingsGroupsAdapter extends CheckableChildRecyclerViewAdapter<Set
 //            });
 
 
+
             mGroupArrow.setVisibility(showArrow ? View.VISIBLE : View.GONE);
+
             check.setVisibility(showCheck ? View.VISIBLE : View.GONE);
             teksttch.setVisibility(chowTekst ? View.VISIBLE : View.GONE);
         }

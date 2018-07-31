@@ -19,7 +19,6 @@ import uk.co.intelitrack.intelizzz.common.api.IntelizzzRepository;
 import uk.co.intelitrack.intelizzz.common.data.Constants;
 import uk.co.intelitrack.intelizzz.common.data.remote.Company;
 import uk.co.intelitrack.intelizzz.common.data.remote.Group;
-import uk.co.intelitrack.intelizzz.common.data.remote.ParentVehicle;
 import uk.co.intelitrack.intelizzz.common.data.remote.Response;
 import uk.co.intelitrack.intelizzz.common.data.remote.Vehicle;
 import uk.co.intelitrack.intelizzz.common.utils.RxUtils;
@@ -109,14 +108,14 @@ public class SettingsPresenter extends SettingsActivity  implements SettingsCont
     }
     @Override
     public void refreshGroups() {
-        List<ParentVehicle> newGroupList = new ArrayList<>();
+        List<MultiCheckGengre> newGroupList = new ArrayList<>();
         if (!mRepository.getCompanies().isEmpty()) {
             for (Company company : mRepository.getCompanies()) {
                 List<Vehicle> vehicles = company.getAllVehicles();
                 vehicles.addAll(Arrays.asList(company.getUnassignedVehicles()));
-                newGroupList.add(new ParentVehicle(company.getName(), vehicles, company.getId(), true));
+                newGroupList.add(new MultiCheckGengre(company.getName(), vehicles, company.getId(), true));
                 for (Group group : company.getGroups()) {
-                    newGroupList.add(new ParentVehicle(group.getName(), Arrays.asList(group.getVehicles()), group.getId(), false));
+                    newGroupList.add(new MultiCheckGengre(group.getName(), Arrays.asList(group.getVehicles()), group.getId(), false));
                 }
             }
         }
@@ -213,7 +212,7 @@ public class SettingsPresenter extends SettingsActivity  implements SettingsCont
                 if (company.getId().equals(id)) {
                     List<Vehicle> vehicles = company.getAllVehicles();
                     vehicles.addAll(Arrays.asList(company.getUnassignedVehicles()));
-                    mView.setGroup(new ParentVehicle(company.getName(), vehicles, company.getId(), true));
+                    mView.setGroup(new MultiCheckGengre(company.getName(), vehicles, company.getId(), true));
                 }
             }
         } else {
@@ -231,7 +230,7 @@ public class SettingsPresenter extends SettingsActivity  implements SettingsCont
             for (Company company : mRepository.getCompanies()) {
                 for (Group group : company.getGroups()) {
                     if (group.getId().equals(groupId)) {
-                        mView.setGroup(new ParentVehicle(group.getName(), Arrays.asList(group.getVehicles()), group.getId(), false));
+                        mView.setGroup(new MultiCheckGengre(group.getName(), Arrays.asList(group.getVehicles()), group.getId(), false));
                     }
                 }
             }
@@ -379,5 +378,7 @@ public class SettingsPresenter extends SettingsActivity  implements SettingsCont
                                     mView.toogleProgressBar(false);
                                 }));
     }
+
+
     //endregion
 }

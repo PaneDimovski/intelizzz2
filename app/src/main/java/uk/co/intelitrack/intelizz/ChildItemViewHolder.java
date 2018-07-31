@@ -1,8 +1,8 @@
 package uk.co.intelitrack.intelizz;
 
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.Checkable;
+import android.widget.CheckedTextView;
 import android.widget.TextView;
 
 import com.thoughtbot.expandablecheckrecyclerview.viewholders.CheckableChildViewHolder;
@@ -14,7 +14,7 @@ import uk.co.intelitrack.intelizzz.R;
  */
 
 public class ChildItemViewHolder  extends CheckableChildViewHolder {
-    private CheckBox childCheckedTextView;
+    private CheckedTextView childCheckedTextView;
     TextView text;
 
 
@@ -22,13 +22,18 @@ public class ChildItemViewHolder  extends CheckableChildViewHolder {
     public ChildItemViewHolder(View itemView) {
         super(itemView);
         childCheckedTextView =
-                (CheckBox) itemView.findViewById(R.id.checkMark1);
+                (CheckedTextView) itemView.findViewById(R.id.checkMark1);
+
         text = (TextView) itemView.findViewById(R.id.item_unit_id1);
     }
 
     @Override
     public Checkable getCheckable() {
         return childCheckedTextView;
+    }
+
+    public void setChildCheckedTextView(CheckedTextView childCheckedTextView) {
+        this.childCheckedTextView = childCheckedTextView;
     }
 
     public void setArtistName(String artistName) {

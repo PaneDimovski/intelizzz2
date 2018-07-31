@@ -5,6 +5,8 @@ import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
 import java.util.Comparator;
 import java.util.List;
 
+import uk.co.intelitrack.intelizz.MultiCheckGengre;
+
 /**
  * Created by Filip Stojanovski (filip100janovski@gmail.com).
  */
@@ -15,9 +17,10 @@ public class ParentVehicle extends ExpandableGroup<Vehicle> {
     private List<Vehicle> mVehicles;
     private boolean mIsCompany;
     private boolean mIsChecked;
+    private MultiCheckGengre multi;
 
 
-    public ParentVehicle(String name, List<Vehicle> items, String id, boolean isCompany ) {
+    public ParentVehicle(String name, List<Vehicle> items, String id, boolean isCompany) {
         super(name, items);
         this.mName = name;
         this.mVehicles = items;

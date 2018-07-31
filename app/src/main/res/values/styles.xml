@@ -10,7 +10,16 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowActionBarOverlay">true</item>
     </style>
-
+    <style name="MyCheckbox" parent="@style/Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:colorAccent">#ffffff</item>
+        <item name="android:colorControlNormal">#ffffff</item>
+        <item name="android:colorControlActivated">#ed1c24</item>
+        <item name="android:colorControlHighlight">#c51162</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat</item>
+    </style>
+    <style name="MyChkTextColor">
+        <item name="android:textColor">#ffffff</item>
+    </style>
     <style name="Intelizzz.Theme.Splash">
         <item name="android:windowBackground">@drawable/background</item>
         <item name="colorPrimary">@color/colorPrimary</item>

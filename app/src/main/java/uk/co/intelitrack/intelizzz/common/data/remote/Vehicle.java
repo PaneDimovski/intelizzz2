@@ -82,9 +82,9 @@ public class Vehicle implements Parcelable {
         this.dl[0] = dl;
     }
 
-    public String setId(String id) {
+    public void  setId(String id) {
         this.id = String.valueOf(id);
-        return id;
+
     }
 
     public String getPid() {

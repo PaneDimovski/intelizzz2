@@ -10,7 +10,6 @@ import android.widget.CheckBox;
 import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.thoughtbot.expandablecheckrecyclerview.CheckableChildRecyclerViewAdapter;
 import com.thoughtbot.expandablecheckrecyclerview.models.CheckedExpandableGroup;
@@ -34,7 +33,7 @@ import uk.co.intelitrack.intelizzz.common.utils.SharedPreferencesUtils;
 import uk.co.intelitrack.intelizzz.common.utils.SharedPreff;
 
 
-public class SettingsGroupsAdapter extends CheckableChildRecyclerViewAdapter<SettingsGroupsAdapter.ParentVehicleViewHolder, ChildItemViewHolder>  {
+public class SettingsGroupsAdapter extends CheckableChildRecyclerViewAdapter<SettingsGroupsAdapter.ParentVehicleViewHolder, ChildItemViewHolder> {
 
     //region final Fields
     private Map<String, Boolean> checkBoxStates = new HashMap<>();
@@ -46,7 +45,7 @@ public class SettingsGroupsAdapter extends CheckableChildRecyclerViewAdapter<Set
     private int mFilterField;
     private int mFilterType;
     private Context context;
-    public SharedPreferencesUtils mSharedPreferencesUtils;
+    public SharedPreferencesUtils utils;
     IntelizzzRepository repository;
     //endregion
 //    List<ParentVehicle> newGroupList = new ArrayList<>();
@@ -57,14 +56,15 @@ public class SettingsGroupsAdapter extends CheckableChildRecyclerViewAdapter<Set
     SparseBooleanArray itemStateArray = new SparseBooleanArray();
     //endregion
     boolean cheked;
-    String s ="";
+    String s = "";
+    List<String> stringList2 = new ArrayList<String>(  );
     //region Constructors
     public SettingsGroupsAdapter(List<MultiCheckGengre> groups, IntelizzzRepository intelizzzRepository,
                                  GroupsClickListenerSettings listener, boolean isClicked, boolean isCheck, boolean isTekst, Context context1) {
         super(groups);
         this.mOnItemClickListener = listener;
         this.mRepository = intelizzzRepository;
-       this.mGroups = groups;
+        this.mGroups = groups;
         this.mIsClicked = isClicked;
         this.mCheck = isCheck;
         this.mTekst = isTekst;
@@ -75,16 +75,13 @@ public class SettingsGroupsAdapter extends CheckableChildRecyclerViewAdapter<Set
 //
 
     //endregion
-    public void setData(List<MultiCheckGengre> groups,  boolean isClicked, boolean isCheck, boolean isTekst) {
+    public void setData(List<MultiCheckGengre> groups, boolean isClicked, boolean isCheck, boolean isTekst) {
         mGroups.clear();
 
 
 //            setGroups(newGroupList);
 
-            mGroups.addAll(groups);
-
-
-
+        mGroups.addAll(groups);
 
 
         mIsClicked = isClicked;
@@ -92,7 +89,6 @@ public class SettingsGroupsAdapter extends CheckableChildRecyclerViewAdapter<Set
         this.mTekst = isTekst;
         notifyDataSetChanged();
     }
-
 
 
     public void setGroup(MultiCheckGengre group) {
@@ -289,47 +285,39 @@ public class SettingsGroupsAdapter extends CheckableChildRecyclerViewAdapter<Set
 
     @Override
     public void onBindCheckChildViewHolder(ChildItemViewHolder holder, int position, CheckedExpandableGroup group, int childIndex) {
-        final Vehicle vehicle = ( (Vehicle) group.getItems().get(childIndex));
+        final Vehicle vehicle = ((Vehicle) group.getItems().get(childIndex));
 
         holder.setArtistName(vehicle.getName());
 
-        if(holder.getCheckable().isChecked()) {
-
-            // holder.getCheckable().isChecked();
-
-            List<String> vehicles2 = new ArrayList<String>();
-
-            vehicles2.add(((Vehicle) group.getItems().get(childIndex)).getId());
+        if (holder.getCheckable().isChecked()) {
 
 
-            for (int i = 0; i < vehicles2.size(); i++) {
-                String namesArr = vehicles2.get(i);
-                 List<String> listnova =  new ArrayList<String>();
-
-               listnova.add(namesArr);
-                        vehicle.setId(String.valueOf(listnova));
-                        Toast.makeText(holder.itemView.getContext(), "Odbereni ID: " + listnova + "\n", Toast.LENGTH_SHORT).show();
+            String[] thisIsAStringArray = { ((Vehicle) group.getItems().get(childIndex)).getId() };
+            List<String> fixedList = Arrays.asList( thisIsAStringArray );
+            List<String> stringList = new ArrayList<String>( fixedList );
 
 
-            }
+            for (int i = 0; i <  fixedList.size(); i++) {
+
+                stringList2.add ( stringList.get(i));
+
+                SharedPreferencesUtils preferencesUtils = new SharedPreferencesUtils(holder.itemView.getContext());
+                preferencesUtils.writeList(holder.itemView.getContext(),stringList2,"pref");
+
+//            Toast.makeText(holder.itemView.getContext(), "Odbereni ID: " + stringList2    + "\n", Toast.LENGTH_SHORT).show();
         }
-        else {
+
+
+
+
+
+
+
+
+        } else {
             holder.getCheckable().isChecked();
 
-
-
         }
-
-
-//        String y = "";
-//        for(Item hold: listAdapter.getAllData()){
-//            if(hold.isCheckbox()){
-//                y += " "  + hold.getId();
-//            }
-//        }
-
-
-//        Toast.makeText(holder.itemView.getContext(), "ODBRANI"+vehicle.getId(), Toast.LENGTH_SHORT).show();
 
     }
 
@@ -346,7 +334,7 @@ public class SettingsGroupsAdapter extends CheckableChildRecyclerViewAdapter<Set
 //        holder.bind(parentVehicle, mOnItemClickListener, mIsClicked, mCheck, mTekst);
 
 //        holder.bind(((MultiCheckGengre) group), mOnItemClickListener, mIsClicked,mCheck,mTekst);
-        holder.setGenreTitle(group,true);
+        holder.setGenreTitle(group, true);
 
 
 //        for (int i = 0; i < ; i++) {
@@ -383,24 +371,21 @@ public class SettingsGroupsAdapter extends CheckableChildRecyclerViewAdapter<Set
             super(itemView);
             this.mView = itemView;
             ButterKnife.bind(this, itemView);
-           // itemView.setOnClickListener(this);
+            // itemView.setOnClickListener(this);
         }
 
-        public void setGenreTitle(ExpandableGroup genre,boolean showArrow) {
+        public void setGenreTitle(ExpandableGroup genre, boolean showArrow) {
 
             if (genre instanceof MultiCheckGengre) {
-                name.setText(( genre).getTitle());
+                name.setText((genre).getTitle());
 
                 mGroupArrow.setVisibility(showArrow ? View.VISIBLE : View.GONE);
             }
 
         }
+
         public void bind(MultiCheckGengre parentVehicle, GroupsClickListenerSettings groupsClickListener, boolean showArrow, boolean showCheck, boolean chowTekst) {
 //            name.setText(parentVehicle.getName());
-
-
-
-
 
 
 //
@@ -420,7 +405,6 @@ public class SettingsGroupsAdapter extends CheckableChildRecyclerViewAdapter<Set
 ////                    }
 //                }
 //            });
-
 
 
             mGroupArrow.setVisibility(showArrow ? View.VISIBLE : View.GONE);
@@ -506,6 +490,6 @@ public class SettingsGroupsAdapter extends CheckableChildRecyclerViewAdapter<Set
 //                        //    shared.setSharedPreferencesString(Constants.OLI_ID, vehicle.getId());
 //
 //
-    }
+}
 //}
 //}

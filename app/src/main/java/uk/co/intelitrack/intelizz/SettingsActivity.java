@@ -92,6 +92,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
     String kompanija = "2";
     String pane = "24";
     public ArrayList<String> list = new ArrayList<>();
+    List<String> stringList2 = new ArrayList<String>(  );
     List<MultiCheckGengre> lista;
     MultiCheckGengre multi;
 
@@ -122,6 +123,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
         if (getIntent().getExtras() != null)
             mIsGroup = getIntent().getExtras().getBoolean(Constants.IS_GROUP);
         mPresenter.subscribe(getIntent());
+lista();
 
         //   mBtnDelete.setVisibility(mIsGroup ? View.VISIBLE : View.GONE);
 
@@ -162,10 +164,17 @@ public class SettingsActivity extends AppCompatActivity implements SettingsActiv
             public void onClick(View v) {
 //               child.getCheckable().setChecked(true);
 
+
             }
         });
     }
 
+    public void lista (){
+
+        SharedPreferencesUtils pref = new SharedPreferencesUtils(getApplicationContext());
+        List<String> animals = pref.readList (getApplicationContext(), "pref");
+String a = "";
+    }
 
     void onGroupsClick() {
         PreviewActivity.start(this, true);

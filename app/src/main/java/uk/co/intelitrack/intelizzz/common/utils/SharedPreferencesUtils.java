@@ -128,5 +128,34 @@ public class SharedPreferencesUtils {
 //
 //        return getPreferences(c).getString("SessionID", "");
 //    }
+public void writeList(Context context, List<String> list, String prefix)
+{
+    SharedPreferences prefs = context.getSharedPreferences("YourApp", Context.MODE_PRIVATE);
+    SharedPreferences.Editor editor = prefs.edit();
 
+    int size = prefs.getInt(prefix+"_size", 0);
+
+    // clear the previous data if exists
+    for(int i=0; i<size; i++)
+        editor.remove(prefix+"_"+i);
+
+    // write the current list
+    for(int i=0; i<list.size(); i++)
+        editor.putString(prefix+"_"+i, list.get(i));
+
+    editor.putInt(prefix+"_size", list.size());
+    editor.commit();
+}
+    public List<String> readList (Context context, String prefix)
+    {
+        SharedPreferences prefs = context.getSharedPreferences("YourApp", Context.MODE_PRIVATE);
+
+        int size = prefs.getInt(prefix+"_size", 0);
+
+        List<String> data = new ArrayList<String>(size);
+        for(int i=0; i<size; i++)
+            data.add(prefs.getString(prefix+"_"+i, null));
+
+        return data;
+    }
 }

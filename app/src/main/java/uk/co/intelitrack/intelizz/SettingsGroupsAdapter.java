@@ -299,7 +299,7 @@ public class SettingsGroupsAdapter extends CheckableChildRecyclerViewAdapter<Set
 
             for (int i = 0; i <  fixedList.size(); i++) {
 
-                stringList2.add ( stringList.get(i));
+                stringList2.add ( fixedList.get(i));
 
                 SharedPreferencesUtils preferencesUtils = new SharedPreferencesUtils(holder.itemView.getContext());
                 preferencesUtils.writeList(holder.itemView.getContext(),stringList2,"pref");
